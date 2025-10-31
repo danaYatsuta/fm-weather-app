@@ -1,3 +1,5 @@
+import WeatherDetailCard from "./components/WeatherDetailCard";
+
 function App() {
   return (
     <>
@@ -37,7 +39,7 @@ function App() {
           }}
           className="flex flex-col gap-3 pt-12 text-xl"
         >
-          <label className="flex h-14 items-center gap-4 rounded-lg bg-neutral-800 px-6">
+          <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6">
             <img src="/src/assets/icon-search.svg" aria-hidden="true" />
 
             <input
@@ -48,7 +50,7 @@ function App() {
             />
           </label>
 
-          <button type="submit" className="h-14 rounded-lg bg-blue-500">
+          <button type="submit" className="h-14 rounded-xl bg-blue-500">
             Search
           </button>
         </form>
@@ -68,6 +70,13 @@ function App() {
             <p className="text-8xl font-bold italic">20°</p>
           </div>
         </section>
+
+        <div className="grid grid-cols-2 grid-rows-2 gap-4 pt-5">
+          <WeatherDetailCard name="Feels Like" value="18°" />
+          <WeatherDetailCard name="Humidity" value="46%" />
+          <WeatherDetailCard name="Wind" value="14 km/h" />
+          <WeatherDetailCard name="Precipitation" value="0 mm" />
+        </div>
       </main>
     </>
   );
