@@ -55,28 +55,30 @@ function App() {
           </button>
         </form>
 
-        <section className="mt-8 flex h-[286px] flex-col items-center gap-2 bg-[url(./assets/bg-today-small.svg)] pt-10">
-          <h1 className="text-3xl font-bold">Berlin, Germany</h1>
+        <section className="pt-8">
+          <div className="flex h-[286px] flex-col items-center gap-2 bg-[url(./assets/bg-today-small.svg)] pt-10">
+            <h1 className="text-3xl font-bold">Berlin, Germany</h1>
 
-          <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
+            <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
 
-          <div className="flex items-center gap-6">
-            <img
-              src="/src/assets/icon-sunny.webp"
-              alt="Sunny icon"
-              className="size-32"
-            />
+            <div className="flex items-center gap-6">
+              <img
+                src="/src/assets/icon-sunny.webp"
+                alt="Sunny icon"
+                className="size-32"
+              />
 
-            <p className="text-8xl font-bold italic">20°</p>
+              <p className="text-8xl font-bold italic">20°</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 grid-rows-2 gap-4 pt-5">
+            <WeatherDetailCard name="Feels Like" value="18°" />
+            <WeatherDetailCard name="Humidity" value="46%" />
+            <WeatherDetailCard name="Wind" value="14 km/h" />
+            <WeatherDetailCard name="Precipitation" value="0 mm" />
           </div>
         </section>
-
-        <div className="grid grid-cols-2 grid-rows-2 gap-4 pt-5">
-          <WeatherDetailCard name="Feels Like" value="18°" />
-          <WeatherDetailCard name="Humidity" value="46%" />
-          <WeatherDetailCard name="Wind" value="14 km/h" />
-          <WeatherDetailCard name="Precipitation" value="0 mm" />
-        </div>
       </main>
     </>
   );
