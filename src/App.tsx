@@ -45,6 +45,22 @@ function App() {
             Search
           </button>
         </form>
+
+        <section className="mt-8 flex h-[286px] flex-col items-center gap-2 bg-[url(./assets/bg-today-small.svg)] pt-10">
+          <h1 className="text-3xl font-bold">Berlin, Germany</h1>
+
+          <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
+
+          <div className="flex items-center gap-6">
+            <img
+              src="/src/assets/icon-sunny.webp"
+              alt="Sunny icon"
+              className="size-32"
+            />
+
+            <p className="text-8xl font-bold italic">20°</p>
+          </div>
+        </section>
       </main>
     </>
   );
