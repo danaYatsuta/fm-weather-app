@@ -5,7 +5,7 @@ import iconDropdown from "./assets/icon-dropdown.svg";
 function App() {
   return (
     <>
-      <header className="flex justify-between px-4 pt-4">
+      <header className="flex justify-between pt-4">
         <img src={logo} alt="Weather Now logo" className="w-[138px]" />
 
         <button
@@ -17,6 +17,12 @@ function App() {
           <img src={iconDropdown} aria-hidden="true" className="h-1.5" />
         </button>
       </header>
+
+      <main className="flex flex-col pt-12">
+        <p className="font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
+          How's the sky looking today?
+        </p>
+      </main>
     </>
   );
 }
