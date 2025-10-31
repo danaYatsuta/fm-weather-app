@@ -29,9 +29,9 @@ function App() {
       </header>
 
       <main className="flex flex-col pt-12">
-        <p className="font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
+        <h1 className="font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
           How's the sky looking today?
-        </p>
+        </h1>
 
         <form
           onSubmit={(e) => {
@@ -57,7 +57,7 @@ function App() {
 
         <section className="pt-8">
           <div className="flex h-[286px] flex-col items-center gap-2 bg-[url(./assets/bg-today-small.svg)] pt-10">
-            <h1 className="text-3xl font-bold">Berlin, Germany</h1>
+            <h2 className="text-3xl font-bold">Berlin, Germany</h2>
 
             <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
 
