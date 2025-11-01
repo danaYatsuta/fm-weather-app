@@ -1,4 +1,5 @@
 import WeatherDetailCard from "./components/WeatherDetailCard";
+import DailyForecastCard from "./components/DailyForecastCard";
 
 function App() {
   return (
@@ -72,11 +73,60 @@ function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 grid-rows-2 gap-4 pt-5">
+          <div className="grid grid-cols-2 gap-4 pt-5">
             <WeatherDetailCard name="Feels Like" value="18°" />
             <WeatherDetailCard name="Humidity" value="46%" />
             <WeatherDetailCard name="Wind" value="14 km/h" />
             <WeatherDetailCard name="Precipitation" value="0 mm" />
+          </div>
+        </section>
+
+        <section className="pt-8">
+          <h2 className="text-xl font-bold">Daily forecast</h2>
+
+          <div className="grid grid-cols-3 gap-4 pt-4">
+            <DailyForecastCard
+              day="Tue"
+              icon="rain"
+              tempDay="20°"
+              tempNight="14°"
+            />
+            <DailyForecastCard
+              day="Wed"
+              icon="drizzle"
+              tempDay="21°"
+              tempNight="15°"
+            />
+            <DailyForecastCard
+              day="Thu"
+              icon="sunny"
+              tempDay="24°"
+              tempNight="14°"
+            />
+            <DailyForecastCard
+              day="Fri"
+              icon="partly-cloudy"
+              tempDay="25°"
+              tempNight="13°"
+            />
+            <DailyForecastCard
+              day="Sat"
+              icon="storm"
+              tempDay="21°"
+              tempNight="15°"
+            />
+            <DailyForecastCard
+              day="Sun"
+              icon="snow"
+              tempDay="25°"
+              tempNight="16°"
+            />
+            <DailyForecastCard
+              day="Mon"
+              icon="fog"
+              tempDay="24°"
+              tempNight="15°"
+            />
           </div>
         </section>
       </main>
