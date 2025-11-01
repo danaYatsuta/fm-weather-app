@@ -58,7 +58,7 @@ function App() {
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className="grid-area-search flex flex-col gap-3 pt-12 text-xl xl:flex-row xl:justify-center xl:gap-4 xl:pt-16"
+          className="grid-area-search flex flex-col gap-3 pt-12 pb-8 text-xl xl:flex-row xl:justify-center xl:gap-4 xl:pt-16 xl:pb-12"
         >
           <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 xl:w-[526px]">
             <img src="/src/assets/icon-search.svg" aria-hidden="true" />
@@ -76,10 +76,12 @@ function App() {
           </button>
         </form>
 
-        <div className="grid-area-weather mt-8 flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat pt-10">
-          <h2 className="text-3xl font-bold">Berlin, Germany</h2>
+        <div className="grid-area-weather flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-[800px] xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
+          <div className="flex flex-col items-center gap-2 pt-10 xl:items-start xl:pt-0">
+            <h2 className="text-3xl font-bold">Berlin, Germany</h2>
 
-          <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
+            <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
+          </div>
 
           <div className="flex items-center gap-6">
             <img
@@ -148,7 +150,7 @@ function App() {
           </ul>
         </section>
 
-        <section className="grid-area-hourly mt-8 mb-12 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5">
+        <section className="grid-area-hourly mt-8 mb-12 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold">Hourly forecast</h2>
 
