@@ -93,18 +93,18 @@ function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-5">
+          <ul className="grid grid-cols-2 gap-4 pt-5">
             <WeatherDetailCard name="Feels Like" value="18°" />
             <WeatherDetailCard name="Humidity" value="46%" />
             <WeatherDetailCard name="Wind" value="14 km/h" />
             <WeatherDetailCard name="Precipitation" value="0 mm" />
-          </div>
+          </ul>
         </section>
 
         <section className="pt-8">
           <h2 className="text-xl font-bold">Daily forecast</h2>
 
-          <div className="grid grid-cols-3 gap-4 pt-4">
+          <ul className="grid grid-cols-3 gap-4 pt-4">
             <DailyForecastCard
               day="Tue"
               icon="rain"
@@ -147,7 +147,7 @@ function App() {
               tempDay="24°"
               tempNight="15°"
             />
-          </div>
+          </ul>
         </section>
 
         <section className="mt-8 mb-12 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5">
@@ -163,9 +163,9 @@ function App() {
             </button>
           </div>
 
-          <div className="flex flex-col gap-4 overflow-scroll">
+          <ul className="flex flex-col gap-4 overflow-scroll">
             {hourlyForecastEntries}
-          </div>
+          </ul>
         </section>
       </main>
     </>

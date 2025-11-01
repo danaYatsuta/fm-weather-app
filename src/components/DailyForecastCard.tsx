@@ -34,14 +34,14 @@ function DailyForecastCard({
   const iconAlt = iconAlts[icon];
 
   return (
-    <div className="flex h-[165px] flex-col items-center justify-between rounded-xl border border-neutral-600 bg-neutral-800 px-2 py-3">
+    <li className="flex h-[165px] flex-col items-center justify-between rounded-xl border border-neutral-600 bg-neutral-800 px-2 py-3">
       <p>{day}</p>
       <img src={iconSrc} alt={iconAlt} className="size-16" />
       <div className="flex justify-between self-stretch text-base">
         <p>{tempDay}</p>
         <p className="text-neutral-200">{tempNight}</p>
       </div>
-    </div>
+    </li>
   );
 }
 
