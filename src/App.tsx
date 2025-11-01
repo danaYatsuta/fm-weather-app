@@ -173,4 +173,3 @@ function App() {
 }
 
 export default App;
-// 18 - 26 = 8
