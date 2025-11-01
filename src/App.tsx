@@ -76,8 +76,8 @@ function App() {
           </button>
         </form>
 
-        <section className="pt-8">
-          <div className="flex h-[286px] flex-col items-center gap-2 bg-[url(./assets/bg-today-small.svg)] pt-10">
+        <section className="flex flex-col pt-8">
+          <div className="flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat pt-10">
             <h2 className="text-3xl font-bold">Berlin, Germany</h2>
 
             <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
