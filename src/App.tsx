@@ -49,7 +49,7 @@ function App() {
         </button>
       </header>
 
-      <main className="grid-template flex grid-cols-[800px_1fr] flex-col pt-12 xl:grid xl:pt-[60px]">
+      <main className="grid-template flex grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col py-12 xl:grid xl:pt-[60px]">
         <h1 className="grid-area-slogan font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
           How's the sky looking today?
         </h1>
@@ -76,7 +76,7 @@ function App() {
           </button>
         </form>
 
-        <div className="grid-area-weather flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-full xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
+        <div className="grid-area-weather flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-full xl:flex-row xl:justify-between xl:self-start xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
           <div className="flex flex-col items-center gap-2 pt-10 xl:items-start xl:pt-0">
             <h2 className="text-3xl font-bold">Berlin, Germany</h2>
 
@@ -101,10 +101,10 @@ function App() {
           <WeatherDetailCard name="Precipitation" value="0 mm" />
         </ul>
 
-        <section className="grid-area-daily pt-8">
+        <section className="grid-area-daily pt-8 xl:self-end">
           <h2 className="text-xl font-bold">Daily forecast</h2>
 
-          <ul className="grid grid-cols-3 gap-4 pt-4">
+          <ul className="grid grid-cols-3 gap-4 pt-4 xl:grid-cols-7">
             <DailyForecastCard
               day="Tue"
               icon="rain"
@@ -150,7 +150,7 @@ function App() {
           </ul>
         </section>
 
-        <section className="grid-area-hourly mt-8 mb-12 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0">
+        <section className="grid-area-hourly mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold">Hourly forecast</h2>
 
