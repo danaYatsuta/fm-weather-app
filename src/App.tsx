@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-      <header className="flex justify-between pt-4 xl:pt-12">
+      <header className="mt-4 flex justify-between xl:mt-12">
         <img
           src="/src/assets/logo.svg"
           alt="Weather Now logo"
@@ -49,7 +49,7 @@ function App() {
         </button>
       </header>
 
-      <main className="grid-template flex grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col py-12 xl:grid xl:pt-[60px]">
+      <main className="grid-template my-12 flex grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
         <h1 className="grid-area-slogan font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
           How's the sky looking today?
         </h1>
@@ -58,7 +58,7 @@ function App() {
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className="grid-area-search flex flex-col gap-3 pt-12 pb-8 text-xl xl:flex-row xl:justify-center xl:gap-4 xl:pt-16 xl:pb-12"
+          className="grid-area-search mt-12 mb-8 flex flex-col gap-3 text-xl xl:mt-16 xl:mb-12 xl:flex-row xl:justify-center xl:gap-4"
         >
           <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 xl:w-[526px]">
             <img src="/src/assets/icon-search.svg" aria-hidden="true" />
@@ -77,34 +77,34 @@ function App() {
         </form>
 
         <div className="grid-area-weather flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-full xl:flex-row xl:justify-between xl:self-start xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
-          <div className="flex flex-col items-center gap-2 pt-10 xl:items-start xl:pt-0">
-            <h2 className="text-3xl font-bold">Berlin, Germany</h2>
+          <div className="flex flex-col items-center gap-1 pt-10 xl:items-start xl:pt-0">
+            <h2 className="text-[28px] font-bold">Berlin, Germany</h2>
 
             <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4">
             <img
               src="/src/assets/icon-sunny.webp"
               alt="Sunny icon"
               className="size-32"
             />
 
-            <p className="text-8xl font-bold italic">20°</p>
+            <p className="text-8xl font-extrabold italic">20°</p>
           </div>
         </div>
 
-        <ul className="grid-area-details grid grid-cols-2 gap-4 pt-5 xl:grid-cols-4 xl:gap-6 xl:pt-8">
+        <ul className="grid-area-details mt-5 grid grid-cols-2 gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6">
           <WeatherDetailCard name="Feels Like" value="18°" />
           <WeatherDetailCard name="Humidity" value="46%" />
           <WeatherDetailCard name="Wind" value="14 km/h" />
           <WeatherDetailCard name="Precipitation" value="0 mm" />
         </ul>
 
-        <section className="grid-area-daily pt-8 xl:self-end">
+        <section className="grid-area-daily mt-8 xl:mt-0 xl:self-end">
           <h2 className="text-xl font-bold">Daily forecast</h2>
 
-          <ul className="grid grid-cols-3 gap-4 pt-4 xl:grid-cols-7">
+          <ul className="mt-4 grid grid-cols-3 gap-4 xl:grid-cols-7">
             <DailyForecastCard
               day="Tue"
               icon="rain"
@@ -173,3 +173,4 @@ function App() {
 }
 
 export default App;
+// 18 - 26 = 8
