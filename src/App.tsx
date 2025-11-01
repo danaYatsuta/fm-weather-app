@@ -49,8 +49,8 @@ function App() {
         </button>
       </header>
 
-      <main className="flex flex-col pt-12">
-        <h1 className="font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
+      <main className="grid-template flex flex-col pt-12 xl:grid xl:pt-[60px]">
+        <h1 className="grid-area-slogan font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
           How's the sky looking today?
         </h1>
 
@@ -58,9 +58,9 @@ function App() {
           onSubmit={(e) => {
             e.preventDefault();
           }}
-          className="flex flex-col gap-3 pt-12 text-xl"
+          className="grid-area-search flex flex-col gap-3 pt-12 text-xl xl:flex-row xl:justify-center xl:gap-4 xl:pt-16"
         >
-          <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6">
+          <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 xl:w-[526px]">
             <img src="/src/assets/icon-search.svg" aria-hidden="true" />
 
             <input
@@ -71,37 +71,35 @@ function App() {
             />
           </label>
 
-          <button type="submit" className="h-14 rounded-xl bg-blue-500">
+          <button type="submit" className="h-14 rounded-xl bg-blue-500 xl:px-6">
             Search
           </button>
         </form>
 
-        <section className="flex flex-col pt-8">
-          <div className="flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat pt-10">
-            <h2 className="text-3xl font-bold">Berlin, Germany</h2>
+        <div className="grid-area-weather mt-8 flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat pt-10">
+          <h2 className="text-3xl font-bold">Berlin, Germany</h2>
 
-            <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
+          <p className="text-neutral-200">Tuesday, Aug 5, 2025</p>
 
-            <div className="flex items-center gap-6">
-              <img
-                src="/src/assets/icon-sunny.webp"
-                alt="Sunny icon"
-                className="size-32"
-              />
+          <div className="flex items-center gap-6">
+            <img
+              src="/src/assets/icon-sunny.webp"
+              alt="Sunny icon"
+              className="size-32"
+            />
 
-              <p className="text-8xl font-bold italic">20°</p>
-            </div>
+            <p className="text-8xl font-bold italic">20°</p>
           </div>
+        </div>
 
-          <ul className="grid grid-cols-2 gap-4 pt-5">
-            <WeatherDetailCard name="Feels Like" value="18°" />
-            <WeatherDetailCard name="Humidity" value="46%" />
-            <WeatherDetailCard name="Wind" value="14 km/h" />
-            <WeatherDetailCard name="Precipitation" value="0 mm" />
-          </ul>
-        </section>
+        <ul className="grid-area-details grid grid-cols-2 gap-4 pt-5">
+          <WeatherDetailCard name="Feels Like" value="18°" />
+          <WeatherDetailCard name="Humidity" value="46%" />
+          <WeatherDetailCard name="Wind" value="14 km/h" />
+          <WeatherDetailCard name="Precipitation" value="0 mm" />
+        </ul>
 
-        <section className="pt-8">
+        <section className="grid-area-daily pt-8">
           <h2 className="text-xl font-bold">Daily forecast</h2>
 
           <ul className="grid grid-cols-3 gap-4 pt-4">
@@ -150,7 +148,7 @@ function App() {
           </ul>
         </section>
 
-        <section className="mt-8 mb-12 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5">
+        <section className="grid-area-hourly mt-8 mb-12 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold">Hourly forecast</h2>
 
