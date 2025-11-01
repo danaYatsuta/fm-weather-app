@@ -49,7 +49,7 @@ function App() {
         </button>
       </header>
 
-      <main className="grid-template flex flex-col pt-12 xl:grid xl:pt-[60px]">
+      <main className="grid-template flex grid-cols-[800px_1fr] flex-col pt-12 xl:grid xl:pt-[60px]">
         <h1 className="grid-area-slogan font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
           How's the sky looking today?
         </h1>
@@ -76,7 +76,7 @@ function App() {
           </button>
         </form>
 
-        <div className="grid-area-weather flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-[800px] xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
+        <div className="grid-area-weather flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-full xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
           <div className="flex flex-col items-center gap-2 pt-10 xl:items-start xl:pt-0">
             <h2 className="text-3xl font-bold">Berlin, Germany</h2>
 
@@ -94,7 +94,7 @@ function App() {
           </div>
         </div>
 
-        <ul className="grid-area-details grid grid-cols-2 gap-4 pt-5">
+        <ul className="grid-area-details grid grid-cols-2 gap-4 pt-5 xl:grid-cols-4 xl:gap-6 xl:pt-8">
           <WeatherDetailCard name="Feels Like" value="18°" />
           <WeatherDetailCard name="Humidity" value="46%" />
           <WeatherDetailCard name="Wind" value="14 km/h" />
