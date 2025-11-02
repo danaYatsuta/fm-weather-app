@@ -8,6 +8,19 @@ import AppHourlyForecast from "./components/AppHourlyForecast";
 import { geocodingResponse, weatherResponse } from "./exampleResponses";
 
 function App() {
+  const {
+    time,
+    weather_code: weatherCode,
+    temperature_2m: temp,
+    apparent_temperature: feelsLikeTemp,
+    relative_humidity_2m: humidity,
+    wind_speed_10m: wind,
+    precipitation,
+  } = weatherResponse.current;
+
+  const { wind_speed_10m: windUnit, precipitation: precipitationUnit } =
+    weatherResponse.current_units;
+
   return (
     <>
       <AppHeader />
@@ -22,12 +35,19 @@ function App() {
         <AppWeatherCard
           location={geocodingResponse.results[0].name}
           country={geocodingResponse.results[0].country}
-          time={weatherResponse.current.time}
-          weatherCode={weatherResponse.current.weather_code}
-          temp={weatherResponse.current.temperature_2m}
+          time={time}
+          weatherCode={weatherCode}
+          temp={temp}
         />
 
-        <AppWeatherDetails />
+        <AppWeatherDetails
+          feelsLikeTemp={feelsLikeTemp}
+          humidity={humidity}
+          wind={wind}
+          windUnit={windUnit}
+          precipitation={precipitation}
+          precipitationUnit={precipitationUnit}
+        />
 
         <AppDailyForecast />
 
