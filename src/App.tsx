@@ -5,6 +5,8 @@ import AppWeatherDetails from "./components/AppWeatherDetails";
 import AppDailyForecast from "./components/AppDailyForecast";
 import AppHourlyForecast from "./components/AppHourlyForecast";
 
+import { geocodingResponse, weatherResponse } from "./exampleResponses";
+
 function App() {
   return (
     <>
@@ -17,7 +19,13 @@ function App() {
 
         <AppSearchForm />
 
-        <AppWeatherCard />
+        <AppWeatherCard
+          location={geocodingResponse.results[0].name}
+          country={geocodingResponse.results[0].country}
+          time={weatherResponse.current.time}
+          weatherCode={weatherResponse.current.weather_code}
+          temp={weatherResponse.current.temperature_2m}
+        />
 
         <AppWeatherDetails />
 
