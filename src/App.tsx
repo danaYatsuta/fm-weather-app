@@ -9,24 +9,32 @@ import { geocodingResponse, weatherResponse } from "./exampleResponses";
 
 function App() {
   const {
-    time,
-    weather_code: weatherCode,
-    temperature_2m: temp,
-    apparent_temperature: feelsLikeTemp,
-    relative_humidity_2m: humidity,
-    wind_speed_10m: wind,
-    precipitation,
+    time: currentTime,
+    weather_code: currentWeatherCode,
+    temperature_2m: currentTemp,
+    apparent_temperature: currentFeelsLikeTemp,
+    relative_humidity_2m: currentHumidity,
+    wind_speed_10m: currentWind,
+    precipitation: currentPrecipitation,
   } = weatherResponse.current;
 
-  const { wind_speed_10m: windUnit, precipitation: precipitationUnit } =
-    weatherResponse.current_units;
+  const {
+    wind_speed_10m: currentWindUnit,
+    precipitation: currentPrecipitationUnit,
+  } = weatherResponse.current_units;
 
   const {
-    time: times,
-    weather_code: weatherCodes,
-    temperature_2m_max: maxTemps,
-    temperature_2m_min: minTemps,
+    time: dailyTimes,
+    weather_code: dailyWeatherCodes,
+    temperature_2m_max: dailyMaxTemps,
+    temperature_2m_min: dailyMinTemps,
   } = weatherResponse.daily;
+
+  const {
+    time: hourlyTimes,
+    weather_code: hourlyWeatherCodes,
+    temperature_2m: hourlyTemps,
+  } = weatherResponse.hourly;
 
   return (
     <>
@@ -42,28 +50,32 @@ function App() {
         <AppCurrentWeatherCard
           location={geocodingResponse.results[0].name}
           country={geocodingResponse.results[0].country}
-          time={time}
-          weatherCode={weatherCode}
-          temp={temp}
+          time={currentTime}
+          weatherCode={currentWeatherCode}
+          temp={currentTemp}
         />
 
         <AppCurrentWeatherDetails
-          feelsLikeTemp={feelsLikeTemp}
-          humidity={humidity}
-          wind={wind}
-          windUnit={windUnit}
-          precipitation={precipitation}
-          precipitationUnit={precipitationUnit}
+          feelsLikeTemp={currentFeelsLikeTemp}
+          humidity={currentHumidity}
+          wind={currentWind}
+          windUnit={currentWindUnit}
+          precipitation={currentPrecipitation}
+          precipitationUnit={currentPrecipitationUnit}
         />
 
         <AppDailyForecast
-          times={times}
-          weatherCodes={weatherCodes}
-          maxTemps={maxTemps}
-          minTemps={minTemps}
+          times={dailyTimes}
+          weatherCodes={dailyWeatherCodes}
+          maxTemps={dailyMaxTemps}
+          minTemps={dailyMinTemps}
         />
 
-        <AppHourlyForecast />
+        <AppHourlyForecast
+          times={hourlyTimes}
+          weatherCodes={hourlyWeatherCodes}
+          temps={hourlyTemps}
+        />
       </main>
     </>
   );

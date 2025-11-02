@@ -1,21 +1,29 @@
 import HourlyForecastCard from "./HourlyForecastCard";
 
-function AppHourlyForecast() {
-  const hourlyForecastEntries = [...Array(24).keys()].map((x) => {
-    const time = (x % 12) + 1;
-    let period;
+interface AppHourlyForecastProps {
+  times: string[];
+  weatherCodes: number[];
+  temps: number[];
+}
 
-    if (x < 11) period = "AM";
-    else if (x === 11) period = "noon";
-    else if (x < 23) period = "PM";
-    else period = "midnight";
+function AppHourlyForecast({
+  times,
+  weatherCodes,
+  temps,
+}: AppHourlyForecastProps) {
+  const hourlyForecastEntries = times.slice(0, 24).map((time, index) => {
+    const date = new Date(time);
+    const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+    });
+    const hour = intlDateTimeFormat.format(date);
 
     return (
       <HourlyForecastCard
-        time={`${time} ${period}`}
-        icon="sunny"
-        temp="20°"
-        key={x}
+        hour={hour}
+        weatherCode={weatherCodes[index]}
+        temp={temps[index]}
+        key={hour}
       />
     );
   });
