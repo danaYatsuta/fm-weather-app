@@ -41,7 +41,7 @@ function App() {
       <AppHeader />
 
       <main className="grid-template my-12 flex grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
-        <h1 className="grid-area-slogan font-bricolage-grotesque self-center text-[54px] leading-16 font-bold">
+        <h1 className="grid-area-slogan font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
           How's the sky looking today?
         </h1>
 
