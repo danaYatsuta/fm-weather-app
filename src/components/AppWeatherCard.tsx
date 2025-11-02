@@ -1,13 +1,4 @@
-const weatherCodes = {
-  drizzle: [51, 53, 55, 56, 57],
-  fog: [45, 48],
-  overcast: [3],
-  partlyCloudy: [2],
-  rain: [61, 63, 65, 66, 67, 80, 81, 82],
-  snow: [71, 73, 75, 77, 85, 86],
-  storm: [95, 96, 99],
-  sunny: [0, 1],
-};
+import { getIconFromWeatherCode } from "../util";
 
 interface AppWeatherCardProps {
   location: string;
@@ -33,33 +24,7 @@ function AppWeatherCard({
   });
   const formattedDate = intlDateTimeFormat.format(date);
 
-  let iconSrc, iconAlt;
-
-  if (weatherCodes.drizzle.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-drizzle.webp";
-    iconAlt = "Drizzle icon";
-  } else if (weatherCodes.fog.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-fog.webp";
-    iconAlt = "Fog icon";
-  } else if (weatherCodes.partlyCloudy.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-partly-cloudy.webp";
-    iconAlt = "Partly cloudy icon";
-  } else if (weatherCodes.rain.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-rain.webp";
-    iconAlt = "Rain icon";
-  } else if (weatherCodes.snow.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-snow.webp";
-    iconAlt = "Snow icon";
-  } else if (weatherCodes.storm.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-storm.webp";
-    iconAlt = "Storm icon";
-  } else if (weatherCodes.sunny.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-sunny.webp";
-    iconAlt = "Sunny icon";
-  } else {
-    iconSrc = "/src/assets/icon-overcast.webp";
-    iconAlt = "Overcast icon";
-  }
+  const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
   return (
     <div className="grid-area-weather flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-full xl:flex-row xl:justify-between xl:self-start xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">

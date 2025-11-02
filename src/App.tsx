@@ -21,6 +21,13 @@ function App() {
   const { wind_speed_10m: windUnit, precipitation: precipitationUnit } =
     weatherResponse.current_units;
 
+  const {
+    time: times,
+    weather_code: weatherCodes,
+    temperature_2m_max: maxTemps,
+    temperature_2m_min: minTemps,
+  } = weatherResponse.daily;
+
   return (
     <>
       <AppHeader />
@@ -49,7 +56,12 @@ function App() {
           precipitationUnit={precipitationUnit}
         />
 
-        <AppDailyForecast />
+        <AppDailyForecast
+          times={times}
+          weatherCodes={weatherCodes}
+          maxTemps={maxTemps}
+          minTemps={minTemps}
+        />
 
         <AppHourlyForecast />
       </main>
