@@ -1,7 +1,7 @@
 import AppHeader from "./components/AppHeader";
 import AppSearchForm from "./components/AppSearchForm";
-import AppWeatherCard from "./components/AppWeatherCard";
-import AppWeatherDetails from "./components/AppWeatherDetails";
+import AppCurrentWeatherCard from "./components/AppCurrentWeatherCard";
+import AppCurrentWeatherDetails from "./components/AppCurrentWeatherDetails";
 import AppDailyForecast from "./components/AppDailyForecast";
 import AppHourlyForecast from "./components/AppHourlyForecast";
 
@@ -39,7 +39,7 @@ function App() {
 
         <AppSearchForm />
 
-        <AppWeatherCard
+        <AppCurrentWeatherCard
           location={geocodingResponse.results[0].name}
           country={geocodingResponse.results[0].country}
           time={time}
@@ -47,7 +47,7 @@ function App() {
           temp={temp}
         />
 
-        <AppWeatherDetails
+        <AppCurrentWeatherDetails
           feelsLikeTemp={feelsLikeTemp}
           humidity={humidity}
           wind={wind}

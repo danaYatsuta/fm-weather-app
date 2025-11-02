@@ -1,6 +1,6 @@
-import WeatherDetailCard from "./WeatherDetailCard";
+import CurrentWeatherDetailCard from "./CurrentWeatherDetailCard";
 
-interface AppWeatherDetailsProps {
+interface AppCurrentWeatherDetailsProps {
   feelsLikeTemp: number;
   humidity: number;
   wind: number;
@@ -9,23 +9,23 @@ interface AppWeatherDetailsProps {
   precipitationUnit: string;
 }
 
-function AppWeatherDetails({
+function AppCurrentWeatherDetails({
   feelsLikeTemp,
   humidity,
   wind,
   windUnit,
   precipitation,
   precipitationUnit,
-}: AppWeatherDetailsProps) {
+}: AppCurrentWeatherDetailsProps) {
   return (
     <ul className="grid-area-details mt-5 grid grid-cols-2 gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6">
-      <WeatherDetailCard
+      <CurrentWeatherDetailCard
         name="Feels Like"
         value={`${Math.round(feelsLikeTemp)}°`}
       />
-      <WeatherDetailCard name="Humidity" value={`${humidity}%`} />
-      <WeatherDetailCard name="Wind" value={`${wind} ${windUnit}`} />
-      <WeatherDetailCard
+      <CurrentWeatherDetailCard name="Humidity" value={`${humidity}%`} />
+      <CurrentWeatherDetailCard name="Wind" value={`${wind} ${windUnit}`} />
+      <CurrentWeatherDetailCard
         name="Precipitation"
         value={`${Math.round(precipitation)} ${precipitationUnit}`}
       />
@@ -33,4 +33,4 @@ function AppWeatherDetails({
   );
 }
 
-export default AppWeatherDetails;
+export default AppCurrentWeatherDetails;

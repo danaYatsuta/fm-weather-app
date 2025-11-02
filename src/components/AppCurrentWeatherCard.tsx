@@ -1,6 +1,6 @@
 import { getIconFromWeatherCode } from "../util";
 
-interface AppWeatherCardProps {
+interface AppCurrentWeatherCardProps {
   location: string;
   country: string;
   time: string;
@@ -8,13 +8,13 @@ interface AppWeatherCardProps {
   temp: number;
 }
 
-function AppWeatherCard({
+function AppCurrentWeatherCard({
   location,
   country,
   time,
   weatherCode,
   temp,
-}: AppWeatherCardProps) {
+}: AppCurrentWeatherCardProps) {
   const date = new Date(time);
   const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
     weekday: "long",
@@ -45,4 +45,4 @@ function AppWeatherCard({
   );
 }
 
-export default AppWeatherCard;
+export default AppCurrentWeatherCard;
