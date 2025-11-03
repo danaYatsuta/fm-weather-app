@@ -30,7 +30,7 @@ function AppHourlyForecast({
 
     dropdownEntries.push(
       <button
-        className="h-10 rounded-sm px-2 text-left hover:bg-neutral-700"
+        className="h-10 rounded-sm px-2 text-left outline-offset-1 hover:bg-neutral-700 focus:outline-1"
         key={i}
         onClick={() => {
           setWeekday(i);
@@ -67,7 +67,7 @@ function AppHourlyForecast({
 
         <button
           type="button"
-          className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base hover:bg-neutral-600/75"
+          className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base outline-offset-[3px] hover:bg-neutral-700 focus:outline-2"
           onClick={() => {
             setIsDropdownShown(!isDropdownShown);
           }}
@@ -83,7 +83,7 @@ function AppHourlyForecast({
         </div>
       )}
 
-      <ul className="flex flex-col gap-4 overflow-scroll">
+      <ul className="flex flex-col gap-4 overflow-scroll rounded-md outline-offset-[3px] focus:outline-2">
         {hourlyForecastCards}
       </ul>
     </section>
