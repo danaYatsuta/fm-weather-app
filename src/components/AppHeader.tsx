@@ -1,4 +1,4 @@
-import { useRef, type MouseEventHandler } from "react";
+import { useRef } from "react";
 import { useDropdown } from "../util";
 import type {
   PrecipitationUnit,
@@ -6,6 +6,7 @@ import type {
   UnitSystem,
   WindUnit,
 } from "../types";
+import UnitRadioInput from "./UnitRadioInput";
 
 interface AppHeaderProps {
   unitSystem: UnitSystem;
@@ -13,6 +14,9 @@ interface AppHeaderProps {
   windUnit: WindUnit;
   precipitationUnit: PrecipitationUnit;
   onUnitSystemChange: (unitSystem: UnitSystem) => void;
+  onTempUnitChange: (value: TempUnit) => void;
+  onWindUnitChange: (value: WindUnit) => void;
+  onPrecipitationUnitChange: (value: PrecipitationUnit) => void;
 }
 
 function AppHeader({
@@ -21,6 +25,9 @@ function AppHeader({
   windUnit,
   precipitationUnit,
   onUnitSystemChange,
+  onTempUnitChange,
+  onWindUnitChange,
+  onPrecipitationUnitChange,
 }: AppHeaderProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
@@ -61,7 +68,7 @@ function AppHeader({
 
       {isDropdownShown && (
         <div
-          className="absolute top-[54px] right-0 flex min-w-[214px] flex-col rounded-lg border border-neutral-600 bg-neutral-800 p-2 text-base"
+          className="absolute top-[54px] right-0 z-10 flex min-w-[214px] flex-col rounded-lg border border-neutral-600 bg-neutral-800 p-2 text-base"
           ref={dropdownRef}
         >
           <button
@@ -75,6 +82,39 @@ function AppHeader({
           >
             Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
           </button>
+
+          <UnitRadioInput<TempUnit>
+            legend="Temperature"
+            name="tempUnit"
+            options={[
+              { label: "Celsius (C°)", value: "celsius" },
+              { label: "Fahrenheit (F°)", value: "fahrenheit" },
+            ]}
+            value={tempUnit}
+            onValueChange={onTempUnitChange}
+          />
+
+          <UnitRadioInput<WindUnit>
+            legend="Wind Speed"
+            name="windUnit"
+            options={[
+              { label: "km/h", value: "kmh" },
+              { label: "mph", value: "mph" },
+            ]}
+            value={windUnit}
+            onValueChange={onWindUnitChange}
+          />
+
+          <UnitRadioInput<PrecipitationUnit>
+            legend="Precipitation"
+            name="precipitationUnit"
+            options={[
+              { label: "Millimeters (mm)", value: "mm" },
+              { label: "Inches (in)", value: "inch" },
+            ]}
+            value={precipitationUnit}
+            onValueChange={onPrecipitationUnitChange}
+          />
         </div>
       )}
     </header>
