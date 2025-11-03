@@ -11,7 +11,7 @@ function AppHourlyForecast({
   weatherCodes,
   temps,
 }: AppHourlyForecastProps) {
-  const hourlyForecastEntries = times.slice(0, 24).map((time, index) => {
+  const hourlyForecastCards = times.slice(0, 24).map((time, index) => {
     const date = new Date(time);
     const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
       hour: "numeric",
@@ -43,7 +43,7 @@ function AppHourlyForecast({
       </div>
 
       <ul className="flex flex-col gap-4 overflow-scroll">
-        {hourlyForecastEntries}
+        {hourlyForecastCards}
       </ul>
     </section>
   );
