@@ -15,29 +15,29 @@ function getIconFromWeatherCode(weatherCode: number) {
   let iconSrc, iconAlt;
 
   if (weatherCodes.drizzle.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-drizzle.webp";
+    iconSrc = "/icon-drizzle.webp";
     iconAlt = "Drizzle icon";
   } else if (weatherCodes.fog.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-fog.webp";
+    iconSrc = "/icon-fog.webp";
     iconAlt = "Fog icon";
   } else if (weatherCodes.partlyCloudy.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-partly-cloudy.webp";
+    iconSrc = "/icon-partly-cloudy.webp";
     iconAlt = "Partly cloudy icon";
   } else if (weatherCodes.rain.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-rain.webp";
+    iconSrc = "/icon-rain.webp";
     iconAlt = "Rain icon";
   } else if (weatherCodes.snow.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-snow.webp";
+    iconSrc = "/icon-snow.webp";
     iconAlt = "Snow icon";
   } else if (weatherCodes.storm.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-storm.webp";
+    iconSrc = "/icon-storm.webp";
     iconAlt = "Storm icon";
   } else if (weatherCodes.sunny.includes(weatherCode)) {
-    iconSrc = "/src/assets/icon-sunny.webp";
+    iconSrc = "/icon-sunny.webp";
     iconAlt = "Sunny icon";
   } else {
     // Using overcast icon as fallback
-    iconSrc = "/src/assets/icon-overcast.webp";
+    iconSrc = "/icon-overcast.webp";
     iconAlt = "Overcast icon";
   }
 

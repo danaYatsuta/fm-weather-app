@@ -40,7 +40,7 @@ function AppHeader({
   return (
     <header className="relative mt-4 flex justify-between xl:mt-12">
       <img
-        src="/src/assets/logo.svg"
+        src="/logo.svg"
         alt="Weather Now logo"
         className="w-[138px] xl:w-auto"
       />
@@ -54,13 +54,13 @@ function AppHeader({
         ref={dropdownToggleRef}
       >
         <img
-          src="/src/assets/icon-units.svg"
+          src="/icon-units.svg"
           aria-hidden="true"
           className="h-3.5 xl:h-auto"
         />
         Units
         <img
-          src="/src/assets/icon-dropdown.svg"
+          src="/icon-dropdown.svg"
           aria-hidden="true"
           className="h-1.5 xl:h-auto"
         />
