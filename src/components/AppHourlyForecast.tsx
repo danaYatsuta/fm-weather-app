@@ -19,7 +19,7 @@ function AppHourlyForecast({
     weekday: "long",
   });
 
-  const dropdownEntries: React.ReactElement[] = [];
+  const dropdownButtons: React.ReactElement[] = [];
 
   /*
     Frontend Mentor design calls for weekdays to be shown in order starting from monday, regardless of current weekday.
@@ -28,7 +28,7 @@ function AppHourlyForecast({
   for (let i = 0; i < 7; i++) {
     const weekdayName = weekdayFormat.format(new Date(times[i * 24]));
 
-    dropdownEntries.push(
+    dropdownButtons.push(
       <button
         className="h-10 rounded-sm px-2 text-left outline-offset-1 hover:bg-neutral-700 focus:outline-1"
         key={i}
@@ -79,7 +79,7 @@ function AppHourlyForecast({
 
       {isDropdownShown && (
         <div className="absolute top-[70px] right-6 flex min-w-[214px] flex-col gap-0.5 rounded-lg border border-neutral-600 bg-neutral-800 p-2 text-base">
-          {dropdownEntries}
+          {dropdownButtons}
         </div>
       )}
 

@@ -13,17 +13,19 @@ function AppDailyForecast({
   minTemps,
   weatherCodes,
 }: AppDailyForecastProps) {
-  const dailyForecastCards = [...Array(7).keys()].map((x) => {
-    return (
+  const dailyForecastCards: React.ReactElement[] = [];
+
+  for (let i = 0; i < 7; i++) {
+    dailyForecastCards.push(
       <DailyForecastCard
-        time={times[x]}
-        weatherCode={weatherCodes[x]}
-        maxTemp={maxTemps[x]}
-        minTemp={minTemps[x]}
-        key={times[x]}
-      />
+        time={times[i]}
+        weatherCode={weatherCodes[i]}
+        maxTemp={maxTemps[i]}
+        minTemp={minTemps[i]}
+        key={times[i]}
+      />,
     );
-  });
+  }
 
   return (
     <section className="grid-area-daily mt-8 xl:mt-0 xl:self-end">
