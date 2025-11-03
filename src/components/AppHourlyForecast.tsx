@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import HourlyForecastCard from "./HourlyForecastCard";
 
 interface AppHourlyForecastProps {
@@ -60,6 +60,29 @@ function AppHourlyForecast({
     );
   }
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownToggleRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(e: PointerEvent) {
+      if (
+        e.target instanceof Node &&
+        dropdownRef.current &&
+        dropdownToggleRef.current &&
+        !dropdownRef.current.contains(e.target) &&
+        !dropdownToggleRef.current.contains(e.target)
+      ) {
+        setIsDropdownShown(false);
+      }
+    }
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
     <section className="grid-area-hourly relative mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6">
       <div className="flex items-center justify-between">
@@ -71,6 +94,7 @@ function AppHourlyForecast({
           onClick={() => {
             setIsDropdownShown(!isDropdownShown);
           }}
+          ref={dropdownToggleRef}
         >
           {weekdayFormat.format(new Date(times[weekday * 24]))}
           <img src="/src/assets/icon-dropdown.svg" aria-hidden="true" />
@@ -78,7 +102,10 @@ function AppHourlyForecast({
       </div>
 
       {isDropdownShown && (
-        <div className="absolute top-[70px] right-6 flex min-w-[214px] flex-col gap-0.5 rounded-lg border border-neutral-600 bg-neutral-800 p-2 text-base">
+        <div
+          className="absolute top-[70px] right-6 flex min-w-[214px] flex-col gap-0.5 rounded-lg border border-neutral-600 bg-neutral-800 p-2 text-base"
+          ref={dropdownRef}
+        >
           {dropdownButtons}
         </div>
       )}
