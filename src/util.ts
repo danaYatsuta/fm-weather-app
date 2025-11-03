@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const weatherCodes = {
   drizzle: [51, 53, 55, 56, 57],
   fog: [45, 48],
@@ -9,7 +11,7 @@ const weatherCodes = {
   sunny: [0, 1],
 };
 
-export function getIconFromWeatherCode(weatherCode: number) {
+function getIconFromWeatherCode(weatherCode: number) {
   let iconSrc, iconAlt;
 
   if (weatherCodes.drizzle.includes(weatherCode)) {
@@ -41,3 +43,33 @@ export function getIconFromWeatherCode(weatherCode: number) {
 
   return [iconSrc, iconAlt];
 }
+
+/**
+ * Returns boolean state which is set to false if any place on page except passed refs is clicked.
+ * @param refs - Refs of elements that, when clicked, do not close the dropdown (usually the dropdown itself and the toggle button)
+ */
+function useDropdown(refs: React.RefObject<HTMLElement | null>[]) {
+  const [isDropdownShown, setIsDropdownShown] = useState(false);
+
+  useEffect(() => {
+    function handleClickOutside(e: PointerEvent) {
+      if (!(e.target instanceof Node)) return;
+
+      for (const ref of refs) {
+        if (ref.current === null || ref.current.contains(e.target)) return;
+      }
+
+      setIsDropdownShown(false);
+    }
+
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [refs]);
+
+  return [isDropdownShown, setIsDropdownShown] as const;
+}
+
+export { getIconFromWeatherCode, useDropdown };

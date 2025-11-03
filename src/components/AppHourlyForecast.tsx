@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import HourlyForecastCard from "./HourlyForecastCard";
+import { useDropdown } from "../util";
 
 interface AppHourlyForecastProps {
   times: string[];
@@ -12,7 +13,13 @@ function AppHourlyForecast({
   weatherCodes,
   temps,
 }: AppHourlyForecastProps) {
-  const [isDropdownShown, setIsDropdownShown] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownToggleRef = useRef<HTMLButtonElement>(null);
+
+  const [isDropdownShown, setIsDropdownShown] = useDropdown([
+    dropdownRef,
+    dropdownToggleRef,
+  ]);
   const [weekday, setWeekday] = useState(0);
 
   const weekdayFormat = new Intl.DateTimeFormat("en-US", {
@@ -59,29 +66,6 @@ function AppHourlyForecast({
       />,
     );
   }
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const dropdownToggleRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(e: PointerEvent) {
-      if (
-        e.target instanceof Node &&
-        dropdownRef.current &&
-        dropdownToggleRef.current &&
-        !dropdownRef.current.contains(e.target) &&
-        !dropdownToggleRef.current.contains(e.target)
-      ) {
-        setIsDropdownShown(false);
-      }
-    }
-
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
 
   return (
     <section className="grid-area-hourly relative mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6">
