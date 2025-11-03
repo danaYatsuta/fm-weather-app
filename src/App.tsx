@@ -6,8 +6,21 @@ import AppDailyForecast from "./components/AppDailyForecast";
 import AppHourlyForecast from "./components/AppHourlyForecast";
 
 import { geocodingResponse, weatherResponse } from "./exampleResponses";
+import { useState } from "react";
+import type {
+  PrecipitationUnit,
+  TempUnit,
+  UnitSystem,
+  WindUnit,
+} from "./types";
 
 function App() {
+  const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
+  const [tempUnit, setTempUnit] = useState<TempUnit>("celsius");
+  const [windUnit, setWindUnit] = useState<WindUnit>("kmh");
+  const [precipitationUnit, setPrecipitationUnit] =
+    useState<PrecipitationUnit>("mm");
+
   const {
     time: currentTime,
     weather_code: currentWeatherCode,
@@ -36,9 +49,31 @@ function App() {
     temperature_2m: hourlyTemps,
   } = weatherResponse.hourly;
 
+  function onUnitSystemChange(newUnitSystem: UnitSystem) {
+    setUnitSystem(newUnitSystem);
+
+    if (unitSystem === "metric") {
+      setUnitSystem("metric");
+      setTempUnit("celsius");
+      setWindUnit("kmh");
+      setPrecipitationUnit("mm");
+    } else {
+      setUnitSystem("imperial");
+      setTempUnit("fahrenheit");
+      setWindUnit("mph");
+      setPrecipitationUnit("mm");
+    }
+  }
+
   return (
     <>
-      <AppHeader />
+      <AppHeader
+        unitSystem={unitSystem}
+        tempUnit={tempUnit}
+        windUnit={windUnit}
+        precipitationUnit={precipitationUnit}
+        onUnitSystemChange={onUnitSystemChange}
+      />
 
       <main className="grid-template my-12 flex grid-cols-[800px_416px] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
         <h1 className="grid-area-slogan font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">

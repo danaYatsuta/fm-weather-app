@@ -1,3 +1,8 @@
+export type UnitSystem = "metric" | "imperial";
+export type TempUnit = "celsius" | "fahrenheit";
+export type WindUnit = "kmh" | "mph";
+export type PrecipitationUnit = "mm" | "inch";
+
 export interface GeocodingResponse {
   results: Result[];
   generationtime_ms: number;
