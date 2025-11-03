@@ -12,7 +12,7 @@ function AppHourlyForecast({
   weatherCodes,
   temps,
 }: AppHourlyForecastProps) {
-  const [isDropdownShown, setIsDropdownShown] = useState(true);
+  const [isDropdownShown, setIsDropdownShown] = useState(false);
   const [weekday, setWeekday] = useState(0);
 
   const weekdayFormat = new Intl.DateTimeFormat("en-US", {
