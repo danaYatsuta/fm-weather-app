@@ -1,3 +1,4 @@
+import { useState } from "react";
 import HourlyForecastCard from "./HourlyForecastCard";
 
 interface AppHourlyForecastProps {
@@ -11,36 +12,76 @@ function AppHourlyForecast({
   weatherCodes,
   temps,
 }: AppHourlyForecastProps) {
-  const hourlyForecastCards = times.slice(0, 24).map((time, index) => {
-    const date = new Date(time);
-    const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
-      hour: "numeric",
-    });
-    const hour = intlDateTimeFormat.format(date);
+  const [isDropdownShown, setIsDropdownShown] = useState(true);
+  const [weekday, setWeekday] = useState(0);
 
-    return (
-      <HourlyForecastCard
-        hour={hour}
-        weatherCode={weatherCodes[index]}
-        temp={temps[index]}
-        key={hour}
-      />
-    );
+  const weekdayFormat = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
   });
 
+  const dropdownEntries: React.ReactElement[] = [];
+
+  /*
+    Frontend Mentor design calls for weekdays to be shown in order starting from monday, regardless of current weekday.
+    I've intentionally implemented order of weekdays starting with current weekday, since this seems more intuitive to me.
+  */
+  for (let i = 0; i < 7; i++) {
+    const weekdayName = weekdayFormat.format(new Date(times[i * 24]));
+
+    dropdownEntries.push(
+      <button
+        className="h-10 rounded-sm px-2 text-left hover:bg-neutral-700"
+        key={i}
+        onClick={() => {
+          setWeekday(i);
+          setIsDropdownShown(false);
+        }}
+      >
+        {weekdayName}
+      </button>,
+    );
+  }
+
+  const hourFormat = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+  });
+
+  const hourlyForecastCards: React.ReactElement[] = [];
+
+  for (let i = weekday * 24; i < (weekday + 1) * 24; i++) {
+    const hour = hourFormat.format(new Date(times[i]));
+    hourlyForecastCards.push(
+      <HourlyForecastCard
+        hour={hour}
+        weatherCode={weatherCodes[i]}
+        temp={temps[i]}
+        key={i}
+      />,
+    );
+  }
+
   return (
-    <section className="grid-area-hourly mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6">
+    <section className="grid-area-hourly relative mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Hourly forecast</h2>
 
         <button
           type="button"
-          className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base"
+          className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base hover:bg-neutral-600/75"
+          onClick={() => {
+            setIsDropdownShown(!isDropdownShown);
+          }}
         >
-          Tuesday
+          {weekdayFormat.format(new Date(times[weekday * 24]))}
           <img src="/src/assets/icon-dropdown.svg" aria-hidden="true" />
         </button>
       </div>
+
+      {isDropdownShown && (
+        <div className="absolute top-[70px] right-6 flex min-w-[214px] flex-col gap-0.5 rounded-lg border border-neutral-600 bg-neutral-800 p-2 text-base">
+          {dropdownEntries}
+        </div>
+      )}
 
       <ul className="flex flex-col gap-4 overflow-scroll">
         {hourlyForecastCards}
