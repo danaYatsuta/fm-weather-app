@@ -46,7 +46,7 @@ function getIconFromWeatherCode(weatherCode: number) {
 
 /**
  * Returns boolean state which is set to false if any place on page except passed refs is clicked.
- * @param refs - Refs of elements that, when clicked, do not close the dropdown (usually the dropdown itself and the toggle button)
+ * @param refs - Refs of elements that, when clicked, should not close the dropdown (usually the dropdown itself and the toggle button)
  */
 function useDropdown(refs: React.RefObject<HTMLElement | null>[]) {
   const [isDropdownShown, setIsDropdownShown] = useState(false);
