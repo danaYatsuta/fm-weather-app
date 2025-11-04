@@ -29,7 +29,7 @@ function AppSearchForm() {
       className="col-span-2 mt-12 mb-8 flex flex-col gap-3 text-xl xl:mt-16 xl:mb-12 xl:flex-row xl:justify-center xl:gap-4"
     >
       <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 xl:w-[526px]">
-        <img src="/icon-search.svg" aria-hidden="true" />
+        <img src="/icon-search.svg" alt="" />
 
         <input
           name="name"

@@ -55,17 +55,9 @@ function AppHeader({
         }}
         ref={dropdownToggleRef}
       >
-        <img
-          src="/icon-units.svg"
-          aria-hidden="true"
-          className="h-3.5 xl:h-auto"
-        />
+        <img src="/icon-units.svg" alt="" className="h-3.5 xl:h-auto" />
         Units
-        <img
-          src="/icon-dropdown.svg"
-          aria-hidden="true"
-          className="h-1.5 xl:h-auto"
-        />
+        <img src="/icon-dropdown.svg" alt="" className="h-1.5 xl:h-auto" />
       </button>
 
       {isDropdownShown && (

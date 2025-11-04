@@ -82,7 +82,7 @@ function AppHourlyForecast({
           ref={dropdownToggleRef}
         >
           {weekdayFormat.format(new Date(times[weekday * 24]))}
-          <img src="/icon-dropdown.svg" aria-hidden="true" />
+          <img src="/icon-dropdown.svg" alt="" />
         </button>
       </div>
 

@@ -39,7 +39,7 @@ function UnitRadioInput<T extends string>({
 
         <img
           src="/icon-checkmark.svg"
-          aria-hidden="true"
+          alt=""
           className="hidden peer-checked:block"
         />
       </label>
