@@ -7,6 +7,7 @@ import type {
   WindUnit,
 } from "../types";
 import UnitRadioInput from "./UnitRadioInput";
+import BaseDropdown from "./BaseDropdown";
 
 interface AppHeaderProps {
   unitSystem: UnitSystem;
@@ -67,10 +68,7 @@ function AppHeader({
       </button>
 
       {isDropdownShown && (
-        <div
-          className="absolute top-[54px] right-0 z-10 flex min-w-[214px] flex-col rounded-lg border border-neutral-600 bg-neutral-800 p-2 text-base"
-          ref={dropdownRef}
-        >
+        <BaseDropdown position="unitDropdown" ref={dropdownRef}>
           <button
             type="button"
             className="text-left"
@@ -115,7 +113,7 @@ function AppHeader({
             value={precipitationUnit}
             onValueChange={onPrecipitationUnitChange}
           />
-        </div>
+        </BaseDropdown>
       )}
     </header>
   );

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import HourlyForecastCard from "./HourlyForecastCard";
 import { useDropdown } from "../util";
+import BaseDropdown from "./BaseDropdown";
 
 interface AppHourlyForecastProps {
   times: string[];
@@ -86,12 +87,9 @@ function AppHourlyForecast({
       </div>
 
       {isDropdownShown && (
-        <div
-          className="absolute top-[70px] right-6 flex min-w-[214px] flex-col gap-0.5 rounded-lg border border-neutral-600 bg-neutral-800 p-2 text-base"
-          ref={dropdownRef}
-        >
+        <BaseDropdown position="weekdayDropdown" ref={dropdownRef}>
           {dropdownButtons}
-        </div>
+        </BaseDropdown>
       )}
 
       <ul className="flex flex-col gap-4 overflow-scroll rounded-md outline-offset-[3px] focus:outline-2">
