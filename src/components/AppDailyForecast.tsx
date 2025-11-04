@@ -28,7 +28,7 @@ function AppDailyForecast({
   }
 
   return (
-    <section className="grid-area-daily mt-8 xl:mt-0 xl:self-end">
+    <section className="col-start-1 mt-8 xl:mt-0 xl:self-end">
       <h2 className="text-xl font-bold">Daily forecast</h2>
 
       <ul className="mt-4 grid grid-cols-3 gap-4 xl:grid-cols-7">

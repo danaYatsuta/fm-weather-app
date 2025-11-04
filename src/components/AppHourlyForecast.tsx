@@ -68,7 +68,7 @@ function AppHourlyForecast({
   }
 
   return (
-    <section className="grid-area-hourly relative mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6">
+    <section className="relative col-start-2 row-span-3 row-start-3 mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Hourly forecast</h2>
 

@@ -27,7 +27,7 @@ function AppCurrentWeatherCard({
   const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
   return (
-    <div className="grid-area-weather flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-full xl:flex-row xl:justify-between xl:self-start xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
+    <div className="flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-full xl:flex-row xl:justify-between xl:self-start xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
       <div className="flex flex-col items-center gap-1 pt-10 xl:items-start xl:pt-0">
         <h2 className="text-[28px] font-bold">
           {location}, {country}

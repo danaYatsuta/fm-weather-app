@@ -80,8 +80,8 @@ function App() {
         }
       />
 
-      <main className="grid-template my-12 flex grid-cols-[800px_416px] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
-        <h1 className="grid-area-slogan font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
+      <main className="my-12 flex grid-cols-[800px_416px] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
+        <h1 className="font-bricolage-grotesque col-span-2 text-center text-[54px] leading-16 font-bold">
           How's the sky looking today?
         </h1>
 

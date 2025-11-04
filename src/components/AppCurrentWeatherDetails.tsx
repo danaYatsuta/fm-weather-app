@@ -18,7 +18,7 @@ function AppCurrentWeatherDetails({
   precipitationUnit,
 }: AppCurrentWeatherDetailsProps) {
   return (
-    <ul className="grid-area-details mt-5 grid grid-cols-2 gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6">
+    <ul className="mt-5 grid grid-cols-2 gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6">
       <CurrentWeatherDetailCard
         name="Feels Like"
         value={`${Math.round(feelsLikeTemp)}°`}
