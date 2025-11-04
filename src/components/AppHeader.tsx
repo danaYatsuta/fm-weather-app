@@ -8,6 +8,7 @@ import type {
 } from "../types";
 import UnitRadioInput from "./UnitRadioInput";
 import BaseDropdown from "./BaseDropdown";
+import BaseDropdownButton from "./BaseDropdownButton";
 
 interface AppHeaderProps {
   unitSystem: UnitSystem;
@@ -69,17 +70,15 @@ function AppHeader({
 
       {isDropdownShown && (
         <BaseDropdown position="unitDropdown" ref={dropdownRef}>
-          <button
-            type="button"
-            className="text-left"
-            onClick={() => {
+          <BaseDropdownButton
+            onButtonClick={() => {
               onUnitSystemChange(
                 unitSystem === "metric" ? "imperial" : "metric",
               );
             }}
           >
             Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
-          </button>
+          </BaseDropdownButton>
 
           <UnitRadioInput<TempUnit>
             legend="Temperature"

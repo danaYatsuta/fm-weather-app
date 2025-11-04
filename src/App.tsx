@@ -52,7 +52,7 @@ function App() {
   function handleUnitSystemChange(newUnitSystem: UnitSystem) {
     setUnitSystem(newUnitSystem);
 
-    if (unitSystem === "metric") {
+    if (newUnitSystem === "metric") {
       setTempUnit("celsius");
       setWindUnit("kmh");
       setPrecipitationUnit("mm");
@@ -70,9 +70,7 @@ function App() {
         tempUnit={tempUnit}
         windUnit={windUnit}
         precipitationUnit={precipitationUnit}
-        onUnitSystemChange={(newUnitSystem) =>
-          handleUnitSystemChange(newUnitSystem)
-        }
+        onUnitSystemChange={handleUnitSystemChange}
         onTempUnitChange={setTempUnit}
         onWindUnitChange={setWindUnit}
         onPrecipitationUnitChange={setPrecipitationUnit}

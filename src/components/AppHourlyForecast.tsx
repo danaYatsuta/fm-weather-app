@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import HourlyForecastCard from "./HourlyForecastCard";
 import { useDropdown } from "../util";
 import BaseDropdown from "./BaseDropdown";
+import BaseDropdownButton from "./BaseDropdownButton";
 
 interface AppHourlyForecastProps {
   times: string[];
@@ -37,16 +38,15 @@ function AppHourlyForecast({
     const weekdayName = weekdayFormat.format(new Date(times[i * 24]));
 
     dropdownButtons.push(
-      <button
-        className="h-10 rounded-sm px-2 text-left outline-offset-1 hover:bg-neutral-700 focus:outline-1"
-        key={i}
-        onClick={() => {
+      <BaseDropdownButton
+        onButtonClick={() => {
           setWeekday(i);
           setIsDropdownShown(false);
         }}
+        key={i}
       >
         {weekdayName}
-      </button>,
+      </BaseDropdownButton>,
     );
   }
 
