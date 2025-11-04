@@ -21,6 +21,9 @@ function App() {
   const [precipitationUnit, setPrecipitationUnit] =
     useState<PrecipitationUnit>("mm");
 
+  const [latitide, setLatitude] = useState(52.52);
+  const [longitude, setLongitude] = useState(13.41);
+
   const {
     time: currentTime,
     weather_code: currentWeatherCode,
@@ -63,6 +66,11 @@ function App() {
     }
   }
 
+  function handleLocationChange(newLatitude: number, newLongitude: number) {
+    setLatitude(newLatitude);
+    setLongitude(newLongitude);
+  }
+
   return (
     <>
       <AppHeader
@@ -81,7 +89,11 @@ function App() {
           How's the sky looking today?
         </h1>
 
-        <AppSearchForm />
+        <AppSearchForm onLocationChange={handleLocationChange} />
+
+        <p className="absolute">
+          {latitide} {longitude}
+        </p>
 
         <AppCurrentWeatherCard
           location={geocodingResponse.results[0].name}
