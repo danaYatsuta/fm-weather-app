@@ -1,16 +1,17 @@
-import AppHeader from "./components/AppHeader";
-import AppSearchForm from "./components/AppSearchForm";
+import { useEffect, useState } from "react";
+
 import AppCurrentWeatherCard from "./components/AppCurrentWeatherCard";
 import AppCurrentWeatherDetails from "./components/AppCurrentWeatherDetails";
 import AppDailyForecast from "./components/AppDailyForecast";
+import AppHeader from "./components/AppHeader";
 import AppHourlyForecast from "./components/AppHourlyForecast";
+import AppSearchForm from "./components/AppSearchForm";
 
-import { geocodingResponse, weatherResponse } from "./exampleResponses";
-import { useState } from "react";
 import type {
   PrecipitationUnit,
   TempUnit,
   UnitSystem,
+  WeatherResponse,
   WindUnit,
 } from "./types";
 
@@ -23,34 +24,13 @@ function App() {
 
   const [latitide, setLatitude] = useState(52.52);
   const [longitude, setLongitude] = useState(13.41);
+  const [timezone, setTimezone] = useState("");
 
-  const {
-    time: currentTime,
-    weather_code: currentWeatherCode,
-    temperature_2m: currentTemp,
-    apparent_temperature: currentFeelsLikeTemp,
-    relative_humidity_2m: currentHumidity,
-    wind_speed_10m: currentWind,
-    precipitation: currentPrecipitation,
-  } = weatherResponse.current;
+  const [locationName, setLocationName] = useState("");
+  const [locationCountry, setLocationCountry] = useState("");
 
-  const {
-    wind_speed_10m: currentWindUnit,
-    precipitation: currentPrecipitationUnit,
-  } = weatherResponse.current_units;
-
-  const {
-    time: dailyTimes,
-    weather_code: dailyWeatherCodes,
-    temperature_2m_max: dailyMaxTemps,
-    temperature_2m_min: dailyMinTemps,
-  } = weatherResponse.daily;
-
-  const {
-    time: hourlyTimes,
-    weather_code: hourlyWeatherCodes,
-    temperature_2m: hourlyTemps,
-  } = weatherResponse.hourly;
+  const [weatherResponse, setWeatherResponse] =
+    useState<WeatherResponse | null>(null);
 
   function handleUnitSystemChange(newUnitSystem: UnitSystem) {
     setUnitSystem(newUnitSystem);
@@ -66,10 +46,38 @@ function App() {
     }
   }
 
-  function handleLocationChange(newLatitude: number, newLongitude: number) {
+  function handleLocationChange(
+    newLatitude: number,
+    newLongitude: number,
+    newTimezone: string,
+    newLocationName: string,
+    newLocationCountry: string,
+  ) {
     setLatitude(newLatitude);
     setLongitude(newLongitude);
+    setTimezone(newTimezone);
+    setLocationName(newLocationName);
+    setLocationCountry(newLocationCountry);
   }
+
+  useEffect(() => {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitide}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=weather_code,temperature_2m&current=weather_code,temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,precipitation&timezone=${timezone}&wind_speed_unit=${windUnit}&temperature_unit=${tempUnit}&precipitation_unit=${precipitationUnit}`;
+
+    async function fetchData() {
+      try {
+        const response = await fetch(url);
+
+        if (response.ok) {
+          const result = await response.json();
+          setWeatherResponse(result);
+        }
+      } catch (error) {
+        if (error instanceof Error) console.log(error.message);
+      }
+    }
+
+    fetchData();
+  }, [latitide, longitude, timezone, windUnit, tempUnit, precipitationUnit]);
 
   return (
     <>
@@ -91,39 +99,36 @@ function App() {
 
         <AppSearchForm onLocationChange={handleLocationChange} />
 
-        <p className="absolute">
-          {latitide} {longitude}
-        </p>
-
-        <AppCurrentWeatherCard
-          location={geocodingResponse.results[0].name}
-          country={geocodingResponse.results[0].country}
-          time={currentTime}
-          weatherCode={currentWeatherCode}
-          temp={currentTemp}
-        />
-
-        <AppCurrentWeatherDetails
-          feelsLikeTemp={currentFeelsLikeTemp}
-          humidity={currentHumidity}
-          wind={currentWind}
-          windUnit={currentWindUnit}
-          precipitation={currentPrecipitation}
-          precipitationUnit={currentPrecipitationUnit}
-        />
-
-        <AppDailyForecast
-          times={dailyTimes}
-          weatherCodes={dailyWeatherCodes}
-          maxTemps={dailyMaxTemps}
-          minTemps={dailyMinTemps}
-        />
-
-        <AppHourlyForecast
-          times={hourlyTimes}
-          weatherCodes={hourlyWeatherCodes}
-          temps={hourlyTemps}
-        />
+        {weatherResponse && (
+          <>
+            <AppCurrentWeatherCard
+              location={locationName}
+              country={locationCountry}
+              time={weatherResponse.current.time}
+              weatherCode={weatherResponse.current.weather_code}
+              temp={weatherResponse.current.temperature_2m}
+            />
+            <AppCurrentWeatherDetails
+              feelsLikeTemp={weatherResponse.current.apparent_temperature}
+              humidity={weatherResponse.current.relative_humidity_2m}
+              wind={weatherResponse.current.wind_speed_10m}
+              windUnit={weatherResponse.current_units.wind_speed_10m}
+              precipitation={weatherResponse.current.precipitation}
+              precipitationUnit={weatherResponse.current_units.precipitation}
+            />
+            <AppDailyForecast
+              times={weatherResponse.daily.time}
+              weatherCodes={weatherResponse.daily.weather_code}
+              maxTemps={weatherResponse.daily.temperature_2m_max}
+              minTemps={weatherResponse.daily.temperature_2m_min}
+            />
+            <AppHourlyForecast
+              times={weatherResponse.hourly.time}
+              weatherCodes={weatherResponse.hourly.weather_code}
+              temps={weatherResponse.hourly.temperature_2m}
+            />
+          </>
+        )}
       </main>
     </>
   );

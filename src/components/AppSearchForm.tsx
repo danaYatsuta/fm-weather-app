@@ -7,7 +7,13 @@ import { useDropdown } from "../util";
 function AppSearchForm({
   onLocationChange,
 }: {
-  onLocationChange: (latitide: number, longitude: number) => void;
+  onLocationChange: (
+    newLatitide: number,
+    newLongitude: number,
+    newTimezone: string,
+    newLocationName: string,
+    newLocationCountry: string,
+  ) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [isDropdownShown, setIsDropdownShown] = useDropdown([ref]);
@@ -42,7 +48,13 @@ function AppSearchForm({
     <BaseDropdownButton
       border={true}
       onButtonClick={() => {
-        onLocationChange(result.latitude, result.longitude);
+        onLocationChange(
+          result.latitude,
+          result.longitude,
+          result.timezone,
+          result.name,
+          result.country,
+        );
         setIsDropdownShown(false);
       }}
       key={result.id}
