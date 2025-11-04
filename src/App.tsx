@@ -73,11 +73,9 @@ function App() {
         onUnitSystemChange={(newUnitSystem) =>
           handleUnitSystemChange(newUnitSystem)
         }
-        onTempUnitChange={(newTempUnit) => setTempUnit(newTempUnit)}
-        onWindUnitChange={(newWindUnit) => setWindUnit(newWindUnit)}
-        onPrecipitationUnitChange={(newPrecipitationUnit) =>
-          setPrecipitationUnit(newPrecipitationUnit)
-        }
+        onTempUnitChange={setTempUnit}
+        onWindUnitChange={setWindUnit}
+        onPrecipitationUnitChange={setPrecipitationUnit}
       />
 
       <main className="my-12 flex grid-cols-[800px_416px] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
