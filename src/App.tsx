@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
 
+import type {
+  LocationInfo,
+  UnitInfo,
+  UnitSystem,
+  WeatherResponse,
+} from "./types";
+
 import AppCurrentWeatherCard from "./components/AppCurrentWeatherCard";
 import AppCurrentWeatherDetails from "./components/AppCurrentWeatherDetails";
 import AppDailyForecast from "./components/AppDailyForecast";
@@ -7,27 +14,21 @@ import AppHeader from "./components/AppHeader";
 import AppHourlyForecast from "./components/AppHourlyForecast";
 import AppSearchForm from "./components/AppSearchForm";
 
-import type {
-  PrecipitationUnit,
-  TempUnit,
-  UnitSystem,
-  WeatherResponse,
-  WindUnit,
-} from "./types";
-
 function App() {
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
-  const [tempUnit, setTempUnit] = useState<TempUnit>("celsius");
-  const [windUnit, setWindUnit] = useState<WindUnit>("kmh");
-  const [precipitationUnit, setPrecipitationUnit] =
-    useState<PrecipitationUnit>("mm");
+  const [unitInfo, setUnitInfo] = useState<UnitInfo>({
+    temperatureUnit: "celsius",
+    windSpeedUnit: "kmh",
+    precipitationUnit: "mm",
+  });
 
-  const [latitide, setLatitude] = useState(52.52);
-  const [longitude, setLongitude] = useState(13.41);
-  const [timezone, setTimezone] = useState("");
-
-  const [locationName, setLocationName] = useState("");
-  const [locationCountry, setLocationCountry] = useState("");
+  const [locationInfo, setLocationInfo] = useState<LocationInfo>({
+    name: "Berlin",
+    country: "Germany",
+    timezone: "Europe/Berlin",
+    latitude: 52.52,
+    longitude: 13.41,
+  });
 
   const [weatherResponse, setWeatherResponse] =
     useState<WeatherResponse | null>(null);
@@ -36,60 +37,67 @@ function App() {
     setUnitSystem(newUnitSystem);
 
     if (newUnitSystem === "metric") {
-      setTempUnit("celsius");
-      setWindUnit("kmh");
-      setPrecipitationUnit("mm");
+      setUnitInfo({
+        temperatureUnit: "celsius",
+        windSpeedUnit: "kmh",
+        precipitationUnit: "mm",
+      });
     } else {
-      setTempUnit("fahrenheit");
-      setWindUnit("mph");
-      setPrecipitationUnit("inch");
+      setUnitInfo({
+        temperatureUnit: "fahrenheit",
+        windSpeedUnit: "mph",
+        precipitationUnit: "inch",
+      });
     }
   }
 
-  function handleLocationChange(
-    newLatitude: number,
-    newLongitude: number,
-    newTimezone: string,
-    newLocationName: string,
-    newLocationCountry: string,
-  ) {
-    setLatitude(newLatitude);
-    setLongitude(newLongitude);
-    setTimezone(newTimezone);
-    setLocationName(newLocationName);
-    setLocationCountry(newLocationCountry);
-  }
-
   useEffect(() => {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitide}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=weather_code,temperature_2m&current=weather_code,temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,precipitation&timezone=${timezone}&wind_speed_unit=${windUnit}&temperature_unit=${tempUnit}&precipitation_unit=${precipitationUnit}`;
+    const url = `https://api.open-meteo.com/v1/forecast?`;
+
+    const params = new URLSearchParams([
+      [
+        "current",
+        "weather_code,temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,precipitation",
+      ],
+      ["daily", "weather_code,temperature_2m_max,temperature_2m_min"],
+      ["hourly", "weather_code,temperature_2m"],
+
+      ["latitude", locationInfo.latitude.toString()],
+      ["longitude", locationInfo.longitude.toString()],
+      ["timezone", locationInfo.timezone],
+      ["temperature_unit", unitInfo.temperatureUnit],
+      ["wind_speed_unit", unitInfo.windSpeedUnit],
+      ["precipitation_unit", unitInfo.precipitationUnit],
+    ]);
 
     async function fetchData() {
       try {
-        const response = await fetch(url);
+        const response = await fetch(url + params);
 
-        if (response.ok) {
-          const result = await response.json();
-          setWeatherResponse(result);
+        if (!response.ok) {
+          console.log(
+            `Response failed, status: ${response.status} ${response.statusText}`,
+          );
+          return;
         }
+
+        const result = await response.json();
+        setWeatherResponse(result);
       } catch (error) {
         if (error instanceof Error) console.log(error.message);
       }
     }
 
     fetchData();
-  }, [latitide, longitude, timezone, windUnit, tempUnit, precipitationUnit]);
+  }, [unitInfo, locationInfo]);
 
   return (
     <>
       <AppHeader
         unitSystem={unitSystem}
-        tempUnit={tempUnit}
-        windUnit={windUnit}
-        precipitationUnit={precipitationUnit}
+        unitInfo={unitInfo}
         onUnitSystemChange={handleUnitSystemChange}
-        onTempUnitChange={setTempUnit}
-        onWindUnitChange={setWindUnit}
-        onPrecipitationUnitChange={setPrecipitationUnit}
+        onUnitInfoChange={setUnitInfo}
       />
 
       <main className="my-12 flex grid-cols-[800px_416px] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
@@ -97,24 +105,26 @@ function App() {
           How's the sky looking today?
         </h1>
 
-        <AppSearchForm onLocationChange={handleLocationChange} />
+        <AppSearchForm onLocationInfoChange={setLocationInfo} />
 
         {weatherResponse && (
           <>
             <AppCurrentWeatherCard
-              location={locationName}
-              country={locationCountry}
+              locationName={locationInfo.name}
+              locationCountry={locationInfo.country}
               time={weatherResponse.current.time}
               weatherCode={weatherResponse.current.weather_code}
-              temp={weatherResponse.current.temperature_2m}
+              temperature={weatherResponse.current.temperature_2m}
             />
             <AppCurrentWeatherDetails
-              feelsLikeTemp={weatherResponse.current.apparent_temperature}
+              feelsLikeTemperature={
+                weatherResponse.current.apparent_temperature
+              }
               humidity={weatherResponse.current.relative_humidity_2m}
               wind={weatherResponse.current.wind_speed_10m}
-              windUnit={weatherResponse.current_units.wind_speed_10m}
+              windSpeedUnit={unitInfo.windSpeedUnit}
               precipitation={weatherResponse.current.precipitation}
-              precipitationUnit={weatherResponse.current_units.precipitation}
+              precipitationUnit={unitInfo.precipitationUnit}
             />
             <AppDailyForecast
               times={weatherResponse.daily.time}
@@ -125,7 +135,7 @@ function App() {
             <AppHourlyForecast
               times={weatherResponse.hourly.time}
               weatherCodes={weatherResponse.hourly.weather_code}
-              temps={weatherResponse.hourly.temperature_2m}
+              temperatures={weatherResponse.hourly.temperature_2m}
             />
           </>
         )}

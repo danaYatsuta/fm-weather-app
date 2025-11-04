@@ -3,13 +3,13 @@ import { getIconFromWeatherCode } from "../util";
 interface HourlyForecastCardProps {
   hour: string;
   weatherCode: number;
-  temp: number;
+  temperature: number;
 }
 
 function HourlyForecastCard({
   hour,
   weatherCode,
-  temp,
+  temperature,
 }: HourlyForecastCardProps) {
   const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
@@ -20,7 +20,7 @@ function HourlyForecastCard({
         <p>{hour}</p>
       </div>
 
-      <p className="text-base">{Math.round(temp)}°</p>
+      <p className="text-base">{Math.round(temperature)}°</p>
     </li>
   );
 }

@@ -1,22 +1,19 @@
 import { useRef, useState } from "react";
-import BaseDropdown from "./BaseDropdown";
-import BaseDropdownButton from "./BaseDropdownButton";
-import type { GeocodingResponse } from "../types";
 import { useDropdown } from "../util";
 
+import type { GeocodingResponse, LocationInfo } from "../types";
+
+import BaseDropdown from "./BaseDropdown";
+import BaseDropdownButton from "./BaseDropdownButton";
+
 function AppSearchForm({
-  onLocationChange,
+  onLocationInfoChange,
 }: {
-  onLocationChange: (
-    newLatitide: number,
-    newLongitude: number,
-    newTimezone: string,
-    newLocationName: string,
-    newLocationCountry: string,
-  ) => void;
+  onLocationInfoChange: (locationInfo: LocationInfo) => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isDropdownShown, setIsDropdownShown] = useDropdown([ref]);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isDropdownShown, setIsDropdownShown] = useDropdown([dropdownRef]);
+
   const [response, setResponse] = useState<GeocodingResponse | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -29,16 +26,26 @@ function AppSearchForm({
       return;
     }
 
-    const url = `https://geocoding-api.open-meteo.com/v1/search?count=4&name=${name}`;
+    const url = `https://geocoding-api.open-meteo.com/v1/search?`;
+
+    const params = new URLSearchParams([
+      ["count", "4"],
+      ["name", name],
+    ]);
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(url + params);
 
-      if (response.ok) {
-        const result = await response.json();
-        setResponse(result);
-        setIsDropdownShown(true);
+      if (!response.ok) {
+        console.log(
+          `Response failed, status: ${response.status} ${response.statusText}`,
+        );
+        return;
       }
+
+      const result = await response.json();
+      setResponse(result);
+      setIsDropdownShown(true);
     } catch (error) {
       if (error instanceof Error) console.log(error.message);
     }
@@ -48,19 +55,14 @@ function AppSearchForm({
     <BaseDropdownButton
       border={true}
       onButtonClick={() => {
-        onLocationChange(
-          result.latitude,
-          result.longitude,
-          result.timezone,
-          result.name,
-          result.country,
-        );
+        const { name, country, timezone, latitude, longitude } = result;
+        onLocationInfoChange({ name, country, timezone, latitude, longitude });
         setIsDropdownShown(false);
       }}
       key={result.id}
     >
       <span className="flex items-center justify-between">
-        {result.name}{" "}
+        {result.name}
         <span className="text-sm text-neutral-300">
           {result.country}, {result.admin1}
         </span>
@@ -95,7 +97,7 @@ function AppSearchForm({
       </form>
 
       {isDropdownShown && (
-        <BaseDropdown dropdownType="searchDropdown" ref={ref}>
+        <BaseDropdown dropdownType="searchDropdown" ref={dropdownRef}>
           {dropdownButtons}
         </BaseDropdown>
       )}

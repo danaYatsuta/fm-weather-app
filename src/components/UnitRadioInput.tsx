@@ -1,3 +1,5 @@
+import type { UnitInfo } from "../types";
+
 interface Option<T> {
   label: string;
   value: T;
@@ -5,10 +7,10 @@ interface Option<T> {
 
 interface UnitRadioInputProps<T> {
   legend: string;
-  name: string;
+  name: keyof UnitInfo;
   options: Option<T>[];
   value: T;
-  onValueChange: (value: T) => void;
+  onValueChange: React.ChangeEventHandler;
 }
 
 function UnitRadioInput<T extends string>({
@@ -32,9 +34,7 @@ function UnitRadioInput<T extends string>({
           name={name}
           value={option.value}
           checked={value === option.value}
-          onChange={() => {
-            onValueChange(option.value);
-          }}
+          onChange={onValueChange}
         />
 
         <img

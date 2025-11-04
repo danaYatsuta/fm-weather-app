@@ -1,33 +1,40 @@
+import type { PrecipitationUnit, WindSpeedUnit } from "../types";
+
 import CurrentWeatherDetailCard from "./CurrentWeatherDetailCard";
 
 interface AppCurrentWeatherDetailsProps {
-  feelsLikeTemp: number;
+  feelsLikeTemperature: number;
   humidity: number;
   wind: number;
-  windUnit: string;
+  windSpeedUnit: WindSpeedUnit;
   precipitation: number;
-  precipitationUnit: string;
+  precipitationUnit: PrecipitationUnit;
 }
 
 function AppCurrentWeatherDetails({
-  feelsLikeTemp,
+  feelsLikeTemperature,
   humidity,
   wind,
-  windUnit,
+  windSpeedUnit,
   precipitation,
   precipitationUnit,
 }: AppCurrentWeatherDetailsProps) {
+  const shownPrecipitationUnit = precipitationUnit === "inch" ? "in" : "mm";
+
   return (
     <ul className="mt-5 grid grid-cols-2 gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6">
       <CurrentWeatherDetailCard
         name="Feels Like"
-        value={`${Math.round(feelsLikeTemp)}°`}
+        value={`${Math.round(feelsLikeTemperature)}°`}
       />
       <CurrentWeatherDetailCard name="Humidity" value={`${humidity}%`} />
-      <CurrentWeatherDetailCard name="Wind" value={`${wind} ${windUnit}`} />
+      <CurrentWeatherDetailCard
+        name="Wind"
+        value={`${Math.round(wind)} ${windSpeedUnit}`}
+      />
       <CurrentWeatherDetailCard
         name="Precipitation"
-        value={`${Math.round(precipitation)} ${precipitationUnit}`}
+        value={`${Math.round(precipitation)} ${shownPrecipitationUnit}`}
       />
     </ul>
   );

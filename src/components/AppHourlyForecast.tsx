@@ -1,19 +1,20 @@
 import { useRef, useState } from "react";
-import HourlyForecastCard from "./HourlyForecastCard";
 import { useDropdown } from "../util";
+
 import BaseDropdown from "./BaseDropdown";
 import BaseDropdownButton from "./BaseDropdownButton";
+import HourlyForecastCard from "./HourlyForecastCard";
 
 interface AppHourlyForecastProps {
   times: string[];
   weatherCodes: number[];
-  temps: number[];
+  temperatures: number[];
 }
 
 function AppHourlyForecast({
   times,
   weatherCodes,
-  temps,
+  temperatures,
 }: AppHourlyForecastProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
@@ -62,7 +63,7 @@ function AppHourlyForecast({
       <HourlyForecastCard
         hour={hour}
         weatherCode={weatherCodes[i]}
-        temp={temps[i]}
+        temperature={temperatures[i]}
         key={i}
       />,
     );

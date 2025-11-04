@@ -1,35 +1,30 @@
 import { useRef } from "react";
 import { useDropdown } from "../util";
+
 import type {
   PrecipitationUnit,
-  TempUnit,
+  TemperatureUnit,
+  UnitInfo,
   UnitSystem,
-  WindUnit,
+  WindSpeedUnit,
 } from "../types";
-import UnitRadioInput from "./UnitRadioInput";
+
 import BaseDropdown from "./BaseDropdown";
 import BaseDropdownButton from "./BaseDropdownButton";
+import UnitRadioInput from "./UnitRadioInput";
 
 interface AppHeaderProps {
   unitSystem: UnitSystem;
-  tempUnit: TempUnit;
-  windUnit: WindUnit;
-  precipitationUnit: PrecipitationUnit;
+  unitInfo: UnitInfo;
   onUnitSystemChange: (unitSystem: UnitSystem) => void;
-  onTempUnitChange: (value: TempUnit) => void;
-  onWindUnitChange: (value: WindUnit) => void;
-  onPrecipitationUnitChange: (value: PrecipitationUnit) => void;
+  onUnitInfoChange: (value: UnitInfo) => void;
 }
 
 function AppHeader({
   unitSystem,
-  tempUnit,
-  windUnit,
-  precipitationUnit,
+  unitInfo,
   onUnitSystemChange,
-  onTempUnitChange,
-  onWindUnitChange,
-  onPrecipitationUnitChange,
+  onUnitInfoChange,
 }: AppHeaderProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
@@ -38,6 +33,13 @@ function AppHeader({
     dropdownRef,
     dropdownToggleRef,
   ]);
+
+  function handleValueChange(e: React.ChangeEvent<HTMLInputElement>) {
+    onUnitInfoChange({
+      ...unitInfo,
+      [e.target.name]: e.target.value,
+    });
+  }
 
   return (
     <header className="relative mt-4 flex justify-between xl:mt-12">
@@ -73,26 +75,26 @@ function AppHeader({
           </BaseDropdownButton>
 
           <div className="mt-1 divide-y divide-neutral-600">
-            <UnitRadioInput<TempUnit>
+            <UnitRadioInput<TemperatureUnit>
               legend="Temperature"
-              name="tempUnit"
+              name="temperatureUnit"
               options={[
                 { label: "Celsius (°C)", value: "celsius" },
                 { label: "Fahrenheit (°F)", value: "fahrenheit" },
               ]}
-              value={tempUnit}
-              onValueChange={onTempUnitChange}
+              value={unitInfo.temperatureUnit}
+              onValueChange={handleValueChange}
             />
 
-            <UnitRadioInput<WindUnit>
+            <UnitRadioInput<WindSpeedUnit | TemperatureUnit>
               legend="Wind Speed"
-              name="windUnit"
+              name="windSpeedUnit"
               options={[
                 { label: "km/h", value: "kmh" },
                 { label: "mph", value: "mph" },
               ]}
-              value={windUnit}
-              onValueChange={onWindUnitChange}
+              value={unitInfo.windSpeedUnit}
+              onValueChange={handleValueChange}
             />
 
             <UnitRadioInput<PrecipitationUnit>
@@ -102,8 +104,8 @@ function AppHeader({
                 { label: "Millimeters (mm)", value: "mm" },
                 { label: "Inches (in)", value: "inch" },
               ]}
-              value={precipitationUnit}
-              onValueChange={onPrecipitationUnitChange}
+              value={unitInfo.precipitationUnit}
+              onValueChange={handleValueChange}
             />
           </div>
         </BaseDropdown>

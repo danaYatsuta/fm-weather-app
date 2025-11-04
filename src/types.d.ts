@@ -1,7 +1,21 @@
+export interface UnitInfo {
+  temperatureUnit: TemperatureUnit;
+  windSpeedUnit: WindSpeedUnit;
+  precipitationUnit: PrecipitationUnit;
+}
+
 export type UnitSystem = "metric" | "imperial";
-export type TempUnit = "celsius" | "fahrenheit";
-export type WindUnit = "kmh" | "mph";
+export type TemperatureUnit = "celsius" | "fahrenheit";
+export type WindSpeedUnit = "kmh" | "mph";
 export type PrecipitationUnit = "mm" | "inch";
+
+export interface LocationInfo {
+  name: string;
+  country: string;
+  timezone: string;
+  latitude: number;
+  longitude: number;
+}
 
 export interface GeocodingResponse {
   results: Result[];

@@ -1,19 +1,19 @@
 import { getIconFromWeatherCode } from "../util";
 
 interface AppCurrentWeatherCardProps {
-  location: string;
-  country: string;
+  locationName: string;
+  locationCountry: string;
   time: string;
   weatherCode: number;
-  temp: number;
+  temperature: number;
 }
 
 function AppCurrentWeatherCard({
-  location,
-  country,
+  locationName,
+  locationCountry,
   time,
   weatherCode,
-  temp,
+  temperature,
 }: AppCurrentWeatherCardProps) {
   const date = new Date(time);
   const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
@@ -30,7 +30,7 @@ function AppCurrentWeatherCard({
     <div className="flex h-[286px] w-[343px] flex-col gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat px-6 xl:w-full xl:flex-row xl:justify-between xl:self-start xl:bg-[url(./assets/bg-today-large.svg)]">
       <div className="flex flex-col items-center gap-1 self-center pt-10 xl:items-start xl:pt-0">
         <h2 className="text-[28px] font-bold">
-          {location}, {country}
+          {locationName}, {locationCountry}
         </h2>
 
         <p className="text-neutral-200">{formattedDate}</p>
@@ -39,7 +39,9 @@ function AppCurrentWeatherCard({
       <div className="flex items-center justify-between gap-4">
         <img src={iconSrc} alt={iconAlt} className="size-32" />
 
-        <p className="text-8xl font-extrabold italic">{Math.round(temp)}°</p>
+        <p className="text-8xl font-extrabold italic">
+          {Math.round(temperature)}°
+        </p>
       </div>
     </div>
   );
