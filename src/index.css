@@ -2,6 +2,12 @@
 
 @import "tailwindcss";
 
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}
+
 @theme {
   --color-*: initial;
 

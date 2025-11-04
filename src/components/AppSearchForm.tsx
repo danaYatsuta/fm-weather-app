@@ -28,7 +28,7 @@ function AppSearchForm() {
       onSubmit={handleSubmit}
       className="col-span-2 mt-12 mb-8 flex flex-col gap-3 text-xl xl:mt-16 xl:mb-12 xl:flex-row xl:justify-center xl:gap-4"
     >
-      <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 xl:w-[526px]">
+      <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-[3px] hover:bg-neutral-700 has-focus:outline-2 xl:w-[526px]">
         <img src="/icon-search.svg" alt="" />
 
         <input
@@ -36,11 +36,14 @@ function AppSearchForm() {
           type="text"
           placeholder="Search for a place..."
           aria-label="Search for a place"
-          className="h-full w-full placeholder:text-neutral-200"
+          className="h-full w-full outline-none placeholder:text-neutral-200"
         />
       </label>
 
-      <button type="submit" className="h-14 rounded-xl bg-blue-500 xl:px-6">
+      <button
+        type="submit"
+        className="h-14 rounded-xl bg-blue-500 outline-offset-[3px] outline-blue-500 hover:bg-blue-700 hover:outline-blue-700 focus:outline-2 xl:px-6"
+      >
         Search
       </button>
     </form>

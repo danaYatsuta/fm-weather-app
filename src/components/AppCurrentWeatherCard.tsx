@@ -27,8 +27,8 @@ function AppCurrentWeatherCard({
   const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
   return (
-    <div className="flex h-[286px] w-[343px] flex-col items-center gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:w-full xl:flex-row xl:justify-between xl:self-start xl:bg-[url(./assets/bg-today-large.svg)] xl:px-6">
-      <div className="flex flex-col items-center gap-1 pt-10 xl:items-start xl:pt-0">
+    <div className="flex h-[286px] w-[343px] flex-col gap-2 self-center bg-[url(./assets/bg-today-small.svg)] bg-no-repeat px-6 xl:w-full xl:flex-row xl:justify-between xl:self-start xl:bg-[url(./assets/bg-today-large.svg)]">
+      <div className="flex flex-col items-center gap-1 self-center pt-10 xl:items-start xl:pt-0">
         <h2 className="text-[28px] font-bold">
           {location}, {country}
         </h2>
@@ -36,7 +36,7 @@ function AppCurrentWeatherCard({
         <p className="text-neutral-200">{formattedDate}</p>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center justify-between gap-4">
         <img src={iconSrc} alt={iconAlt} className="size-32" />
 
         <p className="text-8xl font-extrabold italic">{Math.round(temp)}°</p>
