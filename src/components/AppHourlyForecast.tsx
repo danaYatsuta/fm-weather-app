@@ -5,6 +5,8 @@ import BaseDropdown from "./BaseDropdown";
 import BaseDropdownButton from "./BaseDropdownButton";
 import HourlyForecastCard from "./HourlyForecastCard";
 
+import iconDropdown from "../assets/icon-dropdown.svg";
+
 interface AppHourlyForecastProps {
   times: string[];
   weatherCodes: number[];
@@ -83,7 +85,7 @@ function AppHourlyForecast({
           ref={dropdownToggleRef}
         >
           {weekdayFormat.format(new Date(times[weekday * 24]))}
-          <img src="/icon-dropdown.svg" alt="" />
+          <img src={iconDropdown} alt="" />
         </button>
       </div>
 

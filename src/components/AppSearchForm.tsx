@@ -6,6 +6,8 @@ import type { GeocodingResponse, LocationInfo } from "../types";
 import BaseDropdown from "./BaseDropdown";
 import BaseDropdownButton from "./BaseDropdownButton";
 
+import iconSearch from "../assets/icon-search.svg";
+
 function AppSearchForm({
   onLocationInfoChange,
 }: {
@@ -77,7 +79,7 @@ function AppSearchForm({
         className="mb-8 flex flex-col gap-3 text-xl xl:mb-12 xl:flex-row xl:justify-center xl:gap-4"
       >
         <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-[3px] hover:bg-neutral-700 has-focus:outline-2 xl:w-[526px]">
-          <img src="/icon-search.svg" alt="" />
+          <img src={iconSearch} alt="" />
 
           <input
             name="name"

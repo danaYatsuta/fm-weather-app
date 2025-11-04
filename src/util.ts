@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
 
+import iconDrizzle from "./assets/icon-drizzle.webp";
+import iconFog from "./assets/icon-fog.webp";
+import iconOvercast from "./assets/icon-overcast.webp";
+import iconPartlyCloudy from "./assets/icon-partly-cloudy.webp";
+import iconRain from "./assets/icon-rain.webp";
+import iconSnow from "./assets/icon-snow.webp";
+import iconStorm from "./assets/icon-storm.webp";
+import iconSunny from "./assets/icon-sunny.webp";
+
 const weatherCodes = {
   drizzle: [51, 53, 55, 56, 57],
   fog: [45, 48],
@@ -15,29 +24,29 @@ function getIconFromWeatherCode(weatherCode: number) {
   let iconSrc, iconAlt;
 
   if (weatherCodes.drizzle.includes(weatherCode)) {
-    iconSrc = "/icon-drizzle.webp";
+    iconSrc = iconDrizzle;
     iconAlt = "Drizzle icon";
   } else if (weatherCodes.fog.includes(weatherCode)) {
-    iconSrc = "/icon-fog.webp";
+    iconSrc = iconFog;
     iconAlt = "Fog icon";
   } else if (weatherCodes.partlyCloudy.includes(weatherCode)) {
-    iconSrc = "/icon-partly-cloudy.webp";
+    iconSrc = iconPartlyCloudy;
     iconAlt = "Partly cloudy icon";
   } else if (weatherCodes.rain.includes(weatherCode)) {
-    iconSrc = "/icon-rain.webp";
+    iconSrc = iconRain;
     iconAlt = "Rain icon";
   } else if (weatherCodes.snow.includes(weatherCode)) {
-    iconSrc = "/icon-snow.webp";
+    iconSrc = iconSnow;
     iconAlt = "Snow icon";
   } else if (weatherCodes.storm.includes(weatherCode)) {
-    iconSrc = "/icon-storm.webp";
+    iconSrc = iconStorm;
     iconAlt = "Storm icon";
   } else if (weatherCodes.sunny.includes(weatherCode)) {
-    iconSrc = "/icon-sunny.webp";
+    iconSrc = iconSunny;
     iconAlt = "Sunny icon";
   } else {
     // Using overcast icon as fallback
-    iconSrc = "/icon-overcast.webp";
+    iconSrc = iconOvercast;
     iconAlt = "Overcast icon";
   }
 

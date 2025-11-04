@@ -1,6 +1,10 @@
 import { useRef } from "react";
 import { useDropdown } from "../util";
 
+import iconDropdown from "../assets/icon-dropdown.svg";
+import iconUnits from "../assets/icon-units.svg";
+import logo from "../assets/logo.svg";
+
 import type {
   PrecipitationUnit,
   TemperatureUnit,
@@ -43,11 +47,7 @@ function AppHeader({
 
   return (
     <header className="relative mt-4 flex justify-between xl:mt-12">
-      <img
-        src="/logo.svg"
-        alt="Weather Now logo"
-        className="w-[138px] xl:w-auto"
-      />
+      <img src={logo} alt="Weather Now logo" className="w-[138px] xl:w-auto" />
 
       <button
         type="button"
@@ -57,9 +57,9 @@ function AppHeader({
         }}
         ref={dropdownToggleRef}
       >
-        <img src="/icon-units.svg" alt="" className="h-3.5 xl:h-auto" />
+        <img src={iconUnits} alt="" className="h-3.5 xl:h-auto" />
         Units
-        <img src="/icon-dropdown.svg" alt="" className="h-1.5 xl:h-auto" />
+        <img src={iconDropdown} alt="" className="h-1.5 xl:h-auto" />
       </button>
 
       {isDropdownShown && (

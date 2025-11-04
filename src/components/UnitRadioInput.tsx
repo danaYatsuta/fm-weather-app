@@ -1,5 +1,7 @@
 import type { UnitInfo } from "../types";
 
+import iconCheckmark from "../assets/icon-checkmark.svg";
+
 interface Option<T> {
   label: string;
   value: T;
@@ -37,11 +39,7 @@ function UnitRadioInput<T extends string>({
           onChange={onValueChange}
         />
 
-        <img
-          src="/icon-checkmark.svg"
-          alt=""
-          className="hidden peer-checked:block"
-        />
+        <img src={iconCheckmark} alt="" className="hidden peer-checked:block" />
       </label>
     );
   });
