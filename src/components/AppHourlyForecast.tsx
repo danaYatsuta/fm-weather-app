@@ -87,7 +87,7 @@ function AppHourlyForecast({
       </div>
 
       {isDropdownShown && (
-        <BaseDropdown position="weekdayDropdown" ref={dropdownRef}>
+        <BaseDropdown dropdownType="weekdayDropdown" ref={dropdownRef}>
           {dropdownButtons}
         </BaseDropdown>
       )}

@@ -49,7 +49,7 @@ function AppHeader({
 
       <button
         type="button"
-        className="flex h-8 items-center gap-1.5 rounded-md bg-neutral-800 px-2.5 text-sm xl:h-11 xl:gap-2.5 xl:px-4 xl:text-base"
+        className="flex h-8 items-center gap-1.5 rounded-md bg-neutral-800 px-2.5 text-sm outline-offset-[3px] hover:bg-neutral-700 focus:outline-2 xl:h-11 xl:gap-2.5 xl:px-4 xl:text-base"
         onClick={() => {
           setIsDropdownShown(!isDropdownShown);
         }}
@@ -69,7 +69,7 @@ function AppHeader({
       </button>
 
       {isDropdownShown && (
-        <BaseDropdown position="unitDropdown" ref={dropdownRef}>
+        <BaseDropdown dropdownType="unitDropdown" ref={dropdownRef}>
           <BaseDropdownButton
             onButtonClick={() => {
               onUnitSystemChange(
@@ -80,38 +80,40 @@ function AppHeader({
             Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
           </BaseDropdownButton>
 
-          <UnitRadioInput<TempUnit>
-            legend="Temperature"
-            name="tempUnit"
-            options={[
-              { label: "Celsius (C°)", value: "celsius" },
-              { label: "Fahrenheit (F°)", value: "fahrenheit" },
-            ]}
-            value={tempUnit}
-            onValueChange={onTempUnitChange}
-          />
+          <div className="mt-1 divide-y divide-neutral-600">
+            <UnitRadioInput<TempUnit>
+              legend="Temperature"
+              name="tempUnit"
+              options={[
+                { label: "Celsius (°C)", value: "celsius" },
+                { label: "Fahrenheit (°F)", value: "fahrenheit" },
+              ]}
+              value={tempUnit}
+              onValueChange={onTempUnitChange}
+            />
 
-          <UnitRadioInput<WindUnit>
-            legend="Wind Speed"
-            name="windUnit"
-            options={[
-              { label: "km/h", value: "kmh" },
-              { label: "mph", value: "mph" },
-            ]}
-            value={windUnit}
-            onValueChange={onWindUnitChange}
-          />
+            <UnitRadioInput<WindUnit>
+              legend="Wind Speed"
+              name="windUnit"
+              options={[
+                { label: "km/h", value: "kmh" },
+                { label: "mph", value: "mph" },
+              ]}
+              value={windUnit}
+              onValueChange={onWindUnitChange}
+            />
 
-          <UnitRadioInput<PrecipitationUnit>
-            legend="Precipitation"
-            name="precipitationUnit"
-            options={[
-              { label: "Millimeters (mm)", value: "mm" },
-              { label: "Inches (in)", value: "inch" },
-            ]}
-            value={precipitationUnit}
-            onValueChange={onPrecipitationUnitChange}
-          />
+            <UnitRadioInput<PrecipitationUnit>
+              legend="Precipitation"
+              name="precipitationUnit"
+              options={[
+                { label: "Millimeters (mm)", value: "mm" },
+                { label: "Inches (in)", value: "inch" },
+              ]}
+              value={precipitationUnit}
+              onValueChange={onPrecipitationUnitChange}
+            />
+          </div>
         </BaseDropdown>
       )}
     </header>
