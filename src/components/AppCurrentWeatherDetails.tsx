@@ -20,6 +20,7 @@ function AppCurrentWeatherDetails({
   precipitationUnit,
 }: AppCurrentWeatherDetailsProps) {
   const shownPrecipitationUnit = precipitationUnit === "inch" ? "in" : "mm";
+  const shownWindSpeedUnit = windSpeedUnit === "kmh" ? "km/h" : "mph"
 
   return (
     <ul className="mt-5 grid grid-cols-2 gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6">
@@ -30,7 +31,7 @@ function AppCurrentWeatherDetails({
       <CurrentWeatherDetailCard name="Humidity" value={`${humidity}%`} />
       <CurrentWeatherDetailCard
         name="Wind"
-        value={`${Math.round(wind)} ${windSpeedUnit}`}
+        value={`${Math.round(wind)} ${shownWindSpeedUnit}`}
       />
       <CurrentWeatherDetailCard
         name="Precipitation"
