@@ -21,7 +21,7 @@ interface AppHeaderProps {
   unitSystem: UnitSystem;
   unitInfo: UnitInfo;
   onUnitSystemChange: (unitSystem: UnitSystem) => void;
-  onUnitInfoChange: (value: UnitInfo) => void;
+  onUnitInfoChange: (unitInfo: UnitInfo) => void;
 }
 
 function AppHeader({
@@ -86,7 +86,7 @@ function AppHeader({
               onValueChange={handleValueChange}
             />
 
-            <UnitRadioInput<WindSpeedUnit | TemperatureUnit>
+            <UnitRadioInput<WindSpeedUnit>
               legend="Wind Speed"
               name="windSpeedUnit"
               options={[
