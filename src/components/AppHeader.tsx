@@ -10,7 +10,7 @@ import type {
 } from "../types";
 
 import BaseCard from "./BaseCard";
-import BaseDropdownButton from "./BaseDropdownButton";
+import DropdownButton from "./DropdownButton";
 import UnitRadioInput from "./UnitRadioInput";
 
 import iconDropdown from "../assets/icon-dropdown.svg";
@@ -68,7 +68,7 @@ function AppHeader({
       >
         <BaseCard>
           <div className="min-w-[214px] px-2 py-1">
-            <BaseDropdownButton
+            <DropdownButton
               fullWidth={true}
               onButtonClick={() => {
                 onUnitSystemChange(
@@ -77,7 +77,7 @@ function AppHeader({
               }}
             >
               Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
-            </BaseDropdownButton>
+            </DropdownButton>
 
             <div className="mt-1.5 divide-y divide-neutral-600">
               <UnitRadioInput<TemperatureUnit>

@@ -4,7 +4,7 @@ import { useDropdown } from "../util";
 import type { GeocodingResponse, LocationInfo } from "../types";
 
 import BaseCard from "./BaseCard";
-import BaseDropdownButton from "./BaseDropdownButton";
+import DropdownButton from "./DropdownButton";
 
 import iconSearch from "../assets/icon-search.svg";
 
@@ -54,7 +54,7 @@ function AppSearchForm({
   }
 
   const searchResultButtons = response?.results.map((result) => (
-    <BaseDropdownButton
+    <DropdownButton
       border={true}
       onButtonClick={() => {
         const { name, country, timezone, latitude, longitude } = result;
@@ -69,7 +69,7 @@ function AppSearchForm({
           {result.country}, {result.admin1}
         </span>
       </span>
-    </BaseDropdownButton>
+    </DropdownButton>
   ));
 
   return (
