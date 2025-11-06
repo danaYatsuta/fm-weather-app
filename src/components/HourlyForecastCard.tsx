@@ -11,24 +11,23 @@ function HourlyForecastCard({
   weatherCode,
   temperature,
 }: HourlyForecastCardProps) {
-  let content;
+  let content = <></>;
 
   if (
-    hour === undefined ||
-    weatherCode === undefined ||
-    temperature === undefined
+    hour !== undefined &&
+    weatherCode !== undefined &&
+    temperature !== undefined
   ) {
-    content = <></>;
-  } else {
     const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
     content = (
       <>
-        {" "}
         <div className="flex items-center gap-2 text-xl">
           <img src={iconSrc} alt={iconAlt} className="size-10" />
+
           <p>{hour}</p>
         </div>
+
         <p className="text-base">{Math.round(temperature)}°</p>
       </>
     );

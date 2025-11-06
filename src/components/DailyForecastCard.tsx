@@ -15,16 +15,14 @@ function DailyForecastCard({
   maxTemp,
   minTemp,
 }: DailyForecastCardProps) {
-  let content: React.ReactElement;
+  let content = <></>;
 
   if (
-    time === undefined ||
-    weatherCode === undefined ||
-    maxTemp === undefined ||
-    minTemp === undefined
+    time !== undefined &&
+    weatherCode !== undefined &&
+    maxTemp !== undefined &&
+    minTemp !== undefined
   ) {
-    content = <></>;
-  } else {
     const date = new Date(time);
     const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
       weekday: "short",

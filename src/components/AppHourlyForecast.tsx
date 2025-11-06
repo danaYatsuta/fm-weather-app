@@ -25,26 +25,27 @@ function AppHourlyForecast({
     dropdownRef,
     dropdownToggleRef,
   ]);
+
   const [weekday, setWeekday] = useState(0);
 
-  // if (!(times && weatherCodes && temperatures)) {
-  //   return <div></div>;
-  // }
-
-  const weekdayFormat = new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-  });
+  const isDataLoaded =
+    times !== undefined &&
+    weatherCodes !== undefined &&
+    temperatures !== undefined;
 
   const dropdownButtons: React.ReactElement[] = [];
-
-  /*
-    Frontend Mentor design calls for weekdays to be shown in order starting from monday, regardless of current weekday.
-    I've intentionally implemented order of weekdays starting with current weekday, since this seems more intuitive to me.
-  */
-
   let dropdownToggleText = "—";
 
-  if (times) {
+  if (isDataLoaded) {
+    const weekdayFormat = new Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+    });
+
+    /*
+      Frontend Mentor design calls for weekdays to be shown in order starting from monday, regardless of current weekday.
+      I've intentionally implemented order of weekdays starting with current weekday, since this seems more intuitive to me.
+    */
+
     for (let i = 0; i < 7; i++) {
       const weekdayName = weekdayFormat.format(new Date(times[i * 24]));
 
@@ -85,7 +86,7 @@ function AppHourlyForecast({
   return (
     <section
       className="relative col-start-2 row-span-3 row-start-3 mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6"
-      aria-hidden={!times}
+      aria-hidden={isDataLoaded}
     >
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Hourly forecast</h2>
@@ -94,7 +95,7 @@ function AppHourlyForecast({
           type="button"
           className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base hover:bg-neutral-700"
           onClick={() => {
-            if (times) setIsDropdownShown(!isDropdownShown);
+            if (isDataLoaded) setIsDropdownShown(!isDropdownShown);
           }}
           ref={dropdownToggleRef}
         >

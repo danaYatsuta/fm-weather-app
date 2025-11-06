@@ -13,15 +13,21 @@ function AppDailyForecast({
   minTemps,
   weatherCodes,
 }: AppDailyForecastProps) {
+  const isDataLoaded =
+    times !== undefined &&
+    maxTemps !== undefined &&
+    minTemps !== undefined &&
+    weatherCodes !== undefined;
+
   const dailyForecastCards: React.ReactElement[] = [];
 
   for (let i = 0; i < 7; i++) {
     dailyForecastCards.push(
       <DailyForecastCard
-        time={times && times[i]}
-        weatherCode={weatherCodes && weatherCodes[i]}
-        maxTemp={maxTemps && maxTemps[i]}
-        minTemp={minTemps && minTemps[i]}
+        time={times?.[i]}
+        weatherCode={weatherCodes?.[i]}
+        maxTemp={maxTemps?.[i]}
+        minTemp={minTemps?.[i]}
         key={i}
       />,
     );
@@ -30,7 +36,7 @@ function AppDailyForecast({
   return (
     <section
       className="col-start-1 mt-8 xl:mt-0 xl:self-end"
-      aria-hidden={!times}
+      aria-hidden={isDataLoaded}
     >
       <h2 className="text-xl font-bold">Daily forecast</h2>
 

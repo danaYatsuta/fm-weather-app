@@ -6,8 +6,8 @@ interface AppCurrentWeatherDetailsProps {
   feelsLikeTemperature?: number;
   humidity?: number;
   windSpeed?: number;
-  windSpeedUnit: WindSpeedUnit;
   precipitation?: number;
+  windSpeedUnit: WindSpeedUnit;
   precipitationUnit: PrecipitationUnit;
 }
 
@@ -15,29 +15,30 @@ function AppCurrentWeatherDetails({
   feelsLikeTemperature,
   humidity,
   windSpeed,
-  windSpeedUnit,
   precipitation,
+  windSpeedUnit,
   precipitationUnit,
 }: AppCurrentWeatherDetailsProps) {
-  const shownPrecipitationUnit = precipitationUnit === "inch" ? "in" : "mm";
-  const shownWindSpeedUnit = windSpeedUnit === "kmh" ? "km/h" : "mph";
+  const isDataLoaded =
+    feelsLikeTemperature !== undefined &&
+    humidity !== undefined &&
+    windSpeed !== undefined &&
+    precipitation !== undefined;
 
-  const shownFeelsLikeTemperatureValue =
-    feelsLikeTemperature !== undefined
-      ? `${Math.round(feelsLikeTemperature)}°`
-      : "—";
+  let shownFeelsLikeTemperatureValue = "—";
+  let shownHumidityValue = "—";
+  let shownWindSpeedValue = "—";
+  let shownPrecipitationValue = "—";
 
-  const shownHumidityValue = humidity !== undefined ? `${humidity}%` : "—";
+  if (isDataLoaded) {
+    const shownPrecipitationUnit = precipitationUnit === "inch" ? "in" : "mm";
+    const shownWindSpeedUnit = windSpeedUnit === "kmh" ? "km/h" : "mph";
 
-  const shownWindSpeedValue =
-    windSpeed !== undefined
-      ? `${Math.round(windSpeed)} ${shownWindSpeedUnit}`
-      : "—";
-
-  const shownPrecipitationValue =
-    precipitation !== undefined
-      ? `${Math.round(precipitation)} ${shownPrecipitationUnit}`
-      : "—";
+    shownFeelsLikeTemperatureValue = `${Math.round(feelsLikeTemperature)}°`;
+    shownHumidityValue = `${humidity}%`;
+    shownWindSpeedValue = `${Math.round(windSpeed)} ${shownWindSpeedUnit}`;
+    shownPrecipitationValue = `${Math.round(precipitation)} ${shownPrecipitationUnit}`;
+  }
 
   return (
     <ul

@@ -15,20 +15,19 @@ function AppCurrentWeatherCard({
   weatherCode,
   temperature,
 }: AppCurrentWeatherCardProps) {
-  let content: React.ReactElement;
+  let content = (
+    <>
+      <div className="loader" />
+      <p>Loading...</p>
+    </>
+  );
 
-  if (
-    time === undefined ||
-    weatherCode === undefined ||
-    temperature === undefined
-  ) {
-    content = (
-      <>
-        <div className="loader" />
-        <p>Loading...</p>
-      </>
-    );
-  } else {
+  const isDataLoaded =
+    time !== undefined &&
+    weatherCode !== undefined &&
+    temperature !== undefined;
+
+  if (isDataLoaded) {
     const date = new Date(time);
     const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
       weekday: "long",
@@ -63,8 +62,8 @@ function AppCurrentWeatherCard({
 
   return (
     <div
-      className={`${time ? "bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)]" : "items-center justify-center bg-neutral-800"} flex h-[286px] w-[343px] flex-col gap-2 self-center rounded-2xl px-6 xl:w-full`}
-      aria-hidden={!time}
+      className={`${isDataLoaded ? "bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)]" : "items-center justify-center bg-neutral-800"} flex h-[286px] w-[343px] flex-col gap-2 self-center rounded-2xl px-6 xl:w-full`}
+      aria-hidden={isDataLoaded}
     >
       {content}
     </div>
