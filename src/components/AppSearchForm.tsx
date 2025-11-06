@@ -3,7 +3,7 @@ import { useDropdown } from "../util";
 
 import type { GeocodingResponse, LocationInfo } from "../types";
 
-import BaseDropdown from "./BaseDropdown";
+import BaseCard from "./BaseCard";
 import BaseDropdownButton from "./BaseDropdownButton";
 
 import iconSearch from "../assets/icon-search.svg";
@@ -53,7 +53,7 @@ function AppSearchForm({
     }
   }
 
-  const dropdownButtons = response?.results.map((result) => (
+  const searchResultButtons = response?.results.map((result) => (
     <BaseDropdownButton
       border={true}
       onButtonClick={() => {
@@ -98,11 +98,14 @@ function AppSearchForm({
         </button>
       </form>
 
-      {isDropdownShown && (
-        <BaseDropdown dropdownType="searchDropdown" ref={dropdownRef}>
-          {dropdownButtons}
-        </BaseDropdown>
-      )}
+      <div
+        className={`${isDropdownShown ? "" : "hidden"} absolute top-[70px] right-0 left-0 z-10`}
+        ref={dropdownRef}
+      >
+        <BaseCard>
+          <div className="flex flex-col gap-0.5 p-2">{searchResultButtons}</div>
+        </BaseCard>
+      </div>
     </div>
   );
 }

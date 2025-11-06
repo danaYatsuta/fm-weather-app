@@ -1,10 +1,6 @@
 import { useRef } from "react";
 import { useDropdown } from "../util";
 
-import iconDropdown from "../assets/icon-dropdown.svg";
-import iconUnits from "../assets/icon-units.svg";
-import logo from "../assets/logo.svg";
-
 import type {
   PrecipitationUnit,
   TemperatureUnit,
@@ -13,9 +9,13 @@ import type {
   WindSpeedUnit,
 } from "../types";
 
-import BaseDropdown from "./BaseDropdown";
+import BaseCard from "./BaseCard";
 import BaseDropdownButton from "./BaseDropdownButton";
 import UnitRadioInput from "./UnitRadioInput";
+
+import iconDropdown from "../assets/icon-dropdown.svg";
+import iconUnits from "../assets/icon-units.svg";
+import logo from "../assets/logo.svg";
 
 interface AppHeaderProps {
   unitSystem: UnitSystem;
@@ -62,54 +62,60 @@ function AppHeader({
         <img src={iconDropdown} alt="" className="h-1.5 xl:h-auto" />
       </button>
 
-      {isDropdownShown && (
-        <BaseDropdown dropdownType="unitDropdown" ref={dropdownRef}>
-          <BaseDropdownButton
-            onButtonClick={() => {
-              onUnitSystemChange(
-                unitSystem === "metric" ? "imperial" : "metric",
-              );
-            }}
-          >
-            Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
-          </BaseDropdownButton>
+      <div
+        className={`${isDropdownShown ? "" : "hidden"} absolute top-[54px] right-0 z-10`}
+        ref={dropdownRef}
+      >
+        <BaseCard>
+          <div className="min-w-[214px] px-2 py-1">
+            <BaseDropdownButton
+              fullWidth={true}
+              onButtonClick={() => {
+                onUnitSystemChange(
+                  unitSystem === "metric" ? "imperial" : "metric",
+                );
+              }}
+            >
+              Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
+            </BaseDropdownButton>
 
-          <div className="mt-1 divide-y divide-neutral-600">
-            <UnitRadioInput<TemperatureUnit>
-              legend="Temperature"
-              name="temperatureUnit"
-              options={[
-                { label: "Celsius (°C)", value: "celsius" },
-                { label: "Fahrenheit (°F)", value: "fahrenheit" },
-              ]}
-              value={unitInfo.temperatureUnit}
-              onValueChange={handleValueChange}
-            />
+            <div className="mt-1.5 divide-y divide-neutral-600">
+              <UnitRadioInput<TemperatureUnit>
+                legend="Temperature"
+                name="temperatureUnit"
+                options={[
+                  { label: "Celsius (°C)", value: "celsius" },
+                  { label: "Fahrenheit (°F)", value: "fahrenheit" },
+                ]}
+                value={unitInfo.temperatureUnit}
+                onValueChange={handleValueChange}
+              />
 
-            <UnitRadioInput<WindSpeedUnit>
-              legend="Wind Speed"
-              name="windSpeedUnit"
-              options={[
-                { label: "km/h", value: "kmh" },
-                { label: "mph", value: "mph" },
-              ]}
-              value={unitInfo.windSpeedUnit}
-              onValueChange={handleValueChange}
-            />
+              <UnitRadioInput<WindSpeedUnit>
+                legend="Wind Speed"
+                name="windSpeedUnit"
+                options={[
+                  { label: "km/h", value: "kmh" },
+                  { label: "mph", value: "mph" },
+                ]}
+                value={unitInfo.windSpeedUnit}
+                onValueChange={handleValueChange}
+              />
 
-            <UnitRadioInput<PrecipitationUnit>
-              legend="Precipitation"
-              name="precipitationUnit"
-              options={[
-                { label: "Millimeters (mm)", value: "mm" },
-                { label: "Inches (in)", value: "inch" },
-              ]}
-              value={unitInfo.precipitationUnit}
-              onValueChange={handleValueChange}
-            />
+              <UnitRadioInput<PrecipitationUnit>
+                legend="Precipitation"
+                name="precipitationUnit"
+                options={[
+                  { label: "Millimeters (mm)", value: "mm" },
+                  { label: "Inches (in)", value: "inch" },
+                ]}
+                value={unitInfo.precipitationUnit}
+                onValueChange={handleValueChange}
+              />
+            </div>
           </div>
-        </BaseDropdown>
-      )}
+        </BaseCard>
+      </div>
     </header>
   );
 }

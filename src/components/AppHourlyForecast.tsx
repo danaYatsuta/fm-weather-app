@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useDropdown } from "../util";
 
-import BaseDropdown from "./BaseDropdown";
+import BaseCard from "./BaseCard";
 import BaseDropdownButton from "./BaseDropdownButton";
 import HourlyForecastCard from "./HourlyForecastCard";
 
@@ -89,11 +89,14 @@ function AppHourlyForecast({
         </button>
       </div>
 
-      {isDropdownShown && (
-        <BaseDropdown dropdownType="weekdayDropdown" ref={dropdownRef}>
-          {dropdownButtons}
-        </BaseDropdown>
-      )}
+      <div
+        className={`${isDropdownShown ? "" : "hidden"} absolute top-[70px] right-6 min-w-[214px]`}
+        ref={dropdownRef}
+      >
+        <BaseCard>
+          <div className="flex flex-col gap-0.5 p-2">{dropdownButtons}</div>
+        </BaseCard>
+      </div>
 
       <ul className="flex flex-col gap-4 overflow-scroll rounded-md outline-offset-[3px] focus:outline-2">
         {hourlyForecastCards}

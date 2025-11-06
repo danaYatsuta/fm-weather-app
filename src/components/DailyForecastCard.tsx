@@ -1,5 +1,7 @@
 import { getIconFromWeatherCode } from "../util";
 
+import BaseCard from "./BaseCard";
+
 interface DailyForecastCardProps {
   time: string;
   weatherCode: number;
@@ -22,14 +24,18 @@ function DailyForecastCard({
   const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
   return (
-    <li className="flex h-[165px] flex-col items-center justify-between rounded-xl border border-neutral-600 bg-neutral-800 px-2 py-3">
-      <p>{weekday}</p>
-      <img src={iconSrc} alt={iconAlt} className="size-16" />
-      <div className="flex justify-between self-stretch text-base">
-        <p>{`${Math.round(maxTemp)}°`}</p>
-        <p className="text-neutral-200">{`${Math.round(minTemp)}°`}</p>
+    <BaseCard tag="li">
+      <div className="flex h-[165px] flex-col items-center justify-between px-2 py-3">
+        <p>{weekday}</p>
+
+        <img src={iconSrc} alt={iconAlt} className="size-16" />
+
+        <div className="flex justify-between self-stretch text-base">
+          <p>{`${Math.round(maxTemp)}°`}</p>
+          <p className="text-neutral-200">{`${Math.round(minTemp)}°`}</p>
+        </div>
       </div>
-    </li>
+    </BaseCard>
   );
 }
 

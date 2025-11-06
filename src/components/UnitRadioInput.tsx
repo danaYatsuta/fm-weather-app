@@ -25,7 +25,7 @@ function UnitRadioInput<T extends string>({
   const radioInputs = options.map((option) => {
     return (
       <label
-        className="flex h-10 items-center justify-between rounded-md px-2 hover:bg-neutral-700 has-checked:bg-neutral-700"
+        className="flex h-10 items-center justify-between rounded-md px-2 text-base hover:bg-neutral-700 has-checked:bg-neutral-700"
         key={option.value}
       >
         <span>{option.label}</span>
