@@ -92,7 +92,7 @@ function AppSearchForm({
 
         <button
           type="submit"
-          className="h-14 rounded-xl bg-blue-500 outline-offset-[3px] outline-blue-500 hover:bg-blue-700 hover:outline-blue-700 focus:outline-2 xl:px-6"
+          className="h-14 rounded-xl bg-blue-500 outline-blue-500 hover:bg-blue-700 hover:outline-blue-700 xl:px-6"
         >
           Search
         </button>

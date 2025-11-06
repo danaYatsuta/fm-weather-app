@@ -51,7 +51,7 @@ function AppHeader({
 
       <button
         type="button"
-        className="flex h-8 items-center gap-1.5 rounded-lg bg-neutral-800 px-2.5 text-sm outline-offset-[3px] hover:bg-neutral-700 focus:outline-2 xl:h-11 xl:gap-2.5 xl:px-4 xl:text-base"
+        className="flex h-8 items-center gap-1.5 rounded-lg bg-neutral-800 px-2.5 text-sm hover:bg-neutral-700 xl:h-11 xl:gap-2.5 xl:px-4 xl:text-base"
         onClick={() => {
           setIsDropdownShown(!isDropdownShown);
         }}

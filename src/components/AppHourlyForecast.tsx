@@ -78,7 +78,7 @@ function AppHourlyForecast({
 
         <button
           type="button"
-          className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base outline-offset-[3px] hover:bg-neutral-700 focus:outline-2"
+          className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base hover:bg-neutral-700"
           onClick={() => {
             setIsDropdownShown(!isDropdownShown);
           }}
@@ -98,7 +98,7 @@ function AppHourlyForecast({
         </BaseCard>
       </div>
 
-      <ul className="flex flex-col gap-4 overflow-scroll rounded-md outline-offset-[3px] focus:outline-2">
+      <ul className="flex flex-col gap-4 overflow-scroll rounded-md">
         {hourlyForecastCards}
       </ul>
     </section>

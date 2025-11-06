@@ -3,6 +3,10 @@
 @import "tailwindcss";
 
 @layer base {
+  :focus {
+    @apply outline-2 outline-offset-[3px];
+  }
+
   button {
     cursor: pointer;
   }
