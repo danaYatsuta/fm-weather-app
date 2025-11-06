@@ -71,6 +71,8 @@ function App() {
     ]);
 
     async function fetchData() {
+      setWeatherResponse(null);
+
       try {
         const response = await fetch(url + params);
 
@@ -82,7 +84,9 @@ function App() {
         }
 
         const result = await response.json();
-        setWeatherResponse(result);
+        setTimeout(() => {
+          setWeatherResponse(result);
+        }, 500);
       } catch (error) {
         if (error instanceof Error) console.log(error.message);
       }
@@ -107,38 +111,32 @@ function App() {
 
         <AppSearchForm onLocationInfoChange={setLocationInfo} />
 
-        {weatherResponse && (
-          <>
-            <AppCurrentWeatherCard
-              locationName={locationInfo.name}
-              locationCountry={locationInfo.country}
-              time={weatherResponse.current.time}
-              weatherCode={weatherResponse.current.weather_code}
-              temperature={weatherResponse.current.temperature_2m}
-            />
-            <AppCurrentWeatherDetails
-              feelsLikeTemperature={
-                weatherResponse.current.apparent_temperature
-              }
-              humidity={weatherResponse.current.relative_humidity_2m}
-              wind={weatherResponse.current.wind_speed_10m}
-              windSpeedUnit={unitInfo.windSpeedUnit}
-              precipitation={weatherResponse.current.precipitation}
-              precipitationUnit={unitInfo.precipitationUnit}
-            />
-            <AppDailyForecast
-              times={weatherResponse.daily.time}
-              weatherCodes={weatherResponse.daily.weather_code}
-              maxTemps={weatherResponse.daily.temperature_2m_max}
-              minTemps={weatherResponse.daily.temperature_2m_min}
-            />
-            <AppHourlyForecast
-              times={weatherResponse.hourly.time}
-              weatherCodes={weatherResponse.hourly.weather_code}
-              temperatures={weatherResponse.hourly.temperature_2m}
-            />
-          </>
-        )}
+        <AppCurrentWeatherCard
+          locationName={locationInfo.name}
+          locationCountry={locationInfo.country}
+          time={weatherResponse?.current.time}
+          weatherCode={weatherResponse?.current.weather_code}
+          temperature={weatherResponse?.current.temperature_2m}
+        />
+        <AppCurrentWeatherDetails
+          feelsLikeTemperature={weatherResponse?.current.apparent_temperature}
+          humidity={weatherResponse?.current.relative_humidity_2m}
+          windSpeed={weatherResponse?.current.wind_speed_10m}
+          windSpeedUnit={unitInfo.windSpeedUnit}
+          precipitation={weatherResponse?.current.precipitation}
+          precipitationUnit={unitInfo.precipitationUnit}
+        />
+        <AppDailyForecast
+          times={weatherResponse?.daily.time}
+          weatherCodes={weatherResponse?.daily.weather_code}
+          maxTemps={weatherResponse?.daily.temperature_2m_max}
+          minTemps={weatherResponse?.daily.temperature_2m_min}
+        />
+        <AppHourlyForecast
+          times={weatherResponse?.hourly.time}
+          weatherCodes={weatherResponse?.hourly.weather_code}
+          temperatures={weatherResponse?.hourly.temperature_2m}
+        />
       </main>
     </>
   );

@@ -3,10 +3,10 @@ import { getIconFromWeatherCode } from "../util";
 import BaseCard from "./BaseCard";
 
 interface DailyForecastCardProps {
-  time: string;
-  weatherCode: number;
-  maxTemp: number;
-  minTemp: number;
+  time?: string;
+  weatherCode?: number;
+  maxTemp?: number;
+  minTemp?: number;
 }
 
 function DailyForecastCard({
@@ -15,17 +15,26 @@ function DailyForecastCard({
   maxTemp,
   minTemp,
 }: DailyForecastCardProps) {
-  const date = new Date(time);
-  const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
-  });
-  const weekday = intlDateTimeFormat.format(date);
+  let content: React.ReactElement;
 
-  const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
+  if (
+    time === undefined ||
+    weatherCode === undefined ||
+    maxTemp === undefined ||
+    minTemp === undefined
+  ) {
+    content = <></>;
+  } else {
+    const date = new Date(time);
+    const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
+      weekday: "short",
+    });
+    const weekday = intlDateTimeFormat.format(date);
 
-  return (
-    <BaseCard tag="li">
-      <div className="flex h-[165px] flex-col items-center justify-between px-2 py-3">
+    const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
+
+    content = (
+      <>
         <p>{weekday}</p>
 
         <img src={iconSrc} alt={iconAlt} className="size-16" />
@@ -34,6 +43,14 @@ function DailyForecastCard({
           <p>{`${Math.round(maxTemp)}°`}</p>
           <p className="text-neutral-200">{`${Math.round(minTemp)}°`}</p>
         </div>
+      </>
+    );
+  }
+
+  return (
+    <BaseCard tag="li">
+      <div className="flex h-[165px] flex-col items-center justify-between px-2 py-3">
+        {content}
       </div>
     </BaseCard>
   );
