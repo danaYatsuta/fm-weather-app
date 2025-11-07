@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useDropdown } from "../util";
 
 import type { GeocodingData, LocationInfo } from "../types";
@@ -13,47 +14,39 @@ function AppSearchForm({
 }: {
   onLocationInfoChange: (locationInfo: LocationInfo) => void;
 }) {
+  const [searchTerm, setSearchTerm] = useState("");
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownShown, setIsDropdownShown] = useDropdown([dropdownRef]);
 
-  const [response, setResponse] = useState<GeocodingData | null>(null);
+  const url = `https://geocoding-api.open-meteo.com/v1/search?`;
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const params = new URLSearchParams([
+    ["count", "4"],
+    ["name", searchTerm],
+  ]);
 
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name");
-
-    if (typeof name !== "string" || name.length <= 1) {
-      return;
-    }
-
-    const url = `https://geocoding-api.open-meteo.com/v1/search?`;
-
-    const params = new URLSearchParams([
-      ["count", "4"],
-      ["name", name],
-    ]);
-
-    try {
+  const { data: geocodingData, refetch } = useQuery({
+    queryKey: ["geocodingData", searchTerm],
+    queryFn: async (): Promise<GeocodingData> => {
       const response = await fetch(url + params);
 
-      if (!response.ok) {
-        console.log(
-          `Response failed, status: ${response.status} ${response.statusText}`,
-        );
-        return;
-      }
+      if (!response.ok)
+        throw new Error(`${response.status} ${response.statusText}`);
 
-      const result = await response.json();
-      setResponse(result);
       setIsDropdownShown(true);
-    } catch (error) {
-      if (error instanceof Error) console.log(error.message);
-    }
+      return await response.json();
+    },
+    enabled: false,
+  });
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    if (searchTerm.length >= 2) refetch();
   }
 
-  const searchResultButtons = response?.results.map((result) => (
+  const searchResultButtons = geocodingData?.results?.map((result) => (
     <DropdownButton
       border={true}
       onButtonClick={() => {
@@ -87,6 +80,10 @@ function AppSearchForm({
             placeholder="Search for a place..."
             aria-label="Search for a place"
             className="h-full w-full outline-none placeholder:text-neutral-200"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
           />
         </label>
 

@@ -18,7 +18,7 @@ export interface LocationInfo {
 }
 
 export interface GeocodingData {
-  results: Result[];
+  results?: Result[];
   generationtime_ms: number;
 }
 
