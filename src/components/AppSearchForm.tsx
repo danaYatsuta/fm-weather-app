@@ -8,6 +8,7 @@ import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 
 import iconSearch from "../assets/icon-search.svg";
+import iconError from "../assets/icon-error.svg";
 
 function AppSearchForm({
   onLocationInfoChange,
@@ -110,7 +111,14 @@ function AppSearchForm({
         ref={dropdownRef}
       >
         <BaseCard>
-          <div className="flex flex-col gap-0.5 p-2">{searchResultButtons}</div>
+          <div className="flex flex-col gap-0.5 p-2">
+            {searchResultButtons || (
+              <p className="flex h-10 items-center gap-3 px-2">
+                <img src={iconError} alt="" />
+                No results.
+              </p>
+            )}
+          </div>
         </BaseCard>
       </div>
     </div>
