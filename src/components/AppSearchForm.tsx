@@ -54,7 +54,11 @@ function AppSearchForm({
         data.results.splice(5);
       }
 
-      return data;
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(data);
+        }, 500);
+      });
     },
     enabled: debouncedSearchTerm.length >= 2,
   });

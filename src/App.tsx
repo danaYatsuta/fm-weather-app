@@ -57,7 +57,13 @@ function App() {
       if (!response.ok)
         throw new Error(`${response.status} ${response.statusText}`);
 
-      return await response.json();
+      const data: WeatherData = await response.json();
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(data);
+        }, 500);
+      });
     },
   });
 
