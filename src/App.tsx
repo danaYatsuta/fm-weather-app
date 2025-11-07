@@ -53,7 +53,6 @@ function App() {
   const { error, data: weatherData } = useQuery({
     queryKey: ["weatherData", locationInfo, unitInfo],
     queryFn: async (): Promise<WeatherResponse> => {
-      console.log("fetching...");
       const response = await fetch(url + params);
 
       if (!response.ok)
