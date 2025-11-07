@@ -25,29 +25,29 @@ function getIconFromWeatherCode(weatherCode: number) {
 
   if (weatherCodes.drizzle.includes(weatherCode)) {
     iconSrc = iconDrizzle;
-    iconAlt = "Drizzle icon";
+    iconAlt = "Drizzle";
   } else if (weatherCodes.fog.includes(weatherCode)) {
     iconSrc = iconFog;
-    iconAlt = "Fog icon";
+    iconAlt = "Fog";
   } else if (weatherCodes.partlyCloudy.includes(weatherCode)) {
     iconSrc = iconPartlyCloudy;
-    iconAlt = "Partly cloudy icon";
+    iconAlt = "Partly cloudy";
   } else if (weatherCodes.rain.includes(weatherCode)) {
     iconSrc = iconRain;
-    iconAlt = "Rain icon";
+    iconAlt = "Rain";
   } else if (weatherCodes.snow.includes(weatherCode)) {
     iconSrc = iconSnow;
-    iconAlt = "Snow icon";
+    iconAlt = "Snow";
   } else if (weatherCodes.storm.includes(weatherCode)) {
     iconSrc = iconStorm;
-    iconAlt = "Storm icon";
+    iconAlt = "Storm";
   } else if (weatherCodes.sunny.includes(weatherCode)) {
     iconSrc = iconSunny;
-    iconAlt = "Sunny icon";
+    iconAlt = "Sunny";
   } else {
     // Using overcast icon as fallback
     iconSrc = iconOvercast;
-    iconAlt = "Overcast icon";
+    iconAlt = "Overcast";
   }
 
   return [iconSrc, iconAlt];
