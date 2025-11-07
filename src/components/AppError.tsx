@@ -1,11 +1,7 @@
 import iconError from "../assets/icon-error.svg";
 import iconRetry from "../assets/icon-retry.svg";
 
-function AppError({
-  onRetryButtonClick,
-}: {
-  onRetryButtonClick: React.MouseEventHandler;
-}) {
+function AppError({ onRetryButtonClick }: { onRetryButtonClick: () => void }) {
   return (
     <section className="flex flex-col items-center text-center">
       <img src={iconError} alt="" className="size-10" />

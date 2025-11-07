@@ -45,7 +45,11 @@ function App() {
     ["precipitation_unit", unitInfo.precipitationUnit],
   ]);
 
-  const { error, data: weatherData } = useQuery({
+  const {
+    error,
+    data: weatherData,
+    refetch,
+  } = useQuery({
     queryKey: ["weatherData", locationInfo, unitInfo],
     queryFn: async (): Promise<WeatherData> => {
       const response = await fetch(url + params);
@@ -86,7 +90,7 @@ function App() {
 
       {error ? (
         <main className="my-28">
-          <AppError onRetryButtonClick={() => {}} />
+          <AppError onRetryButtonClick={refetch} />
         </main>
       ) : (
         <main className="my-12 flex grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
