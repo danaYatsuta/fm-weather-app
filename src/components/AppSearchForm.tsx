@@ -8,6 +8,7 @@ import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 
 import iconSearch from "../assets/icon-search.svg";
+import iconLoading from "../assets/icon-loading.svg";
 import iconError from "../assets/icon-error.svg";
 
 function AppSearchForm({
@@ -27,9 +28,15 @@ function AppSearchForm({
     ["name", searchTerm],
   ]);
 
-  const { data: geocodingData, refetch } = useQuery({
+  const {
+    data: geocodingData,
+    refetch,
+    isSuccess,
+  } = useQuery({
     queryKey: ["geocodingData", searchTerm],
     queryFn: async (): Promise<GeocodingData> => {
+      setIsDropdownShown(true);
+
       const response = await fetch(url + params);
 
       if (!response.ok)
@@ -45,7 +52,6 @@ function AppSearchForm({
         data.results.splice(5);
       }
 
-      setIsDropdownShown(true);
       return data;
     },
     enabled: false,
@@ -75,6 +81,22 @@ function AppSearchForm({
       </span>
     </DropdownButton>
   ));
+
+  let content: React.ReactNode = (
+    <p className="flex h-10 items-center gap-3 px-2">
+      <img src={iconLoading} alt="" className="animate-spin" />
+      Searching...
+    </p>
+  );
+
+  if (isSuccess) {
+    content = searchResultButtons || (
+      <p className="flex h-10 items-center gap-3 px-2">
+        <img src={iconError} alt="" />
+        No results.
+      </p>
+    );
+  }
 
   return (
     <div className="relative col-span-2 mt-12 justify-self-center xl:mt-16">
@@ -107,18 +129,11 @@ function AppSearchForm({
       </form>
 
       <div
-        className={`${isDropdownShown ? "" : "hidden"} absolute top-[68px] right-0 left-0 z-10`}
+        className={`${isDropdownShown && isSuccess ? "" : "hidden"} absolute top-[68px] right-0 left-0 z-10`}
         ref={dropdownRef}
       >
         <BaseCard>
-          <div className="flex flex-col gap-0.5 p-2">
-            {searchResultButtons || (
-              <p className="flex h-10 items-center gap-3 px-2">
-                <img src={iconError} alt="" />
-                No results.
-              </p>
-            )}
-          </div>
+          <div className="flex flex-col gap-0.5 p-2">{content}</div>
         </BaseCard>
       </div>
     </div>
