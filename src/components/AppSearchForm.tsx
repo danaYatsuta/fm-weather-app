@@ -99,7 +99,7 @@ function AppSearchForm({
       </form>
 
       <div
-        className={`${isDropdownShown ? "" : "hidden"} absolute top-[70px] right-0 left-0 z-10`}
+        className={`${isDropdownShown ? "" : "hidden"} absolute top-[68px] right-0 left-0 z-10`}
         ref={dropdownRef}
       >
         <BaseCard>
