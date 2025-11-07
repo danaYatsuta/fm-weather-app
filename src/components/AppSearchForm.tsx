@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useDropdown } from "../util";
+import { useDebounce } from "@uidotdev/usehooks";
 
 import type { GeocodingData, LocationInfo } from "../types";
 
@@ -17,6 +18,7 @@ function AppSearchForm({
   onLocationInfoChange: (locationInfo: LocationInfo) => void;
 }) {
   const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownShown, setIsDropdownShown] = useDropdown([dropdownRef]);
@@ -25,7 +27,7 @@ function AppSearchForm({
 
   const params = new URLSearchParams([
     ["count", "10"],
-    ["name", searchTerm],
+    ["name", debouncedSearchTerm],
   ]);
 
   const {
@@ -33,7 +35,7 @@ function AppSearchForm({
     refetch,
     isSuccess,
   } = useQuery({
-    queryKey: ["geocodingData", searchTerm],
+    queryKey: ["geocodingData", debouncedSearchTerm],
     queryFn: async (): Promise<GeocodingData> => {
       setIsDropdownShown(true);
 
@@ -54,7 +56,7 @@ function AppSearchForm({
 
       return data;
     },
-    enabled: false,
+    enabled: debouncedSearchTerm.length >= 2,
   });
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -85,7 +87,7 @@ function AppSearchForm({
   let content: React.ReactNode = (
     <p className="flex h-10 items-center gap-3 px-2">
       <img src={iconLoading} alt="" className="animate-spin" />
-      Searching...
+      Search in progress
     </p>
   );
 
@@ -129,7 +131,7 @@ function AppSearchForm({
       </form>
 
       <div
-        className={`${isDropdownShown && isSuccess ? "" : "hidden"} absolute top-[68px] right-0 left-0 z-10`}
+        className={`${isDropdownShown ? "" : "hidden"} absolute top-[68px] right-0 left-0 z-10`}
         ref={dropdownRef}
       >
         <BaseCard>
