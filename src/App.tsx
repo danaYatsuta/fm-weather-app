@@ -1,11 +1,6 @@
 import { useState } from "react";
 
-import type {
-  LocationInfo,
-  UnitInfo,
-  UnitSystem,
-  WeatherResponse,
-} from "./types";
+import type { LocationInfo, UnitInfo, UnitSystem, WeatherData } from "./types";
 
 import AppCurrentWeatherCard from "./components/AppCurrentWeatherCard";
 import AppCurrentWeatherDetails from "./components/AppCurrentWeatherDetails";
@@ -52,7 +47,7 @@ function App() {
 
   const { error, data: weatherData } = useQuery({
     queryKey: ["weatherData", locationInfo, unitInfo],
-    queryFn: async (): Promise<WeatherResponse> => {
+    queryFn: async (): Promise<WeatherData> => {
       const response = await fetch(url + params);
 
       if (!response.ok)

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useDropdown } from "../util";
 
-import type { GeocodingResponse, LocationInfo } from "../types";
+import type { GeocodingData, LocationInfo } from "../types";
 
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
@@ -16,7 +16,7 @@ function AppSearchForm({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isDropdownShown, setIsDropdownShown] = useDropdown([dropdownRef]);
 
-  const [response, setResponse] = useState<GeocodingResponse | null>(null);
+  const [response, setResponse] = useState<GeocodingData | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

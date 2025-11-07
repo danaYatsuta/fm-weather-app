@@ -17,7 +17,7 @@ export interface LocationInfo {
   longitude: number;
 }
 
-export interface GeocodingResponse {
+export interface GeocodingData {
   results: Result[];
   generationtime_ms: number;
 }
@@ -45,7 +45,7 @@ interface Result {
   admin4?: string;
 }
 
-export interface WeatherResponse {
+export interface WeatherData {
   latitude: number;
   longitude: number;
   generationtime_ms: number;
