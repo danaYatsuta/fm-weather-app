@@ -36,24 +36,6 @@ function App() {
 
   const [isError, setIsError] = useState(false);
 
-  function handleUnitSystemChange(newUnitSystem: UnitSystem) {
-    setUnitSystem(newUnitSystem);
-
-    if (newUnitSystem === "metric") {
-      setUnitInfo({
-        temperatureUnit: "celsius",
-        windSpeedUnit: "kmh",
-        precipitationUnit: "mm",
-      });
-    } else {
-      setUnitInfo({
-        temperatureUnit: "fahrenheit",
-        windSpeedUnit: "mph",
-        precipitationUnit: "inch",
-      });
-    }
-  }
-
   const fetchData = useCallback(async () => {
     setWeatherResponse(null);
     setIsError(false);
@@ -104,6 +86,24 @@ function App() {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  function handleUnitSystemChange(newUnitSystem: UnitSystem) {
+    setUnitSystem(newUnitSystem);
+
+    if (newUnitSystem === "metric") {
+      setUnitInfo({
+        temperatureUnit: "celsius",
+        windSpeedUnit: "kmh",
+        precipitationUnit: "mm",
+      });
+    } else {
+      setUnitInfo({
+        temperatureUnit: "fahrenheit",
+        windSpeedUnit: "mph",
+        precipitationUnit: "inch",
+      });
+    }
+  }
 
   return (
     <>
