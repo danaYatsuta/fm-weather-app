@@ -22,7 +22,7 @@ function AppSearchForm({
   const url = `https://geocoding-api.open-meteo.com/v1/search?`;
 
   const params = new URLSearchParams([
-    ["count", "4"],
+    ["count", "10"],
     ["name", searchTerm],
   ]);
 
@@ -34,8 +34,18 @@ function AppSearchForm({
       if (!response.ok)
         throw new Error(`${response.status} ${response.statusText}`);
 
+      const data: GeocodingData = await response.json();
+
+      if (data.results) {
+        data.results = data.results.filter((result) =>
+          result.feature_code.startsWith("PPL"),
+        );
+
+        data.results.splice(5);
+      }
+
       setIsDropdownShown(true);
-      return await response.json();
+      return data;
     },
     enabled: false,
   });
