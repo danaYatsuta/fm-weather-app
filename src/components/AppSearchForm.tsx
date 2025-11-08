@@ -107,7 +107,11 @@ function AppSearchForm({
 
   let content: React.ReactNode = (
     <p className="flex h-10 items-center gap-3 px-2">
-      <img src={iconLoading} alt="" className="animate-spin" />
+      <img
+        src={iconLoading}
+        alt=""
+        className="animate-spin motion-reduce:animate-none"
+      />
       Search in progress
     </p>
   );
