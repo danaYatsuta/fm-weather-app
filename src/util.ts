@@ -62,7 +62,7 @@ function useDropdown(refs: React.RefObject<HTMLElement | null>[]) {
 
   useEffect(() => {
     function handleClickOutside(e: PointerEvent) {
-      if (!(e.target instanceof Node)) return;
+      if (!(isDropdownShown && e.target instanceof Node)) return;
 
       for (const ref of refs) {
         if (ref.current === null || ref.current.contains(e.target)) return;
@@ -76,7 +76,7 @@ function useDropdown(refs: React.RefObject<HTMLElement | null>[]) {
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
-  }, [refs]);
+  }, [isDropdownShown, refs]);
 
   return [isDropdownShown, setIsDropdownShown] as const;
 }

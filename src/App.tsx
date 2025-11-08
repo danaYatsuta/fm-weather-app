@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRequest } from "ahooks";
 
 import type { LocationInfo, UnitInfo, UnitSystem, WeatherData } from "./types";
 
@@ -9,15 +10,14 @@ import AppError from "./components/AppError";
 import AppHeader from "./components/AppHeader";
 import AppHourlyForecast from "./components/AppHourlyForecast";
 import AppSearchForm from "./components/AppSearchForm";
-import { useQuery } from "@tanstack/react-query";
 
 function App() {
   const [locationInfo, setLocationInfo] = useState<LocationInfo>({
     name: "Berlin",
     country: "Germany",
     timezone: "Europe/Berlin",
-    latitude: 52.52,
-    longitude: 13.41,
+    latitude: 52.52437,
+    longitude: 13.41053,
   });
 
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
@@ -46,12 +46,12 @@ function App() {
   ]);
 
   const {
-    error,
     data: weatherData,
-    refetch,
-  } = useQuery({
-    queryKey: ["weatherData", locationInfo, unitInfo],
-    queryFn: async (): Promise<WeatherData> => {
+    error,
+    run,
+  } = useRequest(
+    async (): Promise<WeatherData> => {
+      console.log("fetching weather");
       const response = await fetch(url + params.toString());
 
       if (!response.ok)
@@ -65,7 +65,13 @@ function App() {
         }, 500);
       });
     },
-  });
+    {
+      refreshDeps: [locationInfo, unitInfo],
+      cacheKey:
+        "weatherData" + JSON.stringify(locationInfo) + JSON.stringify(unitInfo),
+      staleTime: 60 * 1000,
+    },
+  );
 
   function handleUnitSystemChange(newUnitSystem: UnitSystem) {
     setUnitSystem(newUnitSystem);
@@ -96,11 +102,7 @@ function App() {
 
       {error ? (
         <main className="my-28">
-          <AppError
-            onRetryButtonClick={() => {
-              void refetch();
-            }}
-          />
+          <AppError onRetryButtonClick={run} />
         </main>
       ) : (
         <main className="my-12 flex grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">

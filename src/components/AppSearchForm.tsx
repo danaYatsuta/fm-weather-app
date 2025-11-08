@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useDebounce, useFocusWithin, useRequest } from "ahooks";
 import { useDropdown } from "../util";
-import { useDebounce } from "@uidotdev/usehooks";
 
 import type { GeocodingData, LocationInfo } from "../types";
 
@@ -18,10 +17,21 @@ function AppSearchForm({
   onLocationInfoChange: (locationInfo: LocationInfo) => void;
 }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const debouncedSearchTerm = useDebounce(searchTerm, { wait: 300 });
 
+  const searchBarRef = useRef(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const [isDropdownShown, setIsDropdownShown] = useDropdown([dropdownRef]);
+
+  const [isDropdownShown, setIsDropdownShown] = useDropdown([
+    dropdownRef,
+    searchBarRef,
+  ]);
+
+  useFocusWithin(searchBarRef, {
+    onFocus: () => {
+      if (debouncedSearchTerm.length >= 2) setIsDropdownShown(true);
+    },
+  });
 
   const url = `https://geocoding-api.open-meteo.com/v1/search?`;
 
@@ -32,11 +42,10 @@ function AppSearchForm({
 
   const {
     data: geocodingData,
-    refetch,
-    isSuccess,
-  } = useQuery({
-    queryKey: ["geocodingData", debouncedSearchTerm],
-    queryFn: async (): Promise<GeocodingData> => {
+    loading,
+    run,
+  } = useRequest(
+    async (): Promise<GeocodingData> => {
       setIsDropdownShown(true);
 
       const response = await fetch(url + params.toString());
@@ -50,7 +59,6 @@ function AppSearchForm({
         data.results = data.results.filter((result) =>
           result.feature_code.startsWith("PPL"),
         );
-
         data.results.splice(5);
       }
 
@@ -60,13 +68,21 @@ function AppSearchForm({
         }, 500);
       });
     },
-    enabled: debouncedSearchTerm.length >= 2,
-  });
+    {
+      ready: debouncedSearchTerm.length >= 2,
+      refreshDeps: [debouncedSearchTerm],
+      cacheKey: "geocodingData" + JSON.stringify(debouncedSearchTerm),
+      staleTime: 5 * 60 * 1000,
+    },
+  );
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (debouncedSearchTerm.length >= 2) void refetch();
+    if (debouncedSearchTerm.length < 2) return;
+
+    run();
+    setIsDropdownShown(true);
   }
 
   const searchResultButtons = geocodingData?.results?.map((result) => (
@@ -95,11 +111,11 @@ function AppSearchForm({
     </p>
   );
 
-  if (isSuccess) {
+  if (!loading) {
     content = searchResultButtons ?? (
       <p className="flex h-10 items-center gap-3 px-2">
         <img src={iconError} alt="" />
-        No results.
+        No results
       </p>
     );
   }
@@ -123,6 +139,7 @@ function AppSearchForm({
             onChange={(e) => {
               setSearchTerm(e.target.value);
             }}
+            ref={searchBarRef}
           />
         </label>
 
