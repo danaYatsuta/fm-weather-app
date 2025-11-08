@@ -34,10 +34,10 @@ function AppCurrentWeatherDetails({
     const shownPrecipitationUnit = precipitationUnit === "inch" ? "in" : "mm";
     const shownWindSpeedUnit = windSpeedUnit === "kmh" ? "km/h" : "mph";
 
-    shownFeelsLikeTemperatureValue = `${Math.round(feelsLikeTemperature)}°`;
-    shownHumidityValue = `${humidity}%`;
-    shownWindSpeedValue = `${Math.round(windSpeed)} ${shownWindSpeedUnit}`;
-    shownPrecipitationValue = `${Math.round(precipitation)} ${shownPrecipitationUnit}`;
+    shownFeelsLikeTemperatureValue = `${Math.round(feelsLikeTemperature).toString()}°`;
+    shownHumidityValue = `${humidity.toString()}%`;
+    shownWindSpeedValue = `${Math.round(windSpeed).toString()} ${shownWindSpeedUnit}`;
+    shownPrecipitationValue = `${Math.round(precipitation).toString()} ${shownPrecipitationUnit}`;
   }
 
   return (

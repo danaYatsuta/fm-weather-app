@@ -15,7 +15,7 @@ function DailyForecastCard({
   maxTemp,
   minTemp,
 }: DailyForecastCardProps) {
-  let content = <></>;
+  let content: React.ReactElement | null = null;
 
   if (
     time !== undefined &&
@@ -38,8 +38,8 @@ function DailyForecastCard({
         <img src={iconSrc} alt={iconAlt} className="size-16" />
 
         <div className="flex justify-between self-stretch text-base">
-          <p>{`${Math.round(maxTemp)}°`}</p>
-          <p className="text-neutral-200">{`${Math.round(minTemp)}°`}</p>
+          <p>{`${Math.round(maxTemp).toString()}°`}</p>
+          <p className="text-neutral-200">{`${Math.round(minTemp).toString()}°`}</p>
         </div>
       </>
     );

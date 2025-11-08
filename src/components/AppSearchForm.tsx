@@ -39,12 +39,12 @@ function AppSearchForm({
     queryFn: async (): Promise<GeocodingData> => {
       setIsDropdownShown(true);
 
-      const response = await fetch(url + params);
+      const response = await fetch(url + params.toString());
 
       if (!response.ok)
-        throw new Error(`${response.status} ${response.statusText}`);
+        throw new Error(`${response.status.toString()} ${response.statusText}`);
 
-      const data: GeocodingData = await response.json();
+      const data = (await response.json()) as GeocodingData;
 
       if (data.results) {
         data.results = data.results.filter((result) =>
@@ -66,7 +66,7 @@ function AppSearchForm({
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (searchTerm.length >= 2) refetch();
+    if (debouncedSearchTerm.length >= 2) void refetch();
   }
 
   const searchResultButtons = geocodingData?.results?.map((result) => (
@@ -96,7 +96,7 @@ function AppSearchForm({
   );
 
   if (isSuccess) {
-    content = searchResultButtons || (
+    content = searchResultButtons ?? (
       <p className="flex h-10 items-center gap-3 px-2">
         <img src={iconError} alt="" />
         No results.

@@ -52,12 +52,12 @@ function App() {
   } = useQuery({
     queryKey: ["weatherData", locationInfo, unitInfo],
     queryFn: async (): Promise<WeatherData> => {
-      const response = await fetch(url + params);
+      const response = await fetch(url + params.toString());
 
       if (!response.ok)
-        throw new Error(`${response.status} ${response.statusText}`);
+        throw new Error(`${response.status.toString()} ${response.statusText}`);
 
-      const data: WeatherData = await response.json();
+      const data = (await response.json()) as WeatherData;
 
       return new Promise((resolve) => {
         setTimeout(() => {
@@ -96,7 +96,11 @@ function App() {
 
       {error ? (
         <main className="my-28">
-          <AppError onRetryButtonClick={refetch} />
+          <AppError
+            onRetryButtonClick={() => {
+              void refetch();
+            }}
+          />
         </main>
       ) : (
         <main className="my-12 flex grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">

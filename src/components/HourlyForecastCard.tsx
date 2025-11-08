@@ -11,7 +11,7 @@ function HourlyForecastCard({
   weatherCode,
   temperature,
 }: HourlyForecastCardProps) {
-  let content = <></>;
+  let content: React.ReactElement | null = null;
 
   if (
     hour !== undefined &&
