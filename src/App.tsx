@@ -20,6 +20,11 @@ function App() {
     longitude: 13.41053,
   });
 
+  /*
+    unitSystem and unitInfo might looks like contradicting states, but that's not the case -
+    it's valid, for example, for unitSystem to be "metric" and unitInfo.temperatureUnit to be "fahrenheit"
+    unitSystem is used for quick toggle between all units, it doesn't determine the value of unitInfo
+  */
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
   const [unitInfo, setUnitInfo] = useState<UnitInfo>({
     temperatureUnit: "celsius",
@@ -51,7 +56,6 @@ function App() {
     run,
   } = useRequest(
     async (): Promise<WeatherData> => {
-      console.log("fetching weather");
       const response = await fetch(url + params.toString());
 
       if (!response.ok)
@@ -91,13 +95,30 @@ function App() {
     }
   }
 
+  function handleUnitInfoChange(newUnitInfo: UnitInfo) {
+    setUnitInfo(newUnitInfo);
+
+    if (
+      newUnitInfo.temperatureUnit === "celsius" &&
+      newUnitInfo.windSpeedUnit === "kmh" &&
+      newUnitInfo.precipitationUnit === "mm"
+    ) {
+      setUnitSystem("metric");
+    } else if (
+      newUnitInfo.temperatureUnit === "fahrenheit" &&
+      newUnitInfo.windSpeedUnit === "mph" &&
+      newUnitInfo.precipitationUnit === "inch"
+    )
+      setUnitSystem("imperial");
+  }
+
   return (
     <>
       <AppHeader
         unitSystem={unitSystem}
         unitInfo={unitInfo}
         onUnitSystemChange={handleUnitSystemChange}
-        onUnitInfoChange={setUnitInfo}
+        onUnitInfoChange={handleUnitInfoChange}
       />
 
       {error ? (
