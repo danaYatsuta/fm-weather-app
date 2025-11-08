@@ -53,6 +53,7 @@ function App() {
   const {
     data: weatherData,
     error,
+    loading,
     run,
   } = useRequest(
     async (): Promise<WeatherData> => {
@@ -76,6 +77,8 @@ function App() {
       staleTime: 60 * 1000,
     },
   );
+
+  const relevantWeatherData = loading ? undefined : weatherData;
 
   function handleUnitSystemChange(newUnitSystem: UnitSystem) {
     setUnitSystem(newUnitSystem);
@@ -136,28 +139,30 @@ function App() {
           <AppCurrentWeatherCard
             locationName={locationInfo.name}
             locationCountry={locationInfo.country}
-            time={weatherData?.current.time}
-            weatherCode={weatherData?.current.weather_code}
-            temperature={weatherData?.current.temperature_2m}
+            time={relevantWeatherData?.current.time}
+            weatherCode={relevantWeatherData?.current.weather_code}
+            temperature={relevantWeatherData?.current.temperature_2m}
           />
           <AppCurrentWeatherDetails
-            feelsLikeTemperature={weatherData?.current.apparent_temperature}
-            humidity={weatherData?.current.relative_humidity_2m}
-            windSpeed={weatherData?.current.wind_speed_10m}
+            feelsLikeTemperature={
+              relevantWeatherData?.current.apparent_temperature
+            }
+            humidity={relevantWeatherData?.current.relative_humidity_2m}
+            windSpeed={relevantWeatherData?.current.wind_speed_10m}
             windSpeedUnit={unitInfo.windSpeedUnit}
-            precipitation={weatherData?.current.precipitation}
+            precipitation={relevantWeatherData?.current.precipitation}
             precipitationUnit={unitInfo.precipitationUnit}
           />
           <AppDailyForecast
-            times={weatherData?.daily.time}
-            weatherCodes={weatherData?.daily.weather_code}
-            maxTemps={weatherData?.daily.temperature_2m_max}
-            minTemps={weatherData?.daily.temperature_2m_min}
+            times={relevantWeatherData?.daily.time}
+            weatherCodes={relevantWeatherData?.daily.weather_code}
+            maxTemps={relevantWeatherData?.daily.temperature_2m_max}
+            minTemps={relevantWeatherData?.daily.temperature_2m_min}
           />
           <AppHourlyForecast
-            times={weatherData?.hourly.time}
-            weatherCodes={weatherData?.hourly.weather_code}
-            temperatures={weatherData?.hourly.temperature_2m}
+            times={relevantWeatherData?.hourly.time}
+            weatherCodes={relevantWeatherData?.hourly.weather_code}
+            temperatures={relevantWeatherData?.hourly.temperature_2m}
           />
         </main>
       )}
