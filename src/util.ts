@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import iconDrizzle from "./assets/icon-drizzle.webp";
 import iconFog from "./assets/icon-fog.webp";
 import iconOvercast from "./assets/icon-overcast.webp";
@@ -53,32 +51,4 @@ function getIconFromWeatherCode(weatherCode: number) {
   return [iconSrc, iconAlt];
 }
 
-/**
- * Returns boolean state which is set to false if any place on page except passed refs is clicked.
- * @param refs - Refs of elements that, when clicked, should not close the dropdown (usually the dropdown itself and the toggle button)
- */
-function useDropdown(refs: React.RefObject<HTMLElement | null>[]) {
-  const [isDropdownShown, setIsDropdownShown] = useState(false);
-
-  useEffect(() => {
-    function handleClickOutside(e: PointerEvent) {
-      if (!(isDropdownShown && e.target instanceof Node)) return;
-
-      for (const ref of refs) {
-        if (ref.current === null || ref.current.contains(e.target)) return;
-      }
-
-      setIsDropdownShown(false);
-    }
-
-    document.addEventListener("click", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [isDropdownShown, refs]);
-
-  return [isDropdownShown, setIsDropdownShown] as const;
-}
-
-export { getIconFromWeatherCode, useDropdown };
+export { getIconFromWeatherCode };

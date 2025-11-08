@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
-import { useDebounce, useFocusWithin, useRequest } from "ahooks";
-import { useDropdown } from "../util";
+import { useDebounce, useFocusWithin, useRequest, useClickAway } from "ahooks";
 
 import type { GeocodingData, LocationInfo } from "../types";
 
@@ -19,13 +18,15 @@ function AppSearchForm({
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm, { wait: 300 });
 
-  const searchBarRef = useRef(null);
+  const searchBarRef = useRef<HTMLInputElement>(null);
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const [isDropdownShown, setIsDropdownShown] = useDropdown([
-    dropdownRef,
-    searchBarRef,
-  ]);
+  const [isDropdownShown, setIsDropdownShown] = useState(false);
+
+  useClickAway(() => {
+    setIsDropdownShown(false);
+  }, [searchBarRef, submitButtonRef, dropdownRef]);
 
   useFocusWithin(searchBarRef, {
     onFocus: () => {
@@ -146,6 +147,7 @@ function AppSearchForm({
         <button
           type="submit"
           className="h-14 rounded-xl bg-blue-500 outline-blue-500 hover:bg-blue-700 hover:outline-blue-700 xl:px-6"
+          ref={submitButtonRef}
         >
           Search
         </button>

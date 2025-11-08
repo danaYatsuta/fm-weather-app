@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
-import { useDropdown } from "../util";
 
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 import HourlyForecastCard from "./HourlyForecastCard";
 
 import iconDropdown from "../assets/icon-dropdown.svg";
+import { useClickAway } from "ahooks";
 
 interface AppHourlyForecastProps {
   times?: string[];
@@ -21,10 +21,11 @@ function AppHourlyForecast({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
 
-  const [isDropdownShown, setIsDropdownShown] = useDropdown([
-    dropdownRef,
-    dropdownToggleRef,
-  ]);
+  const [isDropdownShown, setIsDropdownShown] = useState(false);
+
+  useClickAway(() => {
+    setIsDropdownShown(false);
+  }, [dropdownRef, dropdownToggleRef]);
 
   const [weekday, setWeekday] = useState(0);
 

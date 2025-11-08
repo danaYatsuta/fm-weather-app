@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { useDropdown } from "../util";
+import { useRef, useState } from "react";
 
 import type {
   PrecipitationUnit,
@@ -16,6 +15,7 @@ import UnitRadioInput from "./UnitRadioInput";
 import iconDropdown from "../assets/icon-dropdown.svg";
 import iconUnits from "../assets/icon-units.svg";
 import logo from "../assets/logo.svg";
+import { useClickAway } from "ahooks";
 
 interface AppHeaderProps {
   unitSystem: UnitSystem;
@@ -33,10 +33,11 @@ function AppHeader({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
 
-  const [isDropdownShown, setIsDropdownShown] = useDropdown([
-    dropdownRef,
-    dropdownToggleRef,
-  ]);
+  const [isDropdownShown, setIsDropdownShown] = useState(false);
+
+  useClickAway(() => {
+    setIsDropdownShown(false);
+  }, [dropdownRef, dropdownToggleRef]);
 
   function handleValueChange(e: React.ChangeEvent<HTMLInputElement>) {
     onUnitInfoChange({
