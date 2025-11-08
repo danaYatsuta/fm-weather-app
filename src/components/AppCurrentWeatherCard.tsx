@@ -42,9 +42,9 @@ function AppCurrentWeatherCard({
     content = (
       <>
         <div className="flex flex-col items-center gap-1 self-center pt-10 xl:items-start xl:pt-0">
-          <h2 className="text-[28px] font-bold">
+          <p className="text-[28px] font-bold">
             {locationName}, {locationCountry}
-          </h2>
+          </p>
 
           <p className="text-neutral-200">{formattedDate}</p>
         </div>
@@ -61,12 +61,14 @@ function AppCurrentWeatherCard({
   }
 
   return (
-    <div
+    <section
       className={`${isDataLoaded ? "bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)]" : "items-center justify-center bg-neutral-800"} flex h-[286px] w-[343px] flex-col gap-2 self-center rounded-2xl px-6 xl:w-full`}
       aria-hidden={isDataLoaded}
     >
+      <h2 className="sr-only">Current weather</h2>
+
       {content}
-    </div>
+    </section>
   );
 }
 

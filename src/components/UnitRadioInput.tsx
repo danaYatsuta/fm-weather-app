@@ -45,11 +45,15 @@ function UnitRadioInput<T extends string>({
   });
 
   return (
-    <fieldset className="py-1 first:pt-0 last:pb-0">
-      <span className="px-2 text-sm text-neutral-300">{legend}</span>
+    <li className="border-neutral-600 py-1 not-last:border-b first:pt-0 last:pb-0">
+      <fieldset>
+        <legend className="contents px-2 text-sm text-neutral-300">
+          {legend}
+        </legend>
 
-      <div className="mt-1 flex flex-col gap-0.5">{radioInputs}</div>
-    </fieldset>
+        <div className="mt-1 flex flex-col gap-0.5">{radioInputs}</div>
+      </fieldset>
+    </li>
   );
 }
 

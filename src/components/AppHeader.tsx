@@ -48,7 +48,13 @@ function AppHeader({
 
   return (
     <header className="relative mt-4 flex justify-between xl:mt-12">
-      <img src={logo} alt="Weather Now logo" className="w-[138px] xl:w-auto" />
+      <a href="/">
+        <img
+          src={logo}
+          alt="Weather Now logo"
+          className="w-[138px] xl:w-auto"
+        />
+      </a>
 
       <button
         type="button"
@@ -68,53 +74,53 @@ function AppHeader({
         ref={dropdownRef}
       >
         <BaseCard>
-          <div className="min-w-[214px] px-2 py-1">
-            <DropdownButton
-              fullWidth={true}
-              onButtonClick={() => {
-                onUnitSystemChange(
-                  unitSystem === "metric" ? "imperial" : "metric",
-                );
-              }}
-            >
-              Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
-            </DropdownButton>
+          <menu className="min-w-[214px] px-2 py-1">
+            <li className="mb-1.5">
+              <DropdownButton
+                fullWidth={true}
+                onButtonClick={() => {
+                  onUnitSystemChange(
+                    unitSystem === "metric" ? "imperial" : "metric",
+                  );
+                }}
+              >
+                Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
+              </DropdownButton>
+            </li>
 
-            <div className="mt-1.5 divide-y divide-neutral-600">
-              <UnitRadioInput<TemperatureUnit>
-                legend="Temperature"
-                name="temperatureUnit"
-                options={[
-                  { label: "Celsius (°C)", value: "celsius" },
-                  { label: "Fahrenheit (°F)", value: "fahrenheit" },
-                ]}
-                value={unitInfo.temperatureUnit}
-                onValueChange={handleValueChange}
-              />
+            <UnitRadioInput<TemperatureUnit>
+              legend="Temperature"
+              name="temperatureUnit"
+              options={[
+                { label: "Celsius (°C)", value: "celsius" },
+                { label: "Fahrenheit (°F)", value: "fahrenheit" },
+              ]}
+              value={unitInfo.temperatureUnit}
+              onValueChange={handleValueChange}
+            />
 
-              <UnitRadioInput<WindSpeedUnit>
-                legend="Wind Speed"
-                name="windSpeedUnit"
-                options={[
-                  { label: "km/h", value: "kmh" },
-                  { label: "mph", value: "mph" },
-                ]}
-                value={unitInfo.windSpeedUnit}
-                onValueChange={handleValueChange}
-              />
+            <UnitRadioInput<WindSpeedUnit>
+              legend="Wind Speed"
+              name="windSpeedUnit"
+              options={[
+                { label: "km/h", value: "kmh" },
+                { label: "mph", value: "mph" },
+              ]}
+              value={unitInfo.windSpeedUnit}
+              onValueChange={handleValueChange}
+            />
 
-              <UnitRadioInput<PrecipitationUnit>
-                legend="Precipitation"
-                name="precipitationUnit"
-                options={[
-                  { label: "Millimeters (mm)", value: "mm" },
-                  { label: "Inches (in)", value: "inch" },
-                ]}
-                value={unitInfo.precipitationUnit}
-                onValueChange={handleValueChange}
-              />
-            </div>
-          </div>
+            <UnitRadioInput<PrecipitationUnit>
+              legend="Precipitation"
+              name="precipitationUnit"
+              options={[
+                { label: "Millimeters (mm)", value: "mm" },
+                { label: "Inches (in)", value: "inch" },
+              ]}
+              value={unitInfo.precipitationUnit}
+              onValueChange={handleValueChange}
+            />
+          </menu>
         </BaseCard>
       </div>
     </header>
