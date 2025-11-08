@@ -122,11 +122,11 @@ function App() {
       />
 
       {error ? (
-        <main className="my-28">
+        <main className="my-28 grow">
           <AppError onRetryButtonClick={run} />
         </main>
       ) : (
-        <main className="my-12 flex grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
+        <main className="my-12 flex grow grid-cols-[800px_1fr] grid-rows-[0fr_0fr_286px_0fr_0fr] flex-col xl:my-[60px] xl:grid">
           <h1 className="font-bricolage-grotesque col-span-2 text-center text-[54px] leading-16 font-bold">
             How's the sky looking today?
           </h1>
@@ -161,6 +161,14 @@ function App() {
           />
         </main>
       )}
+
+      <footer className="pb-1 text-center">
+        Challenge by{" "}
+        <a href="https://www.frontendmentor.io?ref=challenge">
+          Frontend Mentor
+        </a>
+        . Coded by <a href="https://github.com/danaYatsuta">Dana Yatsuta</a>.
+      </footer>
     </>
   );
 }
