@@ -116,7 +116,7 @@ function AppHourlyForecast({
         </BaseCard>
       </div>
 
-      <ul className="flex flex-col gap-4 overflow-scroll rounded-md">
+      <ul className="flex flex-col gap-4 overflow-auto rounded-md">
         {hourlyForecastCards}
       </ul>
     </section>
