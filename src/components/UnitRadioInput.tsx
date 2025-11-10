@@ -31,7 +31,7 @@ function UnitRadioInput<T extends string>({
         <span>{option.label}</span>
 
         <input
-          className="peer hidden"
+          className="peer sr-only"
           type="radio"
           name={name}
           value={option.value}
@@ -46,7 +46,7 @@ function UnitRadioInput<T extends string>({
 
   return (
     <li className="border-neutral-600 py-1 not-last:border-b first:pt-0 last:pb-0">
-      <fieldset>
+      <fieldset className="rounded-md outline-offset-1 has-focus:outline-1">
         <legend className="contents px-2 text-sm text-neutral-300">
           {legend}
         </legend>
