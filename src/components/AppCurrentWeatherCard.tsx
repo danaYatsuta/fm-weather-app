@@ -63,7 +63,7 @@ function AppCurrentWeatherCard({
   return (
     <section
       className={`${isDataLoaded ? "bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)]" : "items-center justify-center bg-neutral-800"} flex h-[286px] w-[343px] flex-col gap-2 self-center rounded-2xl px-6 xl:w-full`}
-      aria-hidden={isDataLoaded}
+      aria-busy={!isDataLoaded}
     >
       <h2 className="sr-only">Current weather</h2>
 

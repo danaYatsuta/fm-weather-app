@@ -36,7 +36,7 @@ function AppDailyForecast({
   return (
     <section
       className="col-start-1 mt-8 xl:mt-0 xl:self-end"
-      aria-hidden={isDataLoaded}
+      aria-busy={!isDataLoaded}
     >
       <h2 className="text-xl font-bold">Daily forecast</h2>
 

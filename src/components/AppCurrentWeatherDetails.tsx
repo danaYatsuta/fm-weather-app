@@ -43,7 +43,7 @@ function AppCurrentWeatherDetails({
   return (
     <ul
       className="mt-5 grid grid-cols-2 items-start gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6"
-      aria-hidden={!feelsLikeTemperature}
+      aria-busy={!isDataLoaded}
     >
       <CurrentWeatherDetailCard
         name="Feels Like"
