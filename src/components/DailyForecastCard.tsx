@@ -24,22 +24,36 @@ function DailyForecastCard({
     minTemp !== undefined
   ) {
     const date = new Date(time);
-    const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
+
+    const weekdayShortFormat = new Intl.DateTimeFormat("en-US", {
       weekday: "short",
     });
-    const weekday = intlDateTimeFormat.format(date);
+    const weekdayShort = weekdayShortFormat.format(date);
+
+    const weekdayLongFormat = new Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+    });
+    const weekdayLong = weekdayLongFormat.format(date);
 
     const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
     content = (
       <>
-        <p>{weekday}</p>
+        <p aria-hidden="true">{weekdayShort}</p>
+        <p className="sr-only">{weekdayLong}</p>
 
         <img src={iconSrc} alt={iconAlt} className="size-16" />
 
         <div className="flex justify-between self-stretch text-base">
-          <p>{`${Math.round(maxTemp).toString()}°`}</p>
-          <p className="text-neutral-200">{`${Math.round(minTemp).toString()}°`}</p>
+          <p>
+            <span className="sr-only">Maximal temperature: </span>{" "}
+            {`${Math.round(maxTemp).toString()}°`}
+          </p>
+
+          <p className="text-neutral-200">
+            <span className="sr-only">Minimal temperature: </span>
+            {`${Math.round(minTemp).toString()}°`}
+          </p>
         </div>
       </>
     );

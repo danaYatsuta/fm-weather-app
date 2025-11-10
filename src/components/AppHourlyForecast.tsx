@@ -95,6 +95,7 @@ function AppHourlyForecast({
         <h2 className="text-xl font-semibold">Hourly forecast</h2>
 
         <button
+          aria-label={`Set weekday; current: ${dropdownToggleText}`}
           type="button"
           className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base hover:bg-neutral-700"
           onClick={() => {

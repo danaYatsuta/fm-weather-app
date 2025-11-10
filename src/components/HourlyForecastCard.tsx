@@ -22,10 +22,10 @@ function HourlyForecastCard({
 
     content = (
       <>
-        <div className="flex items-center gap-2 text-xl">
-          <img src={iconSrc} alt={iconAlt} className="size-10" />
-
+        <div className="flex flex-row-reverse items-center gap-2 text-xl">
           <p>{hour}</p>
+
+          <img src={iconSrc} alt={iconAlt} className="size-10" />
         </div>
 
         <p className="text-base">{Math.round(temperature)}°</p>
