@@ -167,7 +167,7 @@ function App() {
         </main>
       )}
 
-      <footer className="pb-1 text-center">
+      <footer className="pb-1 text-center text-base font-normal">
         Challenge by{" "}
         <a href="https://www.frontendmentor.io?ref=challenge">
           Frontend Mentor

@@ -6,13 +6,18 @@
   :focus {
     @apply outline-2 outline-offset-[3px];
   }
-
-  button {
-    cursor: pointer;
-  }
-
   a {
     @apply text-neutral-200 underline hover:no-underline;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  button,
+  label,
+  input {
+    @apply transition-colors motion-reduce:transition-none;
   }
 }
 
