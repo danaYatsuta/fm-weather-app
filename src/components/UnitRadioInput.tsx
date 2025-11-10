@@ -10,17 +10,17 @@ interface Option<T> {
 interface UnitRadioInputProps<T> {
   legend: string;
   name: keyof UnitInfo;
+  onValueChange: React.ChangeEventHandler;
   options: Option<T>[];
   value: T;
-  onValueChange: React.ChangeEventHandler;
 }
 
 function UnitRadioInput<T extends string>({
   legend,
   name,
+  onValueChange,
   options,
   value,
-  onValueChange,
 }: UnitRadioInputProps<T>) {
   const radioInputs = options.map((option) => {
     return (
@@ -31,15 +31,15 @@ function UnitRadioInput<T extends string>({
         <span>{option.label}</span>
 
         <input
-          className="peer sr-only"
-          type="radio"
-          name={name}
-          value={option.value}
           checked={value === option.value}
+          className="peer sr-only"
+          name={name}
           onChange={onValueChange}
+          type="radio"
+          value={option.value}
         />
 
-        <img src={iconCheckmark} alt="" className="hidden peer-checked:block" />
+        <img alt="" className="hidden peer-checked:block" src={iconCheckmark} />
       </label>
     );
   });

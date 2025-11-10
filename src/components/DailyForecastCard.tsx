@@ -1,21 +1,20 @@
 import { getIconFromWeatherCode } from "../util";
-
 import BaseCard from "./BaseCard";
 
 interface DailyForecastCardProps {
-  time?: string;
-  weatherCode?: number;
   maxTemp?: number;
   minTemp?: number;
+  time?: string;
+  weatherCode?: number;
 }
 
 function DailyForecastCard({
-  time,
-  weatherCode,
   maxTemp,
   minTemp,
+  time,
+  weatherCode,
 }: DailyForecastCardProps) {
-  let content: React.ReactElement | null = null;
+  let content: null | React.ReactElement = null;
 
   if (
     time !== undefined &&
@@ -42,7 +41,7 @@ function DailyForecastCard({
         <p aria-hidden="true">{weekdayShort}</p>
         <p className="sr-only">{weekdayLong}</p>
 
-        <img src={iconSrc} alt={iconAlt} className="size-16" />
+        <img alt={iconAlt} className="size-16" src={iconSrc} />
 
         <div className="flex justify-between self-stretch text-base">
           <p>

@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useRequest } from "ahooks";
+import { useState } from "react";
 
 import type { LocationInfo, UnitInfo, UnitSystem, WeatherData } from "./types";
 
@@ -13,11 +13,11 @@ import AppSearchForm from "./components/AppSearchForm";
 
 function App() {
   const [locationInfo, setLocationInfo] = useState<LocationInfo>({
-    name: "Berlin",
     country: "Germany",
-    timezone: "Europe/Berlin",
     latitude: 52.52437,
     longitude: 13.41053,
+    name: "Berlin",
+    timezone: "Europe/Berlin",
   });
 
   /*
@@ -27,9 +27,9 @@ function App() {
   */
   const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
   const [unitInfo, setUnitInfo] = useState<UnitInfo>({
+    precipitationUnit: "mm",
     temperatureUnit: "celsius",
     windSpeedUnit: "kmh",
-    precipitationUnit: "mm",
   });
 
   const url = `https://api.open-meteo.com/v1/forecast?`;
@@ -71,9 +71,9 @@ function App() {
       });
     },
     {
-      refreshDeps: [locationInfo, unitInfo],
       cacheKey:
         "weatherData" + JSON.stringify(locationInfo) + JSON.stringify(unitInfo),
+      refreshDeps: [locationInfo, unitInfo],
       staleTime: 60 * 1000,
     },
   );
@@ -85,15 +85,15 @@ function App() {
 
     if (newUnitSystem === "metric") {
       setUnitInfo({
+        precipitationUnit: "mm",
         temperatureUnit: "celsius",
         windSpeedUnit: "kmh",
-        precipitationUnit: "mm",
       });
     } else {
       setUnitInfo({
+        precipitationUnit: "inch",
         temperatureUnit: "fahrenheit",
         windSpeedUnit: "mph",
-        precipitationUnit: "inch",
       });
     }
   }
@@ -118,10 +118,10 @@ function App() {
   return (
     <>
       <AppHeader
-        unitSystem={unitSystem}
-        unitInfo={unitInfo}
-        onUnitSystemChange={handleUnitSystemChange}
         onUnitInfoChange={handleUnitInfoChange}
+        onUnitSystemChange={handleUnitSystemChange}
+        unitInfo={unitInfo}
+        unitSystem={unitSystem}
       />
 
       {error ? (
@@ -137,32 +137,32 @@ function App() {
           <AppSearchForm onLocationInfoChange={setLocationInfo} />
 
           <AppCurrentWeatherCard
-            locationName={locationInfo.name}
             locationCountry={locationInfo.country}
+            locationName={locationInfo.name}
+            temperature={relevantWeatherData?.current.temperature_2m}
             time={relevantWeatherData?.current.time}
             weatherCode={relevantWeatherData?.current.weather_code}
-            temperature={relevantWeatherData?.current.temperature_2m}
           />
           <AppCurrentWeatherDetails
             feelsLikeTemperature={
               relevantWeatherData?.current.apparent_temperature
             }
             humidity={relevantWeatherData?.current.relative_humidity_2m}
-            windSpeed={relevantWeatherData?.current.wind_speed_10m}
-            windSpeedUnit={unitInfo.windSpeedUnit}
             precipitation={relevantWeatherData?.current.precipitation}
             precipitationUnit={unitInfo.precipitationUnit}
+            windSpeed={relevantWeatherData?.current.wind_speed_10m}
+            windSpeedUnit={unitInfo.windSpeedUnit}
           />
           <AppDailyForecast
-            times={relevantWeatherData?.daily.time}
-            weatherCodes={relevantWeatherData?.daily.weather_code}
             maxTemps={relevantWeatherData?.daily.temperature_2m_max}
             minTemps={relevantWeatherData?.daily.temperature_2m_min}
+            times={relevantWeatherData?.daily.time}
+            weatherCodes={relevantWeatherData?.daily.weather_code}
           />
           <AppHourlyForecast
+            temperatures={relevantWeatherData?.hourly.temperature_2m}
             times={relevantWeatherData?.hourly.time}
             weatherCodes={relevantWeatherData?.hourly.weather_code}
-            temperatures={relevantWeatherData?.hourly.temperature_2m}
           />
         </main>
       )}

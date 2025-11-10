@@ -1,22 +1,21 @@
+import { useClickAway } from "ahooks";
 import { useRef, useState } from "react";
 
+import iconDropdown from "../assets/icon-dropdown.svg";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 import HourlyForecastCard from "./HourlyForecastCard";
 
-import iconDropdown from "../assets/icon-dropdown.svg";
-import { useClickAway } from "ahooks";
-
 interface AppHourlyForecastProps {
+  temperatures?: number[];
   times?: string[];
   weatherCodes?: number[];
-  temperatures?: number[];
 }
 
 function AppHourlyForecast({
+  temperatures,
   times,
   weatherCodes,
-  temperatures,
 }: AppHourlyForecastProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
@@ -52,8 +51,8 @@ function AppHourlyForecast({
 
       dropdownButtons.push(
         <DropdownButton
-          key={i}
           fullWidth={true}
+          key={i}
           onButtonClick={() => {
             setWeekday(i);
             setIsDropdownShown(false);
@@ -78,32 +77,32 @@ function AppHourlyForecast({
     hourlyForecastCards.push(
       <HourlyForecastCard
         hour={hour}
-        weatherCode={weatherCodes?.[i]}
-        temperature={temperatures?.[i]}
         key={i}
+        temperature={temperatures?.[i]}
+        weatherCode={weatherCodes?.[i]}
       />,
     );
   }
 
   return (
     <section
-      className="relative col-start-2 row-span-3 row-start-3 mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6"
       aria-busy={!isDataLoaded}
+      className="relative col-start-2 row-span-3 row-start-3 mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6"
     >
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Hourly forecast</h2>
 
         <button
           aria-label={`Set weekday; current: ${dropdownToggleText}`}
-          type="button"
           className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base hover:bg-neutral-700"
           onClick={() => {
             if (isDataLoaded) setIsDropdownShown(!isDropdownShown);
           }}
           ref={dropdownToggleRef}
+          type="button"
         >
           {dropdownToggleText}
-          <img src={iconDropdown} alt="" />
+          <img alt="" src={iconDropdown} />
         </button>
       </div>
 
@@ -113,9 +112,9 @@ function AppHourlyForecast({
       >
         <BaseCard>
           <div
-            role="listbox"
             aria-label="Pick weekday"
             className="flex flex-col gap-0.5 p-2"
+            role="listbox"
           >
             {dropdownButtons}
           </div>

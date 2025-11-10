@@ -1,11 +1,11 @@
-type Tag = "div" | "li";
-
 interface BaseCardProps {
-  tag?: Tag;
   children?: React.ReactNode;
+  tag?: Tag;
 }
 
-function BaseCard({ tag = "div", children }: BaseCardProps) {
+type Tag = "div" | "li";
+
+function BaseCard({ children, tag = "div" }: BaseCardProps) {
   const Tag = tag;
 
   return (

@@ -19,7 +19,7 @@ const weatherCodes = {
 };
 
 function getIconFromWeatherCode(weatherCode: number) {
-  let iconSrc, iconAlt;
+  let iconAlt, iconSrc;
 
   if (weatherCodes.drizzle.includes(weatherCode)) {
     iconSrc = iconDrizzle;

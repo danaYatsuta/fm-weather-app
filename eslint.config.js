@@ -4,6 +4,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import { defineConfig, globalIgnores } from "eslint/config";
 import eslintReact from "@eslint-react/eslint-plugin";
+import perfectionist from "eslint-plugin-perfectionist";
 
 export default defineConfig([
   globalIgnores(["dist"]),
@@ -15,6 +16,7 @@ export default defineConfig([
       tseslint.configs.stylisticTypeChecked,
       reactRefresh.configs.vite,
       eslintReact.configs["strict-type-checked"],
+      perfectionist.configs["recommended-natural"],
     ],
     languageOptions: {
       ecmaVersion: 2020,

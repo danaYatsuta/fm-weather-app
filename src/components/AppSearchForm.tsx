@@ -1,14 +1,13 @@
+import { useClickAway, useDebounce, useFocusWithin, useRequest } from "ahooks";
 import { useRef, useState } from "react";
-import { useDebounce, useFocusWithin, useRequest, useClickAway } from "ahooks";
 
 import type { GeocodingData, LocationInfo } from "../types";
 
+import iconError from "../assets/icon-error.svg";
+import iconLoading from "../assets/icon-loading.svg";
+import iconSearch from "../assets/icon-search.svg";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
-
-import iconSearch from "../assets/icon-search.svg";
-import iconLoading from "../assets/icon-loading.svg";
-import iconError from "../assets/icon-error.svg";
 
 function AppSearchForm({
   onLocationInfoChange,
@@ -70,9 +69,9 @@ function AppSearchForm({
       });
     },
     {
+      cacheKey: "geocodingData" + JSON.stringify(debouncedSearchTerm),
       ready: debouncedSearchTerm.length >= 2,
       refreshDeps: [debouncedSearchTerm],
-      cacheKey: "geocodingData" + JSON.stringify(debouncedSearchTerm),
       staleTime: 5 * 60 * 1000,
     },
   );
@@ -89,12 +88,12 @@ function AppSearchForm({
   const searchResultButtons = geocodingData?.results?.map((result) => (
     <DropdownButton
       border={true}
+      key={result.id}
       onButtonClick={() => {
-        const { name, country, timezone, latitude, longitude } = result;
-        onLocationInfoChange({ name, country, timezone, latitude, longitude });
+        const { country, latitude, longitude, name, timezone } = result;
+        onLocationInfoChange({ country, latitude, longitude, name, timezone });
         setIsDropdownShown(false);
       }}
-      key={result.id}
     >
       <span className="flex items-center justify-between">
         {result.name}
@@ -108,9 +107,9 @@ function AppSearchForm({
   let content: React.ReactNode = (
     <p className="flex h-10 items-center gap-3 px-2">
       <img
-        src={iconLoading}
         alt=""
         className="animate-spin motion-reduce:animate-none"
+        src={iconLoading}
       />
       Search in progress
     </p>
@@ -119,7 +118,7 @@ function AppSearchForm({
   if (!loading) {
     content = searchResultButtons ?? (
       <p className="flex h-10 items-center gap-3 px-2">
-        <img src={iconError} alt="" />
+        <img alt="" src={iconError} />
         No results
       </p>
     );
@@ -129,30 +128,30 @@ function AppSearchForm({
     <div className="relative col-span-2 mt-12 justify-self-center xl:mt-16">
       <search>
         <form
-          onSubmit={handleSubmit}
           className="mb-8 flex flex-col gap-3 text-xl xl:mb-12 xl:flex-row xl:justify-center xl:gap-4"
+          onSubmit={handleSubmit}
         >
           <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-[3px] hover:bg-neutral-700 has-focus:outline-2 xl:w-[526px]">
-            <img src={iconSearch} alt="" />
+            <img alt="" src={iconSearch} />
 
             <input
-              name="name"
-              type="search"
               autoComplete="off"
-              placeholder="Search for a place..."
               className="h-full w-full outline-none placeholder:text-neutral-200"
-              value={searchTerm}
+              name="name"
               onChange={(e) => {
                 setSearchTerm(e.target.value);
               }}
+              placeholder="Search for a place..."
               ref={searchBarRef}
+              type="search"
+              value={searchTerm}
             />
           </label>
 
           <button
-            type="submit"
             className="h-14 rounded-xl bg-blue-500 outline-blue-500 hover:bg-blue-700 hover:outline-blue-700 xl:px-6"
             ref={submitButtonRef}
+            type="submit"
           >
             Search
           </button>
@@ -164,7 +163,7 @@ function AppSearchForm({
         ref={dropdownRef}
       >
         <BaseCard>
-          <div className="flex flex-col gap-0.5 p-2" aria-busy={loading}>
+          <div aria-busy={loading} className="flex flex-col gap-0.5 p-2">
             {content}
           </div>
         </BaseCard>

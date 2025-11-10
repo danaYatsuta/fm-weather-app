@@ -2,16 +2,16 @@ import { getIconFromWeatherCode } from "../util";
 
 interface HourlyForecastCardProps {
   hour?: string;
-  weatherCode?: number;
   temperature?: number;
+  weatherCode?: number;
 }
 
 function HourlyForecastCard({
   hour,
-  weatherCode,
   temperature,
+  weatherCode,
 }: HourlyForecastCardProps) {
-  let content: React.ReactElement | null = null;
+  let content: null | React.ReactElement = null;
 
   if (
     hour !== undefined &&
@@ -25,7 +25,7 @@ function HourlyForecastCard({
         <div className="flex flex-row-reverse items-center gap-2 text-xl">
           <p>{hour}</p>
 
-          <img src={iconSrc} alt={iconAlt} className="size-10" />
+          <img alt={iconAlt} className="size-10" src={iconSrc} />
         </div>
 
         <p className="text-base">{Math.round(temperature)}°</p>

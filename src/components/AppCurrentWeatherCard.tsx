@@ -1,19 +1,19 @@
 import { getIconFromWeatherCode } from "../util";
 
 interface AppCurrentWeatherCardProps {
-  locationName: string;
   locationCountry: string;
+  locationName: string;
+  temperature?: number;
   time?: string;
   weatherCode?: number;
-  temperature?: number;
 }
 
 function AppCurrentWeatherCard({
-  locationName,
   locationCountry,
+  locationName,
+  temperature,
   time,
   weatherCode,
-  temperature,
 }: AppCurrentWeatherCardProps) {
   let content = (
     <>
@@ -31,17 +31,17 @@ function AppCurrentWeatherCard({
     const date = new Date(time);
 
     const weekdayShortFormat = new Intl.DateTimeFormat("en-US", {
-      weekday: "long",
       day: "numeric",
       month: "short",
+      weekday: "long",
       year: "numeric",
     });
     const weekdayShortDate = weekdayShortFormat.format(date);
 
     const weekdayLongFormat = new Intl.DateTimeFormat("en-US", {
-      weekday: "long",
       day: "numeric",
       month: "long",
+      weekday: "long",
       year: "numeric",
     });
     const weekdayLongDate = weekdayLongFormat.format(date);
@@ -55,14 +55,14 @@ function AppCurrentWeatherCard({
             {locationName}, {locationCountry}
           </p>
 
-          <p className="text-neutral-200" aria-hidden="true">
+          <p aria-hidden="true" className="text-neutral-200">
             {weekdayShortDate}
           </p>
           <p className="sr-only">{weekdayLongDate}</p>
         </div>
 
         <div className="flex items-center justify-between gap-4">
-          <img src={iconSrc} alt={iconAlt} className="size-32" />
+          <img alt={iconAlt} className="size-32" src={iconSrc} />
 
           <p className="text-8xl font-extrabold italic">
             {Math.round(temperature)}°
@@ -74,8 +74,8 @@ function AppCurrentWeatherCard({
 
   return (
     <section
-      className={`${isDataLoaded ? "bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)]" : "items-center justify-center bg-neutral-800"} flex h-[286px] w-[343px] flex-col gap-2 self-center rounded-2xl px-6 xl:w-full`}
       aria-busy={!isDataLoaded}
+      className={`${isDataLoaded ? "bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)]" : "items-center justify-center bg-neutral-800"} flex h-[286px] w-[343px] flex-col gap-2 self-center rounded-2xl px-6 xl:w-full`}
     >
       <h2 className="sr-only">Current weather</h2>
 

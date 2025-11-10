@@ -1,3 +1,4 @@
+import { useClickAway } from "ahooks";
 import { useRef, useState } from "react";
 
 import type {
@@ -8,27 +9,25 @@ import type {
   WindSpeedUnit,
 } from "../types";
 
+import iconDropdown from "../assets/icon-dropdown.svg";
+import iconUnits from "../assets/icon-units.svg";
+import logo from "../assets/logo.svg";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 import UnitRadioInput from "./UnitRadioInput";
 
-import iconDropdown from "../assets/icon-dropdown.svg";
-import iconUnits from "../assets/icon-units.svg";
-import logo from "../assets/logo.svg";
-import { useClickAway } from "ahooks";
-
 interface AppHeaderProps {
-  unitSystem: UnitSystem;
-  unitInfo: UnitInfo;
-  onUnitSystemChange: (unitSystem: UnitSystem) => void;
   onUnitInfoChange: (unitInfo: UnitInfo) => void;
+  onUnitSystemChange: (unitSystem: UnitSystem) => void;
+  unitInfo: UnitInfo;
+  unitSystem: UnitSystem;
 }
 
 function AppHeader({
-  unitSystem,
-  unitInfo,
-  onUnitSystemChange,
   onUnitInfoChange,
+  onUnitSystemChange,
+  unitInfo,
+  unitSystem,
 }: AppHeaderProps) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
@@ -49,20 +48,20 @@ function AppHeader({
   return (
     <header className="relative mt-4 flex justify-between xl:mt-12">
       <a href="/">
-        <img src={logo} alt="Weather Now" className="w-[138px] xl:w-auto" />
+        <img alt="Weather Now" className="w-[138px] xl:w-auto" src={logo} />
       </a>
 
       <button
-        type="button"
         className="flex h-8 items-center gap-1.5 rounded-lg bg-neutral-800 px-2.5 text-sm hover:bg-neutral-700 xl:h-11 xl:gap-2.5 xl:px-4 xl:text-base"
         onClick={() => {
           setIsDropdownShown(!isDropdownShown);
         }}
         ref={dropdownToggleRef}
+        type="button"
       >
-        <img src={iconUnits} alt="" className="h-3.5 xl:h-auto" />
+        <img alt="" className="h-3.5 xl:h-auto" src={iconUnits} />
         Units
-        <img src={iconDropdown} alt="" className="h-1.5 xl:h-auto" />
+        <img alt="" className="h-1.5 xl:h-auto" src={iconDropdown} />
       </button>
 
       <div
@@ -71,9 +70,9 @@ function AppHeader({
       >
         <BaseCard>
           <div
-            role="toolbar"
             aria-orientation="vertical"
             className="min-w-[214px] px-2 py-1"
+            role="toolbar"
           >
             <DropdownButton
               fullWidth={true}
@@ -90,34 +89,34 @@ function AppHeader({
               <UnitRadioInput<TemperatureUnit>
                 legend="Temperature"
                 name="temperatureUnit"
+                onValueChange={handleValueChange}
                 options={[
                   { label: "Celsius (°C)", value: "celsius" },
                   { label: "Fahrenheit (°F)", value: "fahrenheit" },
                 ]}
                 value={unitInfo.temperatureUnit}
-                onValueChange={handleValueChange}
               />
 
               <UnitRadioInput<WindSpeedUnit>
                 legend="Wind Speed"
                 name="windSpeedUnit"
+                onValueChange={handleValueChange}
                 options={[
                   { label: "km/h", value: "kmh" },
                   { label: "mph", value: "mph" },
                 ]}
                 value={unitInfo.windSpeedUnit}
-                onValueChange={handleValueChange}
               />
 
               <UnitRadioInput<PrecipitationUnit>
                 legend="Precipitation"
                 name="precipitationUnit"
+                onValueChange={handleValueChange}
                 options={[
                   { label: "Millimeters (mm)", value: "mm" },
                   { label: "Inches (in)", value: "inch" },
                 ]}
                 value={unitInfo.precipitationUnit}
-                onValueChange={handleValueChange}
               />
             </div>
           </div>

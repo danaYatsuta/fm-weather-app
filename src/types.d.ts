@@ -1,110 +1,110 @@
-export interface UnitInfo {
-  temperatureUnit: TemperatureUnit;
-  windSpeedUnit: WindSpeedUnit;
-  precipitationUnit: PrecipitationUnit;
+export interface GeocodingData {
+  generationtime_ms: number;
+  results?: Result[];
 }
-
-export type UnitSystem = "metric" | "imperial";
-export type TemperatureUnit = "celsius" | "fahrenheit";
-export type WindSpeedUnit = "kmh" | "mph";
-export type PrecipitationUnit = "mm" | "inch";
 
 export interface LocationInfo {
-  name: string;
   country: string;
-  timezone: string;
   latitude: number;
   longitude: number;
-}
-
-export interface GeocodingData {
-  results?: Result[];
-  generationtime_ms: number;
-}
-
-interface Result {
-  id: number;
   name: string;
-  latitude: number;
-  longitude: number;
-  elevation: number;
-  feature_code: string;
-  country_code: string;
-  admin1_id?: number;
-  admin2_id?: number;
-  admin3_id?: number;
-  admin4_id?: number;
   timezone: string;
-  population: number;
-  postcodes: string[];
-  country_id: number;
-  country: string;
-  admin1?: string;
-  admin2?: string;
-  admin3?: string;
-  admin4?: string;
 }
+export type PrecipitationUnit = "inch" | "mm";
+export type TemperatureUnit = "celsius" | "fahrenheit";
+export interface UnitInfo {
+  precipitationUnit: PrecipitationUnit;
+  temperatureUnit: TemperatureUnit;
+  windSpeedUnit: WindSpeedUnit;
+}
+
+export type UnitSystem = "imperial" | "metric";
 
 export interface WeatherData {
+  current: Current;
+  current_units: CurrentUnits;
+  daily: Daily;
+  daily_units: DailyUnits;
+  elevation: number;
+  generationtime_ms: number;
+  hourly: Hourly;
+  hourly_units: HourlyUnits;
   latitude: number;
   longitude: number;
-  generationtime_ms: number;
-  utc_offset_seconds: number;
   timezone: string;
   timezone_abbreviation: string;
-  elevation: number;
-  current_units: CurrentUnits;
-  current: Current;
-  hourly_units: HourlyUnits;
-  hourly: Hourly;
-  daily_units: DailyUnits;
-  daily: Daily;
+  utc_offset_seconds: number;
 }
 
+export type WindSpeedUnit = "kmh" | "mph";
+
 interface Current {
-  time: string;
-  interval: number;
-  weather_code: number;
-  temperature_2m: number;
   apparent_temperature: number;
-  relative_humidity_2m: number;
-  wind_speed_10m: number;
+  interval: number;
   precipitation: number;
+  relative_humidity_2m: number;
+  temperature_2m: number;
+  time: string;
+  weather_code: number;
+  wind_speed_10m: number;
 }
 
 interface CurrentUnits {
-  time: string;
-  interval: string;
-  weather_code: string;
-  temperature_2m: string;
   apparent_temperature: string;
-  relative_humidity_2m: string;
-  wind_speed_10m: string;
+  interval: string;
   precipitation: string;
+  relative_humidity_2m: string;
+  temperature_2m: string;
+  time: string;
+  weather_code: string;
+  wind_speed_10m: string;
 }
 
 interface Daily {
-  time: string[];
-  weather_code: number[];
   temperature_2m_max: number[];
   temperature_2m_min: number[];
+  time: string[];
+  weather_code: number[];
 }
 
 interface DailyUnits {
-  time: string;
-  weather_code: string;
   temperature_2m_max: string;
   temperature_2m_min: string;
+  time: string;
+  weather_code: string;
 }
 
 interface Hourly {
+  temperature_2m: number[];
   time: string[];
   weather_code: number[];
-  temperature_2m: number[];
 }
 
 interface HourlyUnits {
+  temperature_2m: string;
   time: string;
   weather_code: string;
-  temperature_2m: string;
+}
+
+interface Result {
+  admin1?: string;
+  admin1_id?: number;
+  admin2?: string;
+  admin2_id?: number;
+  admin3?: string;
+  admin3_id?: number;
+  admin4?: string;
+  admin4_id?: number;
+  country: string;
+  country_code: string;
+  country_id: number;
+  elevation: number;
+  feature_code: string;
+  id: number;
+  latitude: number;
+  longitude: number;
+  name: string;
+  population: number;
+  postcodes: string[];
+  timezone: string;
 }

@@ -1,16 +1,16 @@
 import DailyForecastCard from "./DailyForecastCard";
 
 interface AppDailyForecastProps {
-  times?: string[];
   maxTemps?: number[];
   minTemps?: number[];
+  times?: string[];
   weatherCodes?: number[];
 }
 
 function AppDailyForecast({
-  times,
   maxTemps,
   minTemps,
+  times,
   weatherCodes,
 }: AppDailyForecastProps) {
   const isDataLoaded =
@@ -24,19 +24,19 @@ function AppDailyForecast({
   for (let i = 0; i < 7; i++) {
     dailyForecastCards.push(
       <DailyForecastCard
-        time={times?.[i]}
-        weatherCode={weatherCodes?.[i]}
+        key={i}
         maxTemp={maxTemps?.[i]}
         minTemp={minTemps?.[i]}
-        key={i}
+        time={times?.[i]}
+        weatherCode={weatherCodes?.[i]}
       />,
     );
   }
 
   return (
     <section
-      className="col-start-1 mt-8 xl:mt-0 xl:self-end"
       aria-busy={!isDataLoaded}
+      className="col-start-1 mt-8 xl:mt-0 xl:self-end"
     >
       <h2 className="text-xl font-bold">Daily forecast</h2>
 

@@ -5,19 +5,19 @@ import CurrentWeatherDetailCard from "./CurrentWeatherDetailCard";
 interface AppCurrentWeatherDetailsProps {
   feelsLikeTemperature?: number;
   humidity?: number;
-  windSpeed?: number;
   precipitation?: number;
-  windSpeedUnit: WindSpeedUnit;
   precipitationUnit: PrecipitationUnit;
+  windSpeed?: number;
+  windSpeedUnit: WindSpeedUnit;
 }
 
 function AppCurrentWeatherDetails({
   feelsLikeTemperature,
   humidity,
-  windSpeed,
   precipitation,
-  windSpeedUnit,
   precipitationUnit,
+  windSpeed,
+  windSpeedUnit,
 }: AppCurrentWeatherDetailsProps) {
   const isDataLoaded =
     feelsLikeTemperature !== undefined &&
@@ -45,8 +45,8 @@ function AppCurrentWeatherDetails({
       <h2 className="sr-only">Current weather details</h2>
 
       <ul
-        className="mt-5 grid grid-cols-2 items-start gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6"
         aria-busy={!isDataLoaded}
+        className="mt-5 grid grid-cols-2 items-start gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6"
       >
         <CurrentWeatherDetailCard
           name="Feels Like"
