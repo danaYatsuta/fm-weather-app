@@ -29,13 +29,22 @@ function AppCurrentWeatherCard({
 
   if (isDataLoaded) {
     const date = new Date(time);
-    const intlDateTimeFormat = new Intl.DateTimeFormat("en-US", {
+
+    const weekdayShortFormat = new Intl.DateTimeFormat("en-US", {
       weekday: "long",
       day: "numeric",
       month: "short",
       year: "numeric",
     });
-    const formattedDate = intlDateTimeFormat.format(date);
+    const weekdayShortDate = weekdayShortFormat.format(date);
+
+    const weekdayLongFormat = new Intl.DateTimeFormat("en-US", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    const weekdayLongDate = weekdayLongFormat.format(date);
 
     const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
@@ -46,7 +55,10 @@ function AppCurrentWeatherCard({
             {locationName}, {locationCountry}
           </p>
 
-          <p className="text-neutral-200">{formattedDate}</p>
+          <p className="text-neutral-200" aria-hidden="true">
+            {weekdayShortDate}
+          </p>
+          <p className="sr-only">{weekdayLongDate}</p>
         </div>
 
         <div className="flex items-center justify-between gap-4">
