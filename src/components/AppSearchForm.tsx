@@ -46,6 +46,8 @@ export default function AppSearchForm({
     ["name", debouncedSearchTerm],
   ]);
 
+  const firstSearchResultRef = useRef<HTMLButtonElement>(null);
+
   const {
     data: geocodingData,
     loading,
@@ -68,11 +70,9 @@ export default function AppSearchForm({
         data.results.splice(5);
       }
 
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(data);
-        }, 500);
-      });
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      return data;
     },
     {
       cacheKey: "geocodingData" + JSON.stringify(debouncedSearchTerm),
@@ -91,11 +91,12 @@ export default function AppSearchForm({
 
     run();
     setIsDropdownShown(true);
+    firstSearchResultRef.current?.focus();
   }
 
   /* --------------------------------- Markup --------------------------------- */
 
-  const searchResultButtons = geocodingData?.results?.map((result) => (
+  const searchResultButtons = geocodingData?.results?.map((result, index) => (
     <DropdownButton
       border={true}
       key={result.id}
@@ -104,6 +105,7 @@ export default function AppSearchForm({
         onLocationInfoChange({ country, latitude, longitude, name, timezone });
         setIsDropdownShown(false);
       }}
+      ref={index === 0 ? firstSearchResultRef : undefined}
     >
       <span className="flex items-center justify-between">
         {result.name}
@@ -135,10 +137,10 @@ export default function AppSearchForm({
   }
 
   return (
-    <div className="relative col-span-2 mt-12 justify-self-center xl:mt-16">
+    <div className="relative mt-12 self-center xl:mt-16">
       <search>
         <form
-          className="mb-8 flex flex-col gap-3 text-xl xl:mb-12 xl:flex-row xl:justify-center xl:gap-4"
+          className="flex flex-col gap-3 text-xl xl:flex-row xl:justify-center xl:gap-4"
           onSubmit={handleSubmit}
         >
           <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-[3px] hover:bg-neutral-700 has-focus:outline-2 xl:w-[526px]">
@@ -173,11 +175,7 @@ export default function AppSearchForm({
         ref={dropdownRef}
       >
         <BaseCard>
-          <div
-            aria-busy={loading}
-            className="flex flex-col gap-0.5 p-2"
-            role="listbox"
-          >
+          <div className="flex flex-col gap-0.5 p-2" role="listbox">
             {content}
           </div>
         </BaseCard>

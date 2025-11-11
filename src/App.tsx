@@ -118,41 +118,49 @@ export default function App() {
           <AppError onRetryButtonClick={run} />
         </main>
       ) : (
-        <main className="my-12 flex grow grid-cols-[800px_1fr] grid-rows-[min-content_min-content_286px_min-content_min-content] flex-col xl:my-[60px] xl:grid">
-          <h1 className="font-bricolage-grotesque col-span-2 text-center text-[54px] leading-16 font-bold">
+        <main className="my-12 flex grow flex-col xl:my-[60px]">
+          <h1 className="font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
             How's the sky looking today?
           </h1>
 
           <AppSearchForm onLocationInfoChange={setLocationInfo} />
 
-          <AppCurrentWeatherCard
-            locationCountry={locationInfo.country}
-            locationName={locationInfo.name}
-            temperature={relevantWeatherData?.current.temperature_2m}
-            time={relevantWeatherData?.current.time}
-            weatherCode={relevantWeatherData?.current.weather_code}
-          />
-          <AppCurrentWeatherDetails
-            feelsLikeTemperature={
-              relevantWeatherData?.current.apparent_temperature
-            }
-            humidity={relevantWeatherData?.current.relative_humidity_2m}
-            precipitation={relevantWeatherData?.current.precipitation}
-            precipitationUnit={unitInfo.precipitationUnit}
-            windSpeed={relevantWeatherData?.current.wind_speed_10m}
-            windSpeedUnit={unitInfo.windSpeedUnit}
-          />
-          <AppDailyForecast
-            maxTemps={relevantWeatherData?.daily.temperature_2m_max}
-            minTemps={relevantWeatherData?.daily.temperature_2m_min}
-            times={relevantWeatherData?.daily.time}
-            weatherCodes={relevantWeatherData?.daily.weather_code}
-          />
-          <AppHourlyForecast
-            temperatures={relevantWeatherData?.hourly.temperature_2m}
-            times={relevantWeatherData?.hourly.time}
-            weatherCodes={relevantWeatherData?.hourly.weather_code}
-          />
+          <p aria-live="polite" className="sr-only">
+            {loading
+              ? ""
+              : `Loaded weather for ${locationInfo.name}, ${locationInfo.country}`}
+          </p>
+
+          <div className="mt-8 grid-cols-[800px_1fr] grid-rows-[286px_min-content_min-content] xl:mt-12 xl:grid">
+            <AppCurrentWeatherCard
+              locationCountry={locationInfo.country}
+              locationName={locationInfo.name}
+              temperature={relevantWeatherData?.current.temperature_2m}
+              time={relevantWeatherData?.current.time}
+              weatherCode={relevantWeatherData?.current.weather_code}
+            />
+            <AppCurrentWeatherDetails
+              feelsLikeTemperature={
+                relevantWeatherData?.current.apparent_temperature
+              }
+              humidity={relevantWeatherData?.current.relative_humidity_2m}
+              precipitation={relevantWeatherData?.current.precipitation}
+              precipitationUnit={unitInfo.precipitationUnit}
+              windSpeed={relevantWeatherData?.current.wind_speed_10m}
+              windSpeedUnit={unitInfo.windSpeedUnit}
+            />
+            <AppDailyForecast
+              maxTemps={relevantWeatherData?.daily.temperature_2m_max}
+              minTemps={relevantWeatherData?.daily.temperature_2m_min}
+              times={relevantWeatherData?.daily.time}
+              weatherCodes={relevantWeatherData?.daily.weather_code}
+            />
+            <AppHourlyForecast
+              temperatures={relevantWeatherData?.hourly.temperature_2m}
+              times={relevantWeatherData?.hourly.time}
+              weatherCodes={relevantWeatherData?.hourly.weather_code}
+            />
+          </div>
         </main>
       )}
 

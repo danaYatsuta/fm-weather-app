@@ -13,12 +13,6 @@ function AppDailyForecast({
   times,
   weatherCodes,
 }: AppDailyForecastProps) {
-  const isDataLoaded =
-    times !== undefined &&
-    maxTemps !== undefined &&
-    minTemps !== undefined &&
-    weatherCodes !== undefined;
-
   const dailyForecastCards: React.ReactElement[] = [];
 
   for (let i = 0; i < 7; i++) {
@@ -34,10 +28,7 @@ function AppDailyForecast({
   }
 
   return (
-    <section
-      aria-busy={!isDataLoaded}
-      className="col-start-1 mt-8 xl:mt-0 xl:self-end"
-    >
+    <section className="col-start-1 mt-8 xl:mt-0 xl:self-end">
       <h2 className="text-xl font-bold">Daily forecast</h2>
 
       <ul className="mt-4 grid grid-cols-3 gap-4 xl:grid-cols-7">
