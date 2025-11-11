@@ -67,11 +67,7 @@ export default function AppHeader({
         ref={dropdownRef}
       >
         <BaseCard>
-          <div
-            aria-orientation="vertical"
-            className="min-w-[214px] px-2 py-1"
-            role="toolbar"
-          >
+          <div className="min-w-[214px] px-2 py-1">
             <DropdownButton
               fullWidth={true}
               onButtonClick={() => {
