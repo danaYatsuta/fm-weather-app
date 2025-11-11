@@ -17,21 +17,29 @@ function AppHourlyForecast({
   times,
   weatherCodes,
 }: AppHourlyForecastProps) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const dropdownToggleRef = useRef<HTMLButtonElement>(null);
+  /* ---------------------------------- State --------------------------------- */
 
   const [isDropdownShown, setIsDropdownShown] = useState(false);
 
-  useClickAway(() => {
-    setIsDropdownShown(false);
-  }, [dropdownRef, dropdownToggleRef]);
-
   const [weekday, setWeekday] = useState(0);
+
+  /* ------------------------------ Derived State ----------------------------- */
 
   const isDataLoaded =
     times !== undefined &&
     weatherCodes !== undefined &&
     temperatures !== undefined;
+
+  /* ---------------------------------- Hooks --------------------------------- */
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownToggleRef = useRef<HTMLButtonElement>(null);
+
+  useClickAway(() => {
+    setIsDropdownShown(false);
+  }, [dropdownRef, dropdownToggleRef]);
+
+  /* --------------------------------- Markup --------------------------------- */
 
   const dropdownButtons: React.ReactElement[] = [];
   let dropdownToggleText = "—";

@@ -14,6 +14,8 @@ import AppHourlyForecast from "./components/AppHourlyForecast";
 import AppSearchForm from "./components/AppSearchForm";
 import unitReducer from "./unitReducer";
 
+const url = `https://api.open-meteo.com/v1/forecast?`;
+
 export default function App() {
   /* ---------------------------------- State --------------------------------- */
 
@@ -38,9 +40,7 @@ export default function App() {
     windSpeedUnit: "kmh",
   });
 
-  /* ---------------------------------- Hooks --------------------------------- */
-
-  const url = `https://api.open-meteo.com/v1/forecast?`;
+  /* ------------------------------ Derived State ----------------------------- */
 
   const params = new URLSearchParams([
     [
@@ -57,6 +57,8 @@ export default function App() {
     ["wind_speed_unit", unitInfo.windSpeedUnit],
     ["precipitation_unit", unitInfo.precipitationUnit],
   ]);
+
+  /* ---------------------------------- Hooks --------------------------------- */
 
   const {
     data: weatherData,

@@ -14,14 +14,19 @@ function DailyForecastCard({
   time,
   weatherCode,
 }: DailyForecastCardProps) {
-  let content: null | React.ReactElement = null;
+  /* ------------------------------ Derived State ----------------------------- */
 
-  if (
+  const isDataLoaded =
     time !== undefined &&
     weatherCode !== undefined &&
     maxTemp !== undefined &&
-    minTemp !== undefined
-  ) {
+    minTemp !== undefined;
+
+  /* --------------------------------- Markup --------------------------------- */
+
+  let content: null | React.ReactElement = null;
+
+  if (isDataLoaded) {
     const date = new Date(time);
 
     const weekdayShortFormat = new Intl.DateTimeFormat("en-US", {

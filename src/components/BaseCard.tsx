@@ -6,7 +6,11 @@ interface BaseCardProps {
 type Tag = "div" | "li";
 
 function BaseCard({ children, tag = "div" }: BaseCardProps) {
+  /* ------------------------------ Derived State ----------------------------- */
+
   const Tag = tag;
+
+  /* --------------------------------- Markup --------------------------------- */
 
   return (
     <Tag className={"rounded-xl border border-neutral-600 bg-neutral-800"}>

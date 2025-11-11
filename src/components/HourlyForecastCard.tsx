@@ -11,13 +11,18 @@ function HourlyForecastCard({
   temperature,
   weatherCode,
 }: HourlyForecastCardProps) {
-  let content: null | React.ReactElement = null;
+  /* ------------------------------ Derived State ----------------------------- */
 
-  if (
+  const isDataLoaded =
     hour !== undefined &&
     weatherCode !== undefined &&
-    temperature !== undefined
-  ) {
+    temperature !== undefined;
+
+  /* --------------------------------- Markup --------------------------------- */
+
+  let content: null | React.ReactElement = null;
+
+  if (isDataLoaded) {
     const [iconSrc, iconAlt] = getIconFromWeatherCode(weatherCode);
 
     content = (

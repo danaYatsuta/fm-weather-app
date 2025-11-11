@@ -15,17 +15,21 @@ function AppCurrentWeatherCard({
   time,
   weatherCode,
 }: AppCurrentWeatherCardProps) {
+  /* ------------------------------ Derived State ----------------------------- */
+
+  const isDataLoaded =
+    time !== undefined &&
+    weatherCode !== undefined &&
+    temperature !== undefined;
+
+  /* --------------------------------- Markup --------------------------------- */
+
   let content = (
     <>
       <div className="loader" />
       <p>Loading...</p>
     </>
   );
-
-  const isDataLoaded =
-    time !== undefined &&
-    weatherCode !== undefined &&
-    temperature !== undefined;
 
   if (isDataLoaded) {
     const date = new Date(time);

@@ -9,6 +9,8 @@ function CurrentWeatherDetailCard({
   name,
   value,
 }: CurrentWeatherDetailCardProps) {
+  /* --------------------------------- Markup --------------------------------- */
+
   return (
     <BaseCard tag="li">
       <div className="flex h-[118px] flex-col justify-between pt-4 pb-3 pl-5">

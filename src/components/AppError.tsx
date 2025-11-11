@@ -2,6 +2,8 @@ import iconError from "../assets/icon-error.svg";
 import iconRetry from "../assets/icon-retry.svg";
 
 function AppError({ onRetryButtonClick }: { onRetryButtonClick: () => void }) {
+  /* --------------------------------- Markup --------------------------------- */
+
   return (
     <section className="flex flex-col items-center text-center">
       <img alt="" className="size-10" src={iconError} />

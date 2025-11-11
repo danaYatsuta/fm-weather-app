@@ -13,6 +13,8 @@ function AppDailyForecast({
   times,
   weatherCodes,
 }: AppDailyForecastProps) {
+  /* --------------------------------- Markup --------------------------------- */
+
   const dailyForecastCards: React.ReactElement[] = [];
 
   for (let i = 0; i < 7; i++) {

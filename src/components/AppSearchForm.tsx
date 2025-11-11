@@ -10,6 +10,8 @@ import iconSearch from "../assets/icon-search.svg";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 
+const url = `https://geocoding-api.open-meteo.com/v1/search?`;
+
 export default function AppSearchForm({
   onLocationInfoChange,
 }: {
@@ -21,13 +23,21 @@ export default function AppSearchForm({
 
   const [isDropdownShown, setIsDropdownShown] = useState(false);
 
-  /* ---------------------------------- Hooks --------------------------------- */
+  /* ------------------------------ Derived State ----------------------------- */
 
   const debouncedSearchTerm = useDebounce(searchTerm, { wait: 300 });
+
+  const params = new URLSearchParams([
+    ["count", "10"],
+    ["name", debouncedSearchTerm],
+  ]);
+
+  /* ---------------------------------- Hooks --------------------------------- */
 
   const searchBarRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const firstSearchResultRef = useRef<HTMLButtonElement>(null);
 
   useClickAway(() => {
     setIsDropdownShown(false);
@@ -38,15 +48,6 @@ export default function AppSearchForm({
       if (debouncedSearchTerm.length >= 2) setIsDropdownShown(true);
     },
   });
-
-  const url = `https://geocoding-api.open-meteo.com/v1/search?`;
-
-  const params = new URLSearchParams([
-    ["count", "10"],
-    ["name", debouncedSearchTerm],
-  ]);
-
-  const firstSearchResultRef = useRef<HTMLButtonElement>(null);
 
   const {
     data: geocodingData,
