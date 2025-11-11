@@ -2,12 +2,13 @@ import { useClickAway } from "ahooks";
 import { useRef, useState } from "react";
 
 import type {
+  IndividualUnitChange,
   PrecipitationUnit,
   TemperatureUnit,
   UnitInfo,
   UnitSystem,
   WindSpeedUnit,
-} from "../types";
+} from "../types/units";
 
 import iconDropdown from "../assets/icon-dropdown.svg";
 import iconUnits from "../assets/icon-units.svg";
@@ -17,33 +18,30 @@ import DropdownButton from "./DropdownButton";
 import UnitRadioInput from "./UnitRadioInput";
 
 interface AppHeaderProps {
-  onUnitInfoChange: (unitInfo: UnitInfo) => void;
+  onIndividualUnitChange: (individualUnitChange: IndividualUnitChange) => void;
   onUnitSystemChange: (unitSystem: UnitSystem) => void;
   unitInfo: UnitInfo;
-  unitSystem: UnitSystem;
 }
 
-function AppHeader({
-  onUnitInfoChange,
+export default function AppHeader({
+  onIndividualUnitChange,
   onUnitSystemChange,
   unitInfo,
-  unitSystem,
 }: AppHeaderProps) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const dropdownToggleRef = useRef<HTMLButtonElement>(null);
+  /* ---------------------------------- State --------------------------------- */
 
   const [isDropdownShown, setIsDropdownShown] = useState(false);
+
+  /* ---------------------------------- Hooks --------------------------------- */
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownToggleRef = useRef<HTMLButtonElement>(null);
 
   useClickAway(() => {
     setIsDropdownShown(false);
   }, [dropdownRef, dropdownToggleRef]);
 
-  function handleValueChange(e: React.ChangeEvent<HTMLInputElement>) {
-    onUnitInfoChange({
-      ...unitInfo,
-      [e.target.name]: e.target.value,
-    });
-  }
+  /* --------------------------------- Markup --------------------------------- */
 
   return (
     <header className="relative mt-4 flex justify-between xl:mt-12">
@@ -78,18 +76,24 @@ function AppHeader({
               fullWidth={true}
               onButtonClick={() => {
                 onUnitSystemChange(
-                  unitSystem === "metric" ? "imperial" : "metric",
+                  unitInfo.unitSystem === "metric" ? "imperial" : "metric",
                 );
               }}
             >
-              Switch to {unitSystem === "metric" ? "Imperial" : "Metric"}
+              Switch to{" "}
+              {unitInfo.unitSystem === "metric" ? "Imperial" : "Metric"}
             </DropdownButton>
 
             <div className="mt-1.5 divide-y divide-neutral-600">
               <UnitRadioInput<TemperatureUnit>
                 legend="Temperature"
                 name="temperatureUnit"
-                onValueChange={handleValueChange}
+                onChange={(value) => {
+                  onIndividualUnitChange({
+                    unitType: "temperatureUnit",
+                    unitValue: value,
+                  });
+                }}
                 options={[
                   { label: "Celsius (°C)", value: "celsius" },
                   { label: "Fahrenheit (°F)", value: "fahrenheit" },
@@ -100,7 +104,12 @@ function AppHeader({
               <UnitRadioInput<WindSpeedUnit>
                 legend="Wind Speed"
                 name="windSpeedUnit"
-                onValueChange={handleValueChange}
+                onChange={(value) => {
+                  onIndividualUnitChange({
+                    unitType: "windSpeedUnit",
+                    unitValue: value,
+                  });
+                }}
                 options={[
                   { label: "km/h", value: "kmh" },
                   { label: "mph", value: "mph" },
@@ -111,7 +120,12 @@ function AppHeader({
               <UnitRadioInput<PrecipitationUnit>
                 legend="Precipitation"
                 name="precipitationUnit"
-                onValueChange={handleValueChange}
+                onChange={(value) => {
+                  onIndividualUnitChange({
+                    unitType: "precipitationUnit",
+                    unitValue: value,
+                  });
+                }}
                 options={[
                   { label: "Millimeters (mm)", value: "mm" },
                   { label: "Inches (in)", value: "inch" },
@@ -125,5 +139,3 @@ function AppHeader({
     </header>
   );
 }
-
-export default AppHeader;

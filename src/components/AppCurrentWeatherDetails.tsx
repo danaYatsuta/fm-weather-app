@@ -1,4 +1,4 @@
-import type { PrecipitationUnit, WindSpeedUnit } from "../types";
+import type { PrecipitationUnit, WindSpeedUnit } from "../types/units";
 
 import CurrentWeatherDetailCard from "./CurrentWeatherDetailCard";
 
@@ -11,7 +11,7 @@ interface AppCurrentWeatherDetailsProps {
   windSpeedUnit: WindSpeedUnit;
 }
 
-function AppCurrentWeatherDetails({
+export default function AppCurrentWeatherDetails({
   feelsLikeTemperature,
   humidity,
   precipitation,
@@ -19,6 +19,8 @@ function AppCurrentWeatherDetails({
   windSpeed,
   windSpeedUnit,
 }: AppCurrentWeatherDetailsProps) {
+  /* ------------------------------ Derived State ----------------------------- */
+
   const isDataLoaded =
     feelsLikeTemperature !== undefined &&
     humidity !== undefined &&
@@ -39,6 +41,8 @@ function AppCurrentWeatherDetails({
     shownWindSpeedValue = `${Math.round(windSpeed).toString()} ${shownWindSpeedUnit}`;
     shownPrecipitationValue = `${Math.round(precipitation).toString()} ${shownPrecipitationUnit}`;
   }
+
+  /* --------------------------------- Markup --------------------------------- */
 
   return (
     <section>
@@ -62,5 +66,3 @@ function AppCurrentWeatherDetails({
     </section>
   );
 }
-
-export default AppCurrentWeatherDetails;

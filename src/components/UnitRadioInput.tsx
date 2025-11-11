@@ -1,4 +1,9 @@
-import type { UnitInfo } from "../types";
+import type {
+  PrecipitationUnit,
+  TemperatureUnit,
+  UnitInfo,
+  WindSpeedUnit,
+} from "../types/units";
 
 import iconCheckmark from "../assets/icon-checkmark.svg";
 
@@ -10,18 +15,16 @@ interface Option<T> {
 interface UnitRadioInputProps<T> {
   legend: string;
   name: keyof UnitInfo;
-  onValueChange: React.ChangeEventHandler;
+  onChange: (value: T) => void;
   options: Option<T>[];
   value: T;
 }
 
-function UnitRadioInput<T extends string>({
-  legend,
-  name,
-  onValueChange,
-  options,
-  value,
-}: UnitRadioInputProps<T>) {
+export default function UnitRadioInput<
+  T extends PrecipitationUnit | TemperatureUnit | WindSpeedUnit,
+>({ legend, name, onChange, options, value }: UnitRadioInputProps<T>) {
+  /* --------------------------------- Markup --------------------------------- */
+
   const radioInputs = options.map((option) => {
     return (
       <label
@@ -34,7 +37,9 @@ function UnitRadioInput<T extends string>({
           checked={value === option.value}
           className="peer sr-only"
           name={name}
-          onChange={onValueChange}
+          onChange={() => {
+            onChange(option.value);
+          }}
           type="radio"
           value={option.value}
         />
@@ -54,5 +59,3 @@ function UnitRadioInput<T extends string>({
     </fieldset>
   );
 }
-
-export default UnitRadioInput;

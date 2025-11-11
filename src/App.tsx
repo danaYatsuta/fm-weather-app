@@ -1,7 +1,9 @@
 import { useRequest } from "ahooks";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 
-import type { LocationInfo, UnitInfo, UnitSystem, WeatherData } from "./types";
+import type { WeatherData } from "./types/data";
+import type { IndividualUnitChange, UnitSystem } from "./types/units";
+import type { LocationInfo } from "./types/util";
 
 import AppCurrentWeatherCard from "./components/AppCurrentWeatherCard";
 import AppCurrentWeatherDetails from "./components/AppCurrentWeatherDetails";
@@ -10,8 +12,11 @@ import AppError from "./components/AppError";
 import AppHeader from "./components/AppHeader";
 import AppHourlyForecast from "./components/AppHourlyForecast";
 import AppSearchForm from "./components/AppSearchForm";
+import unitReducer from "./unitReducer";
 
-function App() {
+export default function App() {
+  /* ---------------------------------- State --------------------------------- */
+
   const [locationInfo, setLocationInfo] = useState<LocationInfo>({
     country: "Germany",
     latitude: 52.52437,
@@ -21,16 +26,19 @@ function App() {
   });
 
   /*
-    unitSystem and unitInfo might looks like contradicting states, but that's not the case -
-    it's valid, for example, for unitSystem to be "metric" and unitInfo.temperatureUnit to be "fahrenheit"
-    unitSystem is used for quick toggle between all units, it doesn't determine the value of unitInfo
+    unitInfo.unitSystem might looks like redundant state, but that's not the case -
+    it's valid, for example, for unitInfo.unitSystem to be "metric" and unitInfo.temperatureUnit to be "fahrenheit"
+    unitInfo.unitSystem is used for quick toggle between all units, it doesn't determine the value of other fields
   */
-  const [unitSystem, setUnitSystem] = useState<UnitSystem>("metric");
-  const [unitInfo, setUnitInfo] = useState<UnitInfo>({
+
+  const [unitInfo, unitInfoDispatch] = useReducer(unitReducer, {
     precipitationUnit: "mm",
     temperatureUnit: "celsius",
+    unitSystem: "metric",
     windSpeedUnit: "kmh",
   });
+
+  /* ---------------------------------- Hooks --------------------------------- */
 
   const url = `https://api.open-meteo.com/v1/forecast?`;
 
@@ -62,13 +70,9 @@ function App() {
       if (!response.ok)
         throw new Error(`${response.status.toString()} ${response.statusText}`);
 
-      const data = (await response.json()) as WeatherData;
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(data);
-        }, 500);
-      });
+      return (await response.json()) as WeatherData;
     },
     {
       cacheKey:
@@ -78,50 +82,35 @@ function App() {
     },
   );
 
+  /*
+    After first fetch, weatherData is never undefined, but we need to pass undefined to components to display loading state;
+    thus this const, which is either undefined while loading or loaded weatherData for current location
+  */
   const relevantWeatherData = loading ? undefined : weatherData;
 
-  function handleUnitSystemChange(newUnitSystem: UnitSystem) {
-    setUnitSystem(newUnitSystem);
+  /* -------------------------------- Handlers -------------------------------- */
 
-    if (newUnitSystem === "metric") {
-      setUnitInfo({
-        precipitationUnit: "mm",
-        temperatureUnit: "celsius",
-        windSpeedUnit: "kmh",
-      });
-    } else {
-      setUnitInfo({
-        precipitationUnit: "inch",
-        temperatureUnit: "fahrenheit",
-        windSpeedUnit: "mph",
-      });
-    }
+  function handleIndividualUnitChange(
+    individualUnitChange: IndividualUnitChange,
+  ) {
+    unitInfoDispatch({
+      type: "changedIndividualUnit",
+      ...individualUnitChange,
+    });
   }
 
-  function handleUnitInfoChange(newUnitInfo: UnitInfo) {
-    setUnitInfo(newUnitInfo);
-
-    if (
-      newUnitInfo.temperatureUnit === "celsius" &&
-      newUnitInfo.windSpeedUnit === "kmh" &&
-      newUnitInfo.precipitationUnit === "mm"
-    ) {
-      setUnitSystem("metric");
-    } else if (
-      newUnitInfo.temperatureUnit === "fahrenheit" &&
-      newUnitInfo.windSpeedUnit === "mph" &&
-      newUnitInfo.precipitationUnit === "inch"
-    )
-      setUnitSystem("imperial");
+  function handleUnitSystemChange(unitSystem: UnitSystem) {
+    unitInfoDispatch({ type: "changedUnitSystem", unitSystem });
   }
+
+  /* --------------------------------- Markup --------------------------------- */
 
   return (
     <>
       <AppHeader
-        onUnitInfoChange={handleUnitInfoChange}
+        onIndividualUnitChange={handleIndividualUnitChange}
         onUnitSystemChange={handleUnitSystemChange}
         unitInfo={unitInfo}
-        unitSystem={unitSystem}
       />
 
       {error ? (
@@ -177,5 +166,3 @@ function App() {
     </>
   );
 }
-
-export default App;

@@ -1,7 +1,8 @@
 import { useClickAway, useDebounce, useFocusWithin, useRequest } from "ahooks";
 import { useRef, useState } from "react";
 
-import type { GeocodingData, LocationInfo } from "../types";
+import type { GeocodingData } from "../types/data";
+import type { LocationInfo } from "../types/util";
 
 import iconError from "../assets/icon-error.svg";
 import iconLoading from "../assets/icon-loading.svg";
@@ -9,19 +10,24 @@ import iconSearch from "../assets/icon-search.svg";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 
-function AppSearchForm({
+export default function AppSearchForm({
   onLocationInfoChange,
 }: {
   onLocationInfoChange: (locationInfo: LocationInfo) => void;
 }) {
+  /* ---------------------------------- State --------------------------------- */
+
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [isDropdownShown, setIsDropdownShown] = useState(false);
+
+  /* ---------------------------------- Hooks --------------------------------- */
+
   const debouncedSearchTerm = useDebounce(searchTerm, { wait: 300 });
 
   const searchBarRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const [isDropdownShown, setIsDropdownShown] = useState(false);
 
   useClickAway(() => {
     setIsDropdownShown(false);
@@ -76,6 +82,8 @@ function AppSearchForm({
     },
   );
 
+  /* -------------------------------- Handlers -------------------------------- */
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -84,6 +92,8 @@ function AppSearchForm({
     run();
     setIsDropdownShown(true);
   }
+
+  /* --------------------------------- Markup --------------------------------- */
 
   const searchResultButtons = geocodingData?.results?.map((result) => (
     <DropdownButton
@@ -171,5 +181,3 @@ function AppSearchForm({
     </div>
   );
 }
-
-export default AppSearchForm;
