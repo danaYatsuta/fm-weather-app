@@ -50,12 +50,12 @@ function DailyForecastCard({
 
         <div className="flex justify-between self-stretch text-base">
           <p>
-            <span className="sr-only">Maximal temperature: </span>{" "}
+            <span className="sr-only">High temperature: </span>
             {`${Math.round(maxTemp).toString()}°`}
           </p>
 
           <p className="text-neutral-200">
-            <span className="sr-only">Minimal temperature: </span>
+            <span className="sr-only">Low temperature: </span>
             {`${Math.round(minTemp).toString()}°`}
           </p>
         </div>
