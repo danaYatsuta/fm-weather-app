@@ -133,7 +133,10 @@ export default function App() {
               : `Loaded weather for ${locationInfo.name}, ${locationInfo.country}`}
           </p>
 
-          <div className="mt-8 grid-cols-[800px_1fr] grid-rows-[286px_min-content_min-content] xl:mt-12 xl:grid">
+          <div
+            aria-busy={loading}
+            className="mt-8 grid-cols-[800px_1fr] grid-rows-[286px_min-content_min-content] xl:mt-12 xl:grid"
+          >
             <AppCurrentWeatherCard
               locationCountry={locationInfo.country}
               locationName={locationInfo.name}

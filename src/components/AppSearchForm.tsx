@@ -172,6 +172,7 @@ export default function AppSearchForm({
       </search>
 
       <div
+        aria-busy={loading}
         className={`${isDropdownShown ? "" : "hidden"} absolute top-[68px] right-0 left-0 z-10`}
         ref={dropdownRef}
       >
