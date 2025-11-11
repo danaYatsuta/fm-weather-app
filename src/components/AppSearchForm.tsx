@@ -173,7 +173,11 @@ export default function AppSearchForm({
         ref={dropdownRef}
       >
         <BaseCard>
-          <div aria-busy={loading} className="flex flex-col gap-0.5 p-2">
+          <div
+            aria-busy={loading}
+            className="flex flex-col gap-0.5 p-2"
+            role="listbox"
+          >
             {content}
           </div>
         </BaseCard>
