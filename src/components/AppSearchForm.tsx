@@ -138,7 +138,7 @@ export default function AppSearchForm({
   }
 
   return (
-    <div className="relative mt-12 self-center xl:mt-16">
+    <div className="relative mt-12 xl:mt-16 xl:self-center">
       <search>
         <form
           className="flex flex-col gap-3 text-xl xl:flex-row xl:justify-center xl:gap-4"

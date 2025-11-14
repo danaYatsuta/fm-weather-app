@@ -135,7 +135,7 @@ export default function App() {
 
           <div
             aria-busy={loading}
-            className="mt-8 grid-cols-[800px_1fr] grid-rows-[286px_min-content_min-content] xl:mt-12 xl:grid"
+            className="mt-8 flex grid-cols-[800px_1fr] grid-rows-[286px_min-content_min-content] flex-col xl:mt-12 xl:grid"
           >
             <AppCurrentWeatherCard
               locationCountry={locationInfo.country}
