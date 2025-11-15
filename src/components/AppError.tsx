@@ -5,10 +5,16 @@ function AppError({ onRetryButtonClick }: { onRetryButtonClick: () => void }) {
   /* --------------------------------- Markup --------------------------------- */
 
   return (
-    <section className="flex flex-col items-center text-center">
+    <section
+      aria-labelledby="error-heading"
+      className="flex flex-col items-center text-center"
+    >
       <img alt="" className="size-10" src={iconError} />
 
-      <h2 className="font-bricolage-grotesque mt-4 text-[54px] leading-16 font-bold">
+      <h2
+        className="font-bricolage-grotesque mt-4 text-[54px] leading-16 font-bold"
+        id="error-heading"
+      >
         Something went wrong
       </h2>
 
