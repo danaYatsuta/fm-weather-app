@@ -98,42 +98,50 @@ export default function AppSearchForm({
   /* --------------------------------- Markup --------------------------------- */
 
   const searchResultButtons = geocodingData?.results?.map((result, index) => (
-    <DropdownButton
-      border={true}
-      key={result.id}
-      onButtonClick={() => {
-        const { country, latitude, longitude, name, timezone } = result;
-        onLocationInfoChange({ country, latitude, longitude, name, timezone });
-        setIsDropdownShown(false);
-      }}
-      ref={index === 0 ? firstSearchResultRef : undefined}
-    >
-      <span className="flex items-center justify-between">
-        {result.name}
-        <span className="text-sm text-neutral-300">
-          {result.country}, {result.admin1}
+    <li key={result.id} role="option">
+      <DropdownButton
+        border={true}
+        fullWidth={true}
+        onButtonClick={() => {
+          const { country, latitude, longitude, name, timezone } = result;
+          onLocationInfoChange({
+            country,
+            latitude,
+            longitude,
+            name,
+            timezone,
+          });
+          setIsDropdownShown(false);
+        }}
+        ref={index === 0 ? firstSearchResultRef : undefined}
+      >
+        <span className="flex items-center justify-between">
+          {result.name}
+          <span className="text-sm text-neutral-300">
+            {result.country}, {result.admin1}
+          </span>
         </span>
-      </span>
-    </DropdownButton>
+      </DropdownButton>
+    </li>
   ));
 
   let content: React.ReactNode = (
-    <p className="flex h-10 items-center gap-3 px-2">
+    <li className="flex h-10 items-center gap-3 px-2">
       <img
         alt=""
         className="animate-spin motion-reduce:animate-none"
         src={iconLoading}
       />
       Search in progress
-    </p>
+    </li>
   );
 
   if (!loading) {
     content = searchResultButtons ?? (
-      <p className="flex h-10 items-center gap-3 px-2">
+      <li className="flex h-10 items-center gap-3 px-2">
         <img alt="" src={iconError} />
         No results
-      </p>
+      </li>
     );
   }
 
@@ -172,14 +180,18 @@ export default function AppSearchForm({
       </search>
 
       <div
-        aria-busy={loading}
         className={`${isDropdownShown ? "" : "hidden"} absolute top-[68px] right-0 left-0 z-10`}
         ref={dropdownRef}
       >
         <BaseCard>
-          <div className="flex flex-col gap-0.5 p-2" role="listbox">
+          <ul
+            aria-busy={loading}
+            aria-label="Search results"
+            className="flex flex-col gap-0.5 p-2"
+            role="listbox"
+          >
             {content}
-          </div>
+          </ul>
         </BaseCard>
       </div>
     </div>

@@ -58,16 +58,17 @@ function AppHourlyForecast({
       const weekdayName = weekdayFormat.format(new Date(times[i * 24]));
 
       dropdownButtons.push(
-        <DropdownButton
-          fullWidth={true}
-          key={i}
-          onButtonClick={() => {
-            setWeekday(i);
-            setIsDropdownShown(false);
-          }}
-        >
-          {weekdayName}
-        </DropdownButton>,
+        <li key={i} role="option">
+          <DropdownButton
+            fullWidth={true}
+            onButtonClick={() => {
+              setWeekday(i);
+              setIsDropdownShown(false);
+            }}
+          >
+            {weekdayName}
+          </DropdownButton>
+        </li>,
       );
     }
 
@@ -121,13 +122,13 @@ function AppHourlyForecast({
         ref={dropdownRef}
       >
         <BaseCard>
-          <div
-            aria-label="Pick weekday"
+          <ul
+            aria-label="Weekdays"
             className="flex flex-col gap-0.5 p-2"
             role="listbox"
           >
             {dropdownButtons}
-          </div>
+          </ul>
         </BaseCard>
       </div>
 
