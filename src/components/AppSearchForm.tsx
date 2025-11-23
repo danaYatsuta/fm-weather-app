@@ -153,7 +153,7 @@ export default function AppSearchForm({
           className="flex flex-col gap-3 text-xl xl:flex-row xl:justify-center xl:gap-4"
           onSubmit={handleSubmit}
         >
-          <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-[3px] hover:bg-neutral-700 has-focus:outline-2 xl:w-[526px]">
+          <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-3 hover:bg-neutral-700 has-focus:outline-2 xl:w-[526px]">
             <img alt="" src={iconSearch} />
 
             <input

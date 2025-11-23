@@ -50,7 +50,7 @@ export default function UnitRadioInput<
   });
 
   return (
-    <fieldset className="py-1 outline-offset-1 has-focus:outline-1">
+    <fieldset className="rounded-md py-1 outline-offset-1 has-focus:outline-1">
       <legend className="contents px-2 text-sm text-neutral-300">
         <span className="px-2">{legend}</span>
       </legend>

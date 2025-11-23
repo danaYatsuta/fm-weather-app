@@ -3,11 +3,11 @@
 @import "tailwindcss";
 
 @layer base {
-  :focus {
-    @apply outline-2 outline-offset-[3px];
+  :focus-visible {
+    @apply outline-neutral-0 outline-2 outline-offset-3;
   }
   a {
-    @apply text-neutral-200 underline hover:no-underline;
+    @apply rounded-sm text-neutral-200 underline hover:no-underline;
   }
 
   button {
