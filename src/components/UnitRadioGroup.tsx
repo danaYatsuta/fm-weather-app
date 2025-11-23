@@ -12,7 +12,7 @@ interface Option<T> {
   value: T;
 }
 
-interface UnitRadioInputProps<T> {
+interface UnitRadioGroupProps<T> {
   legend: string;
   name: keyof UnitInfo;
   onChange: (value: T) => void;
@@ -20,9 +20,9 @@ interface UnitRadioInputProps<T> {
   value: T;
 }
 
-export default function UnitRadioInput<
+export default function UnitRadioGroup<
   T extends PrecipitationUnit | TemperatureUnit | WindSpeedUnit,
->({ legend, name, onChange, options, value }: UnitRadioInputProps<T>) {
+>({ legend, name, onChange, options, value }: UnitRadioGroupProps<T>) {
   /* --------------------------------- Markup --------------------------------- */
 
   const radioInputs = options.map((option) => {

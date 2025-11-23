@@ -15,7 +15,7 @@ import logo from "../assets/logo.svg";
 import { useClickAwayAndEsc } from "../util";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
-import UnitRadioInput from "./UnitRadioInput";
+import UnitRadioGroup from "./UnitRadioGroup";
 
 interface AppHeaderProps {
   onIndividualUnitChange: (individualUnitChange: IndividualUnitChange) => void;
@@ -88,7 +88,7 @@ export default function AppHeader({
             </DropdownButton>
 
             <div className="mt-1.5 divide-y divide-neutral-600">
-              <UnitRadioInput<TemperatureUnit>
+              <UnitRadioGroup<TemperatureUnit>
                 legend="Temperature"
                 name="temperatureUnit"
                 onChange={(value) => {
@@ -104,7 +104,7 @@ export default function AppHeader({
                 value={unitInfo.temperatureUnit}
               />
 
-              <UnitRadioInput<WindSpeedUnit>
+              <UnitRadioGroup<WindSpeedUnit>
                 legend="Wind Speed"
                 name="windSpeedUnit"
                 onChange={(value) => {
@@ -120,7 +120,7 @@ export default function AppHeader({
                 value={unitInfo.windSpeedUnit}
               />
 
-              <UnitRadioInput<PrecipitationUnit>
+              <UnitRadioGroup<PrecipitationUnit>
                 legend="Precipitation"
                 name="precipitationUnit"
                 onChange={(value) => {
