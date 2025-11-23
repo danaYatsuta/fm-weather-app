@@ -127,10 +127,8 @@ export default function App() {
 
           <AppSearchForm onLocationInfoChange={setLocationInfo} />
 
-          <p aria-live="polite" className="sr-only">
-            {loading
-              ? ""
-              : `Loaded weather for ${locationInfo.name}, ${locationInfo.country}`}
+          <p aria-atomic="true" aria-live="polite" className="sr-only">
+            {loading ? "" : `Loaded weather`}
           </p>
 
           <div
