@@ -1,3 +1,7 @@
+import type { BasicTarget } from "ahooks/lib/utils/domTarget";
+
+import { useClickAway, useKeyPress } from "ahooks";
+
 import iconDrizzle from "./assets/icon-drizzle.webp";
 import iconFog from "./assets/icon-fog.webp";
 import iconOvercast from "./assets/icon-overcast.webp";
@@ -51,4 +55,12 @@ function getIconFromWeatherCode(weatherCode: number) {
   return [iconSrc, iconAlt];
 }
 
-export { getIconFromWeatherCode };
+function useClickAwayAndEsc(
+  callback: () => void,
+  target: BasicTarget | BasicTarget[],
+) {
+  useClickAway(callback, target);
+  useKeyPress("esc", callback);
+}
+
+export { getIconFromWeatherCode, useClickAwayAndEsc };

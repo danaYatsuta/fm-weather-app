@@ -1,4 +1,3 @@
-import { useClickAway } from "ahooks";
 import { useRef, useState } from "react";
 
 import type {
@@ -13,6 +12,7 @@ import type {
 import iconDropdown from "../assets/icon-dropdown.svg";
 import iconUnits from "../assets/icon-units.svg";
 import logo from "../assets/logo.svg";
+import { useClickAwayAndEsc } from "../util";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 import UnitRadioInput from "./UnitRadioInput";
@@ -37,7 +37,7 @@ export default function AppHeader({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
 
-  useClickAway(() => {
+  useClickAwayAndEsc(() => {
     setIsDropdownShown(false);
   }, [dropdownRef, dropdownToggleRef]);
 

@@ -1,7 +1,7 @@
-import { useClickAway } from "ahooks";
 import { useRef, useState } from "react";
 
 import iconDropdown from "../assets/icon-dropdown.svg";
+import { useClickAwayAndEsc } from "../util";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 import HourlyForecastCard from "./HourlyForecastCard";
@@ -35,7 +35,7 @@ function AppHourlyForecast({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownToggleRef = useRef<HTMLButtonElement>(null);
 
-  useClickAway(() => {
+  useClickAwayAndEsc(() => {
     setIsDropdownShown(false);
   }, [dropdownRef, dropdownToggleRef]);
 

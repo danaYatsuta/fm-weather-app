@@ -1,4 +1,4 @@
-import { useClickAway, useDebounce, useFocusWithin, useRequest } from "ahooks";
+import { useDebounce, useFocusWithin, useRequest } from "ahooks";
 import { useRef, useState } from "react";
 
 import type { GeocodingData } from "../types/data";
@@ -7,6 +7,7 @@ import type { LocationInfo } from "../types/util";
 import iconError from "../assets/icon-error.svg";
 import iconLoading from "../assets/icon-loading.svg";
 import iconSearch from "../assets/icon-search.svg";
+import { useClickAwayAndEsc } from "../util";
 import BaseCard from "./BaseCard";
 import DropdownButton from "./DropdownButton";
 
@@ -39,7 +40,7 @@ export default function AppSearchForm({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const firstSearchResultRef = useRef<HTMLButtonElement>(null);
 
-  useClickAway(() => {
+  useClickAwayAndEsc(() => {
     setIsDropdownShown(false);
   }, [searchBarRef, submitButtonRef, dropdownRef]);
 
