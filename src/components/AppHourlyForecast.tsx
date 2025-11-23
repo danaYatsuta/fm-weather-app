@@ -94,7 +94,7 @@ function AppHourlyForecast({
   }
 
   return (
-    <section
+    <article
       aria-labelledby="hourly-forecast-heading"
       className="relative col-start-2 row-span-3 row-start-1 mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 py-5 pr-2 pl-4 xl:mt-0 xl:ml-8 xl:h-[692px] xl:pr-4 xl:pl-6"
     >
@@ -135,7 +135,7 @@ function AppHourlyForecast({
       <ul className="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-600 flex flex-col gap-4 overflow-auto rounded-md">
         {hourlyForecastCards}
       </ul>
-    </section>
+    </article>
   );
 }
 

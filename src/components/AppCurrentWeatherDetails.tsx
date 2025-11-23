@@ -45,7 +45,7 @@ export default function AppCurrentWeatherDetails({
   /* --------------------------------- Markup --------------------------------- */
 
   return (
-    <section aria-label="Current weather details" className="col-start-1">
+    <article aria-label="Current weather details" className="col-start-1">
       <ul className="mt-5 grid grid-cols-2 items-start gap-4 xl:mt-8 xl:grid-cols-4 xl:gap-6">
         <CurrentWeatherDetailCard
           name="Feels Like"
@@ -58,6 +58,6 @@ export default function AppCurrentWeatherDetails({
           value={shownPrecipitationValue}
         />
       </ul>
-    </section>
+    </article>
   );
 }

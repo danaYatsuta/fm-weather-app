@@ -5,7 +5,7 @@ function AppError({ onRetryButtonClick }: { onRetryButtonClick: () => void }) {
   /* --------------------------------- Markup --------------------------------- */
 
   return (
-    <section
+    <article
       aria-labelledby="error-heading"
       className="flex flex-col items-center text-center"
     >
@@ -30,7 +30,7 @@ function AppError({ onRetryButtonClick }: { onRetryButtonClick: () => void }) {
       >
         <img alt="" src={iconRetry} /> Retry
       </button>
-    </section>
+    </article>
   );
 }
 
