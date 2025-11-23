@@ -136,7 +136,7 @@ export default function AppSearchForm({
     </li>
   );
 
-  if (!loading) {
+  if (!loading || debouncedSearchTerm.length < 2) {
     content = searchResultButtons ?? (
       <li className="flex h-10 items-center gap-3 px-2">
         <img alt="" src={iconError} />
