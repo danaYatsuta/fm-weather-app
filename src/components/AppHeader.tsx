@@ -50,6 +50,8 @@ export default function AppHeader({
       </a>
 
       <button
+        aria-controls="units-dropdown"
+        aria-expanded={isDropdownShown}
         className="flex h-8 items-center gap-1.5 rounded-lg bg-neutral-800 px-2.5 text-sm hover:bg-neutral-700 xl:h-11 xl:gap-2.5 xl:px-4 xl:text-base"
         onClick={() => {
           setIsDropdownShown(!isDropdownShown);
@@ -64,6 +66,7 @@ export default function AppHeader({
 
       <div
         className={`${isDropdownShown ? "" : "hidden"} absolute top-[54px] right-0 z-10`}
+        id="units-dropdown"
         ref={dropdownRef}
       >
         <BaseCard>

@@ -104,6 +104,8 @@ function AppHourlyForecast({
         </h2>
 
         <button
+          aria-controls="weekday-dropdown"
+          aria-expanded={isDropdownShown}
           aria-label={`Set weekday; current: ${dropdownToggleText}`}
           className="flex h-9 items-center gap-2.5 rounded-md bg-neutral-600 px-4 text-base hover:bg-neutral-700"
           onClick={() => {
@@ -119,6 +121,7 @@ function AppHourlyForecast({
 
       <div
         className={`${isDropdownShown ? "" : "hidden"} absolute top-[70px] right-6 min-w-[214px]`}
+        id="weekday-dropdown"
         ref={dropdownRef}
       >
         <BaseCard>
