@@ -10,6 +10,7 @@ interface DropdownButtonProps {
 
 interface DropdownButtonRef {
   contains: (otherNode: Node | null) => boolean;
+  focus: () => void;
 }
 
 function DropdownButton({
@@ -29,6 +30,9 @@ function DropdownButton({
         if (!buttonRef.current) return false;
 
         return buttonRef.current.contains(otherNode);
+      },
+      focus() {
+        buttonRef.current?.focus();
       },
     };
   });
