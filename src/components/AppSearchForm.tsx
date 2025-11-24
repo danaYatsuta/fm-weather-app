@@ -99,7 +99,7 @@ export default function AppSearchForm({
   /* --------------------------------- Markup --------------------------------- */
 
   const searchResultButtons = geocodingData?.results?.map((result, index) => (
-    <li key={result.id} role="option">
+    <li key={result.id}>
       <DropdownButton
         border={true}
         fullWidth={true}
@@ -193,7 +193,6 @@ export default function AppSearchForm({
             aria-busy={loading}
             aria-label="Search results"
             className="flex flex-col gap-0.5 p-2"
-            role="listbox"
           >
             {content}
           </ul>
