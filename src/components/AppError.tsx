@@ -1,7 +1,11 @@
 import iconError from "../assets/icon-error.svg";
 import iconRetry from "../assets/icon-retry.svg";
 
-function AppError({ onRetryButtonClick }: { onRetryButtonClick: () => void }) {
+export default function AppError({
+  onRetryButtonClick,
+}: {
+  onRetryButtonClick: () => void;
+}) {
   /* --------------------------------- Markup --------------------------------- */
 
   return (
@@ -28,10 +32,9 @@ function AppError({ onRetryButtonClick }: { onRetryButtonClick: () => void }) {
         onClick={onRetryButtonClick}
         type="button"
       >
-        <img alt="" src={iconRetry} /> Retry
+        <img alt="" src={iconRetry} />
+        Retry
       </button>
     </article>
   );
 }
-
-export default AppError;

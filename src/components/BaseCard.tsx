@@ -5,7 +5,7 @@ interface BaseCardProps {
 
 type Tag = "div" | "li";
 
-function BaseCard({ children, tag = "div" }: BaseCardProps) {
+export default function BaseCard({ children, tag = "div" }: BaseCardProps) {
   /* ------------------------------ Derived State ----------------------------- */
 
   const Tag = tag;
@@ -18,5 +18,3 @@ function BaseCard({ children, tag = "div" }: BaseCardProps) {
     </Tag>
   );
 }
-
-export default BaseCard;

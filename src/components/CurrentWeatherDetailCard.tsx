@@ -5,7 +5,7 @@ interface CurrentWeatherDetailCardProps {
   value: string;
 }
 
-function CurrentWeatherDetailCard({
+export default function CurrentWeatherDetailCard({
   name,
   value,
 }: CurrentWeatherDetailCardProps) {
@@ -20,5 +20,3 @@ function CurrentWeatherDetailCard({
     </BaseCard>
   );
 }
-
-export default CurrentWeatherDetailCard;

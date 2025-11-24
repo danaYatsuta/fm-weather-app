@@ -12,7 +12,7 @@ interface AppHourlyForecastProps {
   weatherCodes?: number[];
 }
 
-function AppHourlyForecast({
+export default function AppHourlyForecast({
   temperatures,
   times,
   weatherCodes,
@@ -49,10 +49,8 @@ function AppHourlyForecast({
       weekday: "long",
     });
 
-    /*
-      Frontend Mentor design calls for weekdays to be shown in order starting from monday, regardless of current weekday.
-      I've intentionally implemented order of weekdays starting with current weekday, since this seems more intuitive to me.
-    */
+    // Frontend Mentor design calls for weekdays to be shown in order starting from monday, regardless of current weekday.
+    // I've intentionally implemented order of weekdays starting with current weekday, since this seems more intuitive to me.
 
     for (let i = 0; i < 7; i++) {
       const weekdayName = weekdayFormat.format(new Date(times[i * 24]));
@@ -62,6 +60,8 @@ function AppHourlyForecast({
           checked={weekday === i}
           key={i}
           label={weekdayName}
+          // Separation of onChange and onMouseDown because mouse click should also close the dropdown,
+          // while changing the value with keyboard should not
           onChange={() => {
             setWeekday(i);
           }}
@@ -138,5 +138,3 @@ function AppHourlyForecast({
     </article>
   );
 }
-
-export default AppHourlyForecast;

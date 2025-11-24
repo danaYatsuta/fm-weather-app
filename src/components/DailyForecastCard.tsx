@@ -8,7 +8,7 @@ interface DailyForecastCardProps {
   weatherCode?: number;
 }
 
-function DailyForecastCard({
+export default function DailyForecastCard({
   maxTemp,
   minTemp,
   time,
@@ -71,5 +71,3 @@ function DailyForecastCard({
     </BaseCard>
   );
 }
-
-export default DailyForecastCard;

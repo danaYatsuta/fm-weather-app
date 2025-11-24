@@ -142,6 +142,7 @@ export default function App() {
               time={relevantWeatherData?.current.time}
               weatherCode={relevantWeatherData?.current.weather_code}
             />
+
             <AppCurrentWeatherDetails
               feelsLikeTemperature={
                 relevantWeatherData?.current.apparent_temperature
@@ -152,12 +153,14 @@ export default function App() {
               windSpeed={relevantWeatherData?.current.wind_speed_10m}
               windSpeedUnit={unitInfo.windSpeedUnit}
             />
+
             <AppDailyForecast
               maxTemps={relevantWeatherData?.daily.temperature_2m_max}
               minTemps={relevantWeatherData?.daily.temperature_2m_min}
               times={relevantWeatherData?.daily.time}
               weatherCodes={relevantWeatherData?.daily.weather_code}
             />
+
             <AppHourlyForecast
               temperatures={relevantWeatherData?.hourly.temperature_2m}
               times={relevantWeatherData?.hourly.time}

@@ -7,7 +7,7 @@ interface AppDailyForecastProps {
   weatherCodes?: number[];
 }
 
-function AppDailyForecast({
+export default function AppDailyForecast({
   maxTemps,
   minTemps,
   times,
@@ -44,5 +44,3 @@ function AppDailyForecast({
     </article>
   );
 }
-
-export default AppDailyForecast;

@@ -8,7 +8,7 @@ interface AppCurrentWeatherCardProps {
   weatherCode?: number;
 }
 
-function AppCurrentWeatherCard({
+export default function AppCurrentWeatherCard({
   locationCountry,
   locationName,
   temperature,
@@ -85,5 +85,3 @@ function AppCurrentWeatherCard({
     </article>
   );
 }
-
-export default AppCurrentWeatherCard;

@@ -76,7 +76,6 @@ export default function AppHeader({
         <BaseCard>
           <div className="min-w-[214px] px-2 py-1">
             <DropdownButton
-              fullWidth={true}
               onButtonClick={() => {
                 onUnitSystemChange(
                   unitInfo.unitSystem === "metric" ? "imperial" : "metric",

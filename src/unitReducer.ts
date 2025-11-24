@@ -19,6 +19,7 @@ function unitReducer(unitInfo: UnitInfo, action: UnitInfoAction): UnitInfo {
         };
       }
     }
+
     case "changedIndividualUnit": {
       const nextUnitInfo = {
         ...unitInfo,

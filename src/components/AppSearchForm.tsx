@@ -1,7 +1,7 @@
 import { useDebounce, useFocusWithin, useRequest } from "ahooks";
 import { useRef, useState } from "react";
 
-import type { GeocodingData } from "../types/data";
+import type { GeocodingData, GeocodingDataResult } from "../types/data";
 import type { LocationInfo } from "../types/util";
 
 import iconError from "../assets/icon-error.svg";
@@ -77,7 +77,7 @@ export default function AppSearchForm({
       return data;
     },
     {
-      cacheKey: "geocodingData" + JSON.stringify(debouncedSearchTerm),
+      cacheKey: "geocodingData" + debouncedSearchTerm,
       ready: debouncedSearchTerm.length >= 2,
       refreshDeps: [debouncedSearchTerm],
       staleTime: 5 * 60 * 1000,
@@ -92,8 +92,19 @@ export default function AppSearchForm({
     if (debouncedSearchTerm.length < 2) return;
 
     run();
-    setIsDropdownShown(true);
     firstSearchResultRef.current?.focus();
+  }
+
+  function handleSearchResultClick(result: GeocodingDataResult) {
+    const { country, latitude, longitude, name, timezone } = result;
+    onLocationInfoChange({
+      country,
+      latitude,
+      longitude,
+      name,
+      timezone,
+    });
+    setIsDropdownShown(false);
   }
 
   /* --------------------------------- Markup --------------------------------- */
@@ -102,17 +113,8 @@ export default function AppSearchForm({
     <li key={result.id}>
       <DropdownButton
         border={true}
-        fullWidth={true}
         onButtonClick={() => {
-          const { country, latitude, longitude, name, timezone } = result;
-          onLocationInfoChange({
-            country,
-            latitude,
-            longitude,
-            name,
-            timezone,
-          });
-          setIsDropdownShown(false);
+          handleSearchResultClick(result);
         }}
         ref={index === 0 ? firstSearchResultRef : undefined}
       >

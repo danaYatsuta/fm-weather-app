@@ -6,7 +6,7 @@ interface HourlyForecastCardProps {
   weatherCode?: number;
 }
 
-function HourlyForecastCard({
+export default function HourlyForecastCard({
   hour,
   temperature,
   weatherCode,
@@ -44,5 +44,3 @@ function HourlyForecastCard({
     </li>
   );
 }
-
-export default HourlyForecastCard;
