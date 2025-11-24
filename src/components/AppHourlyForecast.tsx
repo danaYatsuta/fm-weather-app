@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import iconDropdown from "../assets/icon-dropdown.svg";
 import { useClickAwayAndEsc } from "../util";
 import BaseCard from "./BaseCard";
-import DropdownButton from "./DropdownButton";
+import DropdownRadioInput from "./DropdownRadioInput";
 import HourlyForecastCard from "./HourlyForecastCard";
 
 interface AppHourlyForecastProps {
@@ -58,17 +58,17 @@ function AppHourlyForecast({
       const weekdayName = weekdayFormat.format(new Date(times[i * 24]));
 
       dropdownButtons.push(
-        <li key={i} role="option">
-          <DropdownButton
-            fullWidth={true}
-            onButtonClick={() => {
-              setWeekday(i);
-              setIsDropdownShown(false);
-            }}
-          >
-            {weekdayName}
-          </DropdownButton>
-        </li>,
+        <DropdownRadioInput
+          checked={weekday === i}
+          key={i}
+          label={weekdayName}
+          onChange={() => {
+            setWeekday(i);
+          }}
+          onMouseDown={() => {
+            setIsDropdownShown(false);
+          }}
+        />,
       );
     }
 
@@ -125,13 +125,10 @@ function AppHourlyForecast({
         ref={dropdownRef}
       >
         <BaseCard>
-          <ul
-            aria-label="Weekdays"
-            className="flex flex-col gap-0.5 p-2"
-            role="listbox"
-          >
+          <fieldset className="flex flex-col gap-0.5 p-2">
+            <legend className="sr-only">Weekdays</legend>
             {dropdownButtons}
-          </ul>
+          </fieldset>
         </BaseCard>
       </div>
 
