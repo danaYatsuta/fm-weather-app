@@ -168,7 +168,7 @@ export default function AppSearchForm({
         Error occured when searching; please try again later
       </li>
     );
-  } else {
+  } else if (!loading) {
     content = searchResultButtons ?? (
       <li className="flex h-10 items-center gap-3 px-2">
         <img alt="" src={iconError} />
