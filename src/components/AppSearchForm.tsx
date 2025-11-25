@@ -9,7 +9,7 @@ import iconLoading from "../assets/icon-loading.svg";
 import iconSearch from "../assets/icon-search.svg";
 import { useClickAwayAndEsc } from "../util";
 import BaseCard from "./BaseCard";
-import DropdownButton from "./DropdownButton";
+import DropdownButton, { type DropdownButtonRef } from "./DropdownButton";
 
 const url = `https://geocoding-api.open-meteo.com/v1/search?`;
 
@@ -38,7 +38,7 @@ export default function AppSearchForm({
   const searchBarRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const firstSearchResultRef = useRef<HTMLButtonElement>(null);
+  const firstSearchResultRef = useRef<DropdownButtonRef>(null);
 
   useClickAwayAndEsc(() => {
     setIsDropdownShown(false);

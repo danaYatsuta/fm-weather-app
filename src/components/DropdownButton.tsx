@@ -1,15 +1,14 @@
 import { useImperativeHandle, useRef } from "react";
 
+export interface DropdownButtonRef {
+  focus: () => void;
+}
+
 interface DropdownButtonProps {
   border?: boolean;
   children?: React.ReactNode;
   onButtonClick?: React.MouseEventHandler;
   ref?: React.Ref<DropdownButtonRef>;
-}
-
-interface DropdownButtonRef {
-  contains: (otherNode: Node | null) => boolean;
-  focus: () => void;
 }
 
 export default function DropdownButton({
@@ -24,11 +23,6 @@ export default function DropdownButton({
 
   useImperativeHandle(ref, () => {
     return {
-      contains(otherNode: Node | null) {
-        if (!buttonRef.current) return false;
-
-        return buttonRef.current.contains(otherNode);
-      },
       focus() {
         buttonRef.current?.focus();
       },
