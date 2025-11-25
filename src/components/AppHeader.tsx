@@ -72,7 +72,7 @@ export default function AppHeader({
         <BaseCard>
           <div className="min-w-53 px-2 py-1">
             <DropdownButton
-              onButtonClick={() => {
+              onClick={() => {
                 onUnitSystemChange(
                   unitInfo.unitSystem === "metric" ? "imperial" : "metric",
                 );
