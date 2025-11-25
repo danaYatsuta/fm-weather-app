@@ -51,6 +51,7 @@ export default function AppSearchForm({
 
   const {
     data: geocodingData,
+    error,
     loading,
     run,
   } = useRequest(
@@ -164,7 +165,14 @@ export default function AppSearchForm({
     </li>
   );
 
-  if (!loading || debouncedSearchTerm.length < 2) {
+  if (error) {
+    content = (
+      <li className="flex h-10 items-center gap-3 px-2">
+        <img alt="" src={iconError} />
+        Error occured when searching; please try again later
+      </li>
+    );
+  } else {
     content = searchResultButtons ?? (
       <li className="flex h-10 items-center gap-3 px-2">
         <img alt="" src={iconError} />
