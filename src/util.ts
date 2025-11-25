@@ -3,6 +3,7 @@ import type { BasicTarget } from "ahooks/lib/utils/domTarget";
 import { useClickAway, useKeyPress } from "ahooks";
 
 import iconDrizzle from "./assets/icon-drizzle.webp";
+import iconError from "./assets/icon-error.svg";
 import iconFog from "./assets/icon-fog.webp";
 import iconOvercast from "./assets/icon-overcast.webp";
 import iconPartlyCloudy from "./assets/icon-partly-cloudy.webp";
@@ -31,6 +32,9 @@ function getIconFromWeatherCode(weatherCode: number) {
   } else if (weatherCodes.fog.includes(weatherCode)) {
     iconSrc = iconFog;
     iconAlt = "Fog";
+  } else if (weatherCodes.overcast.includes(weatherCode)) {
+    iconSrc = iconOvercast;
+    iconAlt = "Overcast";
   } else if (weatherCodes.partlyCloudy.includes(weatherCode)) {
     iconSrc = iconPartlyCloudy;
     iconAlt = "Partly cloudy";
@@ -47,9 +51,8 @@ function getIconFromWeatherCode(weatherCode: number) {
     iconSrc = iconSunny;
     iconAlt = "Sunny";
   } else {
-    // Using overcast icon as fallback
-    iconSrc = iconOvercast;
-    iconAlt = "Overcast";
+    iconSrc = iconError;
+    iconAlt = "Unknown weather code";
   }
 
   return [iconSrc, iconAlt];
