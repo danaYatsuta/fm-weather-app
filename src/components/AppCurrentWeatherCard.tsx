@@ -55,7 +55,7 @@ export default function AppCurrentWeatherCard({
     content = (
       <>
         <div className="flex flex-col items-center gap-1 self-center pt-10 xl:items-start xl:pt-0">
-          <p className="text-[28px] font-bold">
+          <p className="text-[1.75rem] font-bold">
             {locationName}, {locationCountry}
           </p>
 
@@ -79,7 +79,7 @@ export default function AppCurrentWeatherCard({
   return (
     <article
       aria-label="Current weather"
-      className={`${isDataLoaded ? "bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)]" : "items-center justify-center bg-neutral-800"} flex h-[286px] w-[343px] flex-col gap-2 self-center rounded-2xl px-6 xl:w-full`}
+      className={`${isDataLoaded ? "bg-[url(./assets/bg-today-small.svg)] bg-no-repeat xl:flex-row xl:justify-between xl:bg-[url(./assets/bg-today-large.svg)]" : "items-center justify-center bg-neutral-800"} flex h-71 w-86 flex-col gap-2 self-center rounded-2xl px-6 xl:w-full`}
     >
       {content}
     </article>

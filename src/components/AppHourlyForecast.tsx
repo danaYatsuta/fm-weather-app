@@ -96,7 +96,7 @@ export default function AppHourlyForecast({
   return (
     <article
       aria-labelledby="hourly-forecast-heading"
-      className="relative col-start-2 row-span-3 row-start-1 mt-8 flex h-[685px] flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-[692px] xl:p-6"
+      className="relative col-start-2 row-span-3 row-start-1 mt-8 flex h-171 flex-col gap-4 rounded-2xl bg-neutral-800 px-4 py-5 xl:mt-0 xl:ml-8 xl:h-173 xl:p-6"
     >
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold" id="hourly-forecast-heading">
@@ -120,7 +120,7 @@ export default function AppHourlyForecast({
       </div>
 
       <div
-        className={`${isDropdownShown ? "" : "hidden"} absolute top-[70px] right-6 min-w-[214px]`}
+        className={`${isDropdownShown ? "" : "hidden"} absolute top-17 right-6 min-w-53`}
         id="weekday-dropdown"
         ref={dropdownRef}
       >

@@ -16,7 +16,7 @@ export default function AppError({
       <img alt="" className="size-10" src={iconError} />
 
       <h2
-        className="font-bricolage-grotesque mt-4 text-[54px] leading-16 font-bold"
+        className="font-bricolage-grotesque mt-4 text-[3.375rem] leading-16 font-bold"
         id="error-heading"
       >
         Something went wrong

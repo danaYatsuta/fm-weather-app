@@ -46,11 +46,7 @@ export default function AppHeader({
   return (
     <header className="relative mt-4 flex justify-between xl:mt-12">
       <a href="/">
-        <img
-          alt="Weather Now homepage"
-          className="w-[138px] xl:w-auto"
-          src={logo}
-        />
+        <img alt="Weather Now homepage" className="w-34 xl:w-auto" src={logo} />
       </a>
 
       <button
@@ -69,12 +65,12 @@ export default function AppHeader({
       </button>
 
       <div
-        className={`${isDropdownShown ? "" : "hidden"} absolute top-[54px] right-0 z-10`}
+        className={`${isDropdownShown ? "" : "hidden"} absolute top-13 right-0 z-10`}
         id="units-dropdown"
         ref={dropdownRef}
       >
         <BaseCard>
-          <div className="min-w-[214px] px-2 py-1">
+          <div className="min-w-53 px-2 py-1">
             <DropdownButton
               onButtonClick={() => {
                 onUnitSystemChange(

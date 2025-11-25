@@ -39,7 +39,7 @@ export default function HourlyForecastCard({
   }
 
   return (
-    <li className="flex h-[60px] shrink-0 items-center justify-between rounded-md border border-neutral-600 bg-neutral-700 pr-4 pl-2.5">
+    <li className="flex h-15 shrink-0 items-center justify-between rounded-md border border-neutral-600 bg-neutral-700 pr-4 pl-2.5">
       {content}
     </li>
   );

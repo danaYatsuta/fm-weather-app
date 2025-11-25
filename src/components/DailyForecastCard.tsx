@@ -65,7 +65,7 @@ export default function DailyForecastCard({
 
   return (
     <BaseCard tag="li">
-      <div className="flex h-[165px] flex-col items-center justify-between px-2 py-3">
+      <div className="flex h-41 flex-col items-center justify-between px-2 py-3">
         {content}
       </div>
     </BaseCard>

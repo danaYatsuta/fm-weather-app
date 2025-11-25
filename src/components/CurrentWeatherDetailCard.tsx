@@ -13,9 +13,9 @@ export default function CurrentWeatherDetailCard({
 
   return (
     <BaseCard tag="li">
-      <div className="flex h-[118px] flex-col justify-between pt-4 pb-3 pl-5">
+      <div className="flex h-30 flex-col justify-between pt-4 pb-3 pl-5">
         <p className="text-neutral-200">{name}</p>
-        <p className="text-[32px] font-normal">{value}</p>
+        <p className="text-[2rem] font-normal">{value}</p>
       </div>
     </BaseCard>
   );

@@ -121,8 +121,8 @@ export default function App() {
           <AppError onRetryButtonClick={run} />
         </main>
       ) : (
-        <main className="my-12 flex grow flex-col xl:my-[60px]">
-          <h1 className="font-bricolage-grotesque text-center text-[54px] leading-16 font-bold">
+        <main className="my-12 flex grow flex-col xl:my-15">
+          <h1 className="font-bricolage-grotesque text-center text-[3.375rem] leading-16 font-bold">
             How's the sky looking today?
           </h1>
 
