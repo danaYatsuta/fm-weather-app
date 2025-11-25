@@ -10,7 +10,8 @@
     @apply rounded-sm text-neutral-200 underline hover:no-underline;
   }
 
-  button {
+  button,
+  label:not(:has(:checked)) {
     @apply cursor-pointer;
   }
 
