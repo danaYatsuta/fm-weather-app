@@ -177,38 +177,36 @@ export default function AppSearchForm({
   }
 
   return (
-    <div className="relative mt-12 xl:mt-16 xl:self-center">
-      <search>
-        <form
-          className="flex flex-col gap-3 text-xl xl:flex-row xl:justify-center xl:gap-4"
-          onSubmit={handleSubmit}
+    <search className="relative mt-12 xl:mt-16 xl:self-center">
+      <form
+        className="flex flex-col gap-3 text-xl xl:flex-row xl:justify-center xl:gap-4"
+        onSubmit={handleSubmit}
+      >
+        <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-3 hover:bg-neutral-700 has-focus-visible:outline-2 xl:w-131">
+          <img alt="" src={iconSearch} />
+
+          <input
+            autoComplete="off"
+            className="h-full w-full outline-none placeholder:text-neutral-200"
+            name="name"
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+            placeholder="Search for a place..."
+            ref={searchBarRef}
+            type="search"
+            value={searchTerm}
+          />
+        </label>
+
+        <button
+          className="h-14 rounded-xl bg-blue-500 outline-blue-500 hover:bg-blue-700 hover:outline-blue-700 xl:px-6"
+          ref={submitButtonRef}
+          type="submit"
         >
-          <label className="flex h-14 items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-3 hover:bg-neutral-700 has-focus-visible:outline-2 xl:w-131">
-            <img alt="" src={iconSearch} />
-
-            <input
-              autoComplete="off"
-              className="h-full w-full outline-none placeholder:text-neutral-200"
-              name="name"
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-              }}
-              placeholder="Search for a place..."
-              ref={searchBarRef}
-              type="search"
-              value={searchTerm}
-            />
-          </label>
-
-          <button
-            className="h-14 rounded-xl bg-blue-500 outline-blue-500 hover:bg-blue-700 hover:outline-blue-700 xl:px-6"
-            ref={submitButtonRef}
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
-      </search>
+          Search
+        </button>
+      </form>
 
       <p aria-atomic="true" aria-live="polite" className="sr-only">
         {loading ? "" : `Loaded search results`}
@@ -228,6 +226,6 @@ export default function AppSearchForm({
           </ul>
         </BaseCard>
       </div>
-    </div>
+    </search>
   );
 }
