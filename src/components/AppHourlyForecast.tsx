@@ -66,6 +66,7 @@ export default function AppHourlyForecast({
             setWeekday(i);
           }}
           onMouseDown={() => {
+            setWeekday(i);
             setIsDropdownShown(false);
           }}
         />,
