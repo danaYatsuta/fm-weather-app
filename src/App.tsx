@@ -1,4 +1,4 @@
-import { useRequest } from "ahooks";
+import { useMount, useRequest } from "ahooks";
 import { useReducer, useState } from "react";
 
 import type { WeatherData } from "./types/data";
@@ -18,6 +18,9 @@ const url = `https://api.open-meteo.com/v1/forecast?`;
 
 export default function App() {
   /* ---------------------------------- State --------------------------------- */
+
+  const [triedGettingUserLocation, setTriedGettingUserLocation] =
+    useState(false);
 
   const [locationInfo, setLocationInfo] = useState<LocationInfo>({
     country: "Germany",
@@ -60,6 +63,32 @@ export default function App() {
 
   /* ---------------------------------- Hooks --------------------------------- */
 
+  useMount(() => {
+    if (!("geolocation" in navigator)) {
+      setTriedGettingUserLocation(true);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocationInfo({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          // Open-Meteo doesn't have a reverse geocoding API, using another one would cause discrepancy between
+          // initally shown location name and location names returned from search, and I don't feel like
+          // switching APIs so just using a placeholder here
+          name: "Your location",
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        });
+
+        setTriedGettingUserLocation(true);
+      },
+      () => {
+        setTriedGettingUserLocation(true);
+      },
+    );
+  });
+
   const {
     data: weatherData,
     error,
@@ -80,6 +109,7 @@ export default function App() {
     {
       cacheKey:
         "weatherData" + JSON.stringify(locationInfo) + JSON.stringify(unitInfo),
+      ready: triedGettingUserLocation,
       refreshDeps: [locationInfo, unitInfo],
       staleTime: 60 * 1000,
     },

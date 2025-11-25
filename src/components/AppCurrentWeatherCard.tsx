@@ -1,7 +1,7 @@
 import { getIconFromWeatherCode } from "../util";
 
 interface AppCurrentWeatherCardProps {
-  locationCountry: string;
+  locationCountry?: string;
   locationName: string;
   temperature?: number;
   time?: string;
@@ -56,7 +56,9 @@ export default function AppCurrentWeatherCard({
       <>
         <div className="flex flex-col items-center gap-1 self-center pt-10 xl:items-start xl:pt-0">
           <p className="text-[1.75rem] font-bold">
-            {locationName}, {locationCountry}
+            {locationCountry
+              ? `${locationName}, ${locationCountry}`
+              : locationName}
           </p>
 
           <p aria-hidden="true" className="text-neutral-200">

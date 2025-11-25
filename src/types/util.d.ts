@@ -1,5 +1,5 @@
 export interface LocationInfo {
-  country: string;
+  country?: string;
   latitude: number;
   longitude: number;
   name: string;
