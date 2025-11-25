@@ -132,7 +132,12 @@ export default function AppHourlyForecast({
         </BaseCard>
       </div>
 
-      <ul className="flex flex-col gap-4 overflow-auto rounded-md">
+      <ul
+        className="flex flex-col gap-4 overflow-auto rounded-md"
+        style={{
+          scrollbarColor: "var(--color-neutral-300) transparent",
+        }}
+      >
         {hourlyForecastCards}
       </ul>
     </article>
