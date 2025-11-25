@@ -91,11 +91,7 @@ export default function AppSearchForm({
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    if (debouncedSearchTerm.length < 2) return;
-
     run();
-    searchResultButtonRefs[0]?.focus();
   }
 
   function handleSearchResultKeyDown(e: React.KeyboardEvent, index: number) {
