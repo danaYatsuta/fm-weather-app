@@ -97,6 +97,24 @@ export default function AppSearchForm({
     searchResultButtonRefs[0]?.focus();
   }
 
+  function handleSearchResultKeyDown(e: React.KeyboardEvent, index: number) {
+    switch (e.key) {
+      case "ArrowDown": {
+        if (index === searchResultButtonRefs.length - 1) return;
+
+        searchResultButtonRefs[index + 1]?.focus();
+        return;
+      }
+
+      case "ArrowUp": {
+        if (index === 0) return;
+
+        searchResultButtonRefs[index - 1]?.focus();
+        return;
+      }
+    }
+  }
+
   function handleSearchResultClick(result: GeocodingDataResult) {
     const { country, latitude, longitude, name, timezone } = result;
     onLocationInfoChange({
@@ -111,12 +129,15 @@ export default function AppSearchForm({
 
   /* --------------------------------- Markup --------------------------------- */
 
-  const searchResultButtons = geocodingData?.results?.map((result) => (
+  const searchResultButtons = geocodingData?.results?.map((result, index) => (
     <li key={result.id}>
       <DropdownButton
         border={true}
-        onButtonClick={() => {
+        onClick={() => {
           handleSearchResultClick(result);
+        }}
+        onKeyDown={(e) => {
+          handleSearchResultKeyDown(e, index);
         }}
         ref={(node) => {
           if (node) searchResultButtonRefs.push(node);
