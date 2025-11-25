@@ -38,7 +38,6 @@ export default function AppSearchForm({
   const searchBarRef = useRef<HTMLInputElement>(null);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const firstSearchResultRef = useRef<DropdownButtonRef>(null);
 
   useClickAwayAndEsc(() => {
     setIsDropdownShown(false);
@@ -87,13 +86,15 @@ export default function AppSearchForm({
 
   /* -------------------------------- Handlers -------------------------------- */
 
+  const searchResultButtonRefs: (DropdownButtonRef | undefined)[] = [];
+
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     if (debouncedSearchTerm.length < 2) return;
 
     run();
-    firstSearchResultRef.current?.focus();
+    searchResultButtonRefs[0]?.focus();
   }
 
   function handleSearchResultClick(result: GeocodingDataResult) {
@@ -110,14 +111,16 @@ export default function AppSearchForm({
 
   /* --------------------------------- Markup --------------------------------- */
 
-  const searchResultButtons = geocodingData?.results?.map((result, index) => (
+  const searchResultButtons = geocodingData?.results?.map((result) => (
     <li key={result.id}>
       <DropdownButton
         border={true}
         onButtonClick={() => {
           handleSearchResultClick(result);
         }}
-        ref={index === 0 ? firstSearchResultRef : undefined}
+        ref={(node) => {
+          if (node) searchResultButtonRefs.push(node);
+        }}
       >
         <span className="flex items-center justify-between">
           {result.name}
