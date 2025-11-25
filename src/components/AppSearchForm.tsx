@@ -1,4 +1,4 @@
-import { useDebounce, useFocusWithin, useRequest } from "ahooks";
+import { useFocusWithin, useRequest } from "ahooks";
 import { useRef, useState } from "react";
 
 import type { GeocodingData, GeocodingDataResult } from "../types/data";
@@ -26,11 +26,9 @@ export default function AppSearchForm({
 
   /* ------------------------------ Derived State ----------------------------- */
 
-  const debouncedSearchTerm = useDebounce(searchTerm, { wait: 300 });
-
   const params = new URLSearchParams([
     ["count", "10"],
-    ["name", debouncedSearchTerm],
+    ["name", searchTerm],
   ]);
 
   /* ---------------------------------- Hooks --------------------------------- */
@@ -45,7 +43,7 @@ export default function AppSearchForm({
 
   useFocusWithin(searchBarRef, {
     onFocus: () => {
-      if (debouncedSearchTerm.length >= 2) setIsDropdownShown(true);
+      if (searchTerm.length >= 2) setIsDropdownShown(true);
     },
   });
 
@@ -78,9 +76,10 @@ export default function AppSearchForm({
       return data;
     },
     {
-      cacheKey: "geocodingData" + debouncedSearchTerm,
-      ready: debouncedSearchTerm.length >= 2,
-      refreshDeps: [debouncedSearchTerm],
+      cacheKey: "geocodingData" + searchTerm,
+      debounceWait: 300,
+      ready: searchTerm.length >= 2,
+      refreshDeps: [searchTerm],
       staleTime: 5 * 60 * 1000,
     },
   );
