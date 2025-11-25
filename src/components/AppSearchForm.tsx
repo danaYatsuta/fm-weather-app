@@ -72,7 +72,8 @@ export default function AppSearchForm({
         data.results.splice(5);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (import.meta.env.DEV)
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
       return data;
     },

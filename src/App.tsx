@@ -72,7 +72,8 @@ export default function App() {
       if (!response.ok)
         throw new Error(`${response.status.toString()} ${response.statusText}`);
 
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (import.meta.env.DEV)
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
       return (await response.json()) as WeatherData;
     },
