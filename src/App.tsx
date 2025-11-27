@@ -5,6 +5,7 @@ import type { WeatherData } from "./types/data";
 import type { IndividualUnitChange, UnitSystem } from "./types/units";
 import type { LocationInfo } from "./types/util";
 
+import iconError from "./assets/icon-error.svg";
 import AppCurrentWeatherCard from "./components/AppCurrentWeatherCard";
 import AppCurrentWeatherDetails from "./components/AppCurrentWeatherDetails";
 import AppDailyForecast from "./components/AppDailyForecast";
@@ -12,6 +13,7 @@ import AppError from "./components/AppError";
 import AppHeader from "./components/AppHeader";
 import AppHourlyForecast from "./components/AppHourlyForecast";
 import AppSearchForm from "./components/AppSearchForm";
+import BaseCard from "./components/BaseCard";
 import unitReducer from "./unitReducer";
 
 const url = `https://api.open-meteo.com/v1/forecast?`;
@@ -19,7 +21,11 @@ const url = `https://api.open-meteo.com/v1/forecast?`;
 export default function App() {
   /* ---------------------------------- State --------------------------------- */
 
-  const [triedGettingUserLocation, setTriedGettingUserLocation] =
+  const [gettingUserLocationStatus, setGettingUserLocationStatus] = useState<
+    "fail" | "in_process" | "no_geolocation" | "success"
+  >("in_process");
+
+  const [isLocationFailToastShown, setIsLocationFailToastShown] =
     useState(false);
 
   const [locationInfo, setLocationInfo] = useState<LocationInfo>({
@@ -65,7 +71,7 @@ export default function App() {
 
   useMount(() => {
     if (!("geolocation" in navigator)) {
-      setTriedGettingUserLocation(true);
+      setGettingUserLocationStatus("no_geolocation");
       return;
     }
 
@@ -81,10 +87,15 @@ export default function App() {
           timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
         });
 
-        setTriedGettingUserLocation(true);
+        setGettingUserLocationStatus("success");
       },
       () => {
-        setTriedGettingUserLocation(true);
+        setGettingUserLocationStatus("fail");
+
+        setIsLocationFailToastShown(true);
+        setTimeout(() => {
+          setIsLocationFailToastShown(false);
+        }, 5000);
       },
     );
   });
@@ -109,7 +120,7 @@ export default function App() {
     {
       cacheKey:
         "weatherData" + JSON.stringify(locationInfo) + JSON.stringify(unitInfo),
-      ready: triedGettingUserLocation,
+      ready: gettingUserLocationStatus !== "in_process",
       refreshDeps: [locationInfo, unitInfo],
       staleTime: 60 * 1000,
     },
@@ -197,6 +208,25 @@ export default function App() {
               times={relevantWeatherData?.hourly.time}
               weatherCodes={relevantWeatherData?.hourly.weather_code}
             />
+          </div>
+
+          <div
+            className={`${isLocationFailToastShown ? "" : "translate-y-4 opacity-0"} fixed bottom-4 left-4 transition motion-reduce:transition-none`}
+          >
+            <BaseCard>
+              <p
+                aria-atomic="true"
+                aria-live="polite"
+                className="flex items-center gap-2 px-4 py-2 text-base"
+              >
+                {gettingUserLocationStatus === "fail" && (
+                  <>
+                    <img alt="" src={iconError} />
+                    Failed to get your location
+                  </>
+                )}
+              </p>
+            </BaseCard>
           </div>
         </main>
       )}
