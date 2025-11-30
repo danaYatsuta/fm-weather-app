@@ -50,12 +50,14 @@ export default function UnitRadioGroup<
   });
 
   return (
-    <fieldset className="rounded-md py-1 outline-offset-1 has-focus-visible:outline-1">
-      <legend className="contents px-2 text-sm text-neutral-300">
-        <span className="px-2">{legend}</span>
-      </legend>
+    <div>
+      <fieldset className="rounded-md py-1 outline-offset-1 has-focus-visible:outline-1">
+        <legend className="contents px-2 text-sm text-neutral-300">
+          <span className="px-2">{legend}</span>
+        </legend>
 
-      <div className="mt-1 flex flex-col gap-0.5">{radioInputs}</div>
-    </fieldset>
+        <div className="mt-1 flex flex-col gap-0.5">{radioInputs}</div>
+      </fieldset>
+    </div>
   );
 }
