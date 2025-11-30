@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import iconDropdown from "../assets/icon-dropdown.svg";
 import { useClickAwayAndEsc } from "../util";
-import BaseCard from "./BaseCard";
+import BaseDropdown from "./BaseDropdown";
 import DropdownRadioInput from "./DropdownRadioInput";
 import HourlyForecastCard from "./HourlyForecastCard";
 
@@ -120,18 +120,17 @@ export default function AppHourlyForecast({
         </button>
       </div>
 
-      <div
-        className={`${isDropdownShown ? "" : "hidden"} absolute top-17 right-6 min-w-53`}
+      <BaseDropdown
         id="weekday-dropdown"
+        isShown={isDropdownShown}
+        position={{ right: "1.5rem", top: "4.25rem" }}
         ref={dropdownRef}
       >
-        <BaseCard>
-          <fieldset className="flex flex-col gap-0.5 p-2">
-            <legend className="sr-only">Weekdays</legend>
-            {dropdownButtons}
-          </fieldset>
-        </BaseCard>
-      </div>
+        <fieldset className="flex min-w-53 flex-col gap-0.5 p-2">
+          <legend className="sr-only">Weekdays</legend>
+          {dropdownButtons}
+        </fieldset>
+      </BaseDropdown>
 
       <ul
         className="flex flex-col gap-4 overflow-auto rounded-md"

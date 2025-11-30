@@ -8,7 +8,7 @@ import iconError from "../assets/icon-error.svg";
 import iconLoading from "../assets/icon-loading.svg";
 import iconSearch from "../assets/icon-search.svg";
 import { useClickAwayAndEsc } from "../util";
-import BaseCard from "./BaseCard";
+import BaseDropdown from "./BaseDropdown";
 import DropdownButton, { type DropdownButtonRef } from "./DropdownButton";
 
 const url = `https://geocoding-api.open-meteo.com/v1/search?`;
@@ -212,20 +212,19 @@ export default function AppSearchForm({
         {loading ? "" : `Loaded search results`}
       </p>
 
-      <div
-        className={`${isDropdownShown ? "" : "hidden"} absolute top-17 right-0 left-0 z-10`}
+      <BaseDropdown
+        isShown={isDropdownShown}
+        position={{ left: "0", right: "0", top: "4.25rem" }}
         ref={dropdownRef}
       >
-        <BaseCard>
-          <ul
-            aria-busy={loading}
-            aria-label="Search results"
-            className="flex flex-col gap-0.5 p-2"
-          >
-            {content}
-          </ul>
-        </BaseCard>
-      </div>
+        <ul
+          aria-busy={loading}
+          aria-label="Search results"
+          className="flex flex-col gap-0.5 p-2"
+        >
+          {content}
+        </ul>
+      </BaseDropdown>
     </search>
   );
 }

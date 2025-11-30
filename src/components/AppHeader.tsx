@@ -13,7 +13,7 @@ import iconDropdown from "../assets/icon-dropdown.svg";
 import iconUnits from "../assets/icon-units.svg";
 import logo from "../assets/logo.svg";
 import { useClickAwayAndEsc } from "../util";
-import BaseCard from "./BaseCard";
+import BaseDropdown from "./BaseDropdown";
 import DropdownButton from "./DropdownButton";
 import UnitRadioGroup from "./UnitRadioGroup";
 
@@ -64,76 +64,74 @@ export default function AppHeader({
         <img alt="" className="h-1.5 xl:h-auto" src={iconDropdown} />
       </button>
 
-      <div
-        className={`${isDropdownShown ? "" : "hidden"} absolute top-13 right-0 z-10`}
+      <BaseDropdown
         id="units-dropdown"
+        isShown={isDropdownShown}
+        position={{ right: "0", top: "3.25rem" }}
         ref={dropdownRef}
       >
-        <BaseCard>
-          <div className="min-w-53 px-2 py-1">
-            <DropdownButton
-              onClick={() => {
-                onUnitSystemChange(
-                  unitInfo.unitSystem === "metric" ? "imperial" : "metric",
-                );
+        <div className="min-w-53 px-2 py-1">
+          <DropdownButton
+            onClick={() => {
+              onUnitSystemChange(
+                unitInfo.unitSystem === "metric" ? "imperial" : "metric",
+              );
+            }}
+          >
+            Switch to {unitInfo.unitSystem === "metric" ? "Imperial" : "Metric"}
+          </DropdownButton>
+
+          <div className="mt-1.5 divide-y divide-neutral-600">
+            <UnitRadioGroup<TemperatureUnit>
+              legend="Temperature"
+              name="temperatureUnit"
+              onChange={(value) => {
+                onIndividualUnitChange({
+                  unitType: "temperatureUnit",
+                  unitValue: value,
+                });
               }}
-            >
-              Switch to{" "}
-              {unitInfo.unitSystem === "metric" ? "Imperial" : "Metric"}
-            </DropdownButton>
+              options={[
+                { label: "Celsius (°C)", value: "celsius" },
+                { label: "Fahrenheit (°F)", value: "fahrenheit" },
+              ]}
+              value={unitInfo.temperatureUnit}
+            />
 
-            <div className="mt-1.5 divide-y divide-neutral-600">
-              <UnitRadioGroup<TemperatureUnit>
-                legend="Temperature"
-                name="temperatureUnit"
-                onChange={(value) => {
-                  onIndividualUnitChange({
-                    unitType: "temperatureUnit",
-                    unitValue: value,
-                  });
-                }}
-                options={[
-                  { label: "Celsius (°C)", value: "celsius" },
-                  { label: "Fahrenheit (°F)", value: "fahrenheit" },
-                ]}
-                value={unitInfo.temperatureUnit}
-              />
+            <UnitRadioGroup<WindSpeedUnit>
+              legend="Wind Speed"
+              name="windSpeedUnit"
+              onChange={(value) => {
+                onIndividualUnitChange({
+                  unitType: "windSpeedUnit",
+                  unitValue: value,
+                });
+              }}
+              options={[
+                { label: "km/h", value: "kmh" },
+                { label: "mph", value: "mph" },
+              ]}
+              value={unitInfo.windSpeedUnit}
+            />
 
-              <UnitRadioGroup<WindSpeedUnit>
-                legend="Wind Speed"
-                name="windSpeedUnit"
-                onChange={(value) => {
-                  onIndividualUnitChange({
-                    unitType: "windSpeedUnit",
-                    unitValue: value,
-                  });
-                }}
-                options={[
-                  { label: "km/h", value: "kmh" },
-                  { label: "mph", value: "mph" },
-                ]}
-                value={unitInfo.windSpeedUnit}
-              />
-
-              <UnitRadioGroup<PrecipitationUnit>
-                legend="Precipitation"
-                name="precipitationUnit"
-                onChange={(value) => {
-                  onIndividualUnitChange({
-                    unitType: "precipitationUnit",
-                    unitValue: value,
-                  });
-                }}
-                options={[
-                  { label: "Millimeters (mm)", value: "mm" },
-                  { label: "Inches (in)", value: "inch" },
-                ]}
-                value={unitInfo.precipitationUnit}
-              />
-            </div>
+            <UnitRadioGroup<PrecipitationUnit>
+              legend="Precipitation"
+              name="precipitationUnit"
+              onChange={(value) => {
+                onIndividualUnitChange({
+                  unitType: "precipitationUnit",
+                  unitValue: value,
+                });
+              }}
+              options={[
+                { label: "Millimeters (mm)", value: "mm" },
+                { label: "Inches (in)", value: "inch" },
+              ]}
+              value={unitInfo.precipitationUnit}
+            />
           </div>
-        </BaseCard>
-      </div>
+        </div>
+      </BaseDropdown>
     </header>
   );
 }
