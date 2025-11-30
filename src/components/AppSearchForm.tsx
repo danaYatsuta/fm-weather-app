@@ -93,10 +93,12 @@ export default function AppSearchForm({
         searchResultButtonRefs[0]?.focus();
         return;
       }
+
       case "ArrowUp": {
         searchResultButtonRefs[searchResultButtonRefs.length - 1]?.focus();
         return;
       }
+
       case "Enter": {
         run();
         return;
@@ -109,20 +111,20 @@ export default function AppSearchForm({
       case "ArrowDown": {
         if (index === searchResultButtonRefs.length - 1) {
           searchBarRef.current?.focus();
-          return;
+        } else {
+          searchResultButtonRefs[index + 1]?.focus();
         }
 
-        searchResultButtonRefs[index + 1]?.focus();
         return;
       }
 
       case "ArrowUp": {
         if (index === 0) {
           searchBarRef.current?.focus();
-          return;
+        } else {
+          searchResultButtonRefs[index - 1]?.focus();
         }
 
-        searchResultButtonRefs[index - 1]?.focus();
         return;
       }
     }
