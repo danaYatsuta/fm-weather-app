@@ -34,12 +34,11 @@ export default function AppSearchForm({
   /* ---------------------------------- Hooks --------------------------------- */
 
   const searchBarRef = useRef<HTMLInputElement>(null);
-  const submitButtonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useClickAwayAndEsc(() => {
     setIsDropdownShown(false);
-  }, [searchBarRef, submitButtonRef, dropdownRef]);
+  }, [searchBarRef, dropdownRef]);
 
   useFocusWithin(searchBarRef, {
     onFocus: () => {
@@ -51,7 +50,6 @@ export default function AppSearchForm({
     data: geocodingData,
     error,
     loading,
-    run,
   } = useRequest(
     async (): Promise<GeocodingData> => {
       setIsDropdownShown(true);
@@ -87,11 +85,6 @@ export default function AppSearchForm({
   /* -------------------------------- Handlers -------------------------------- */
 
   const searchResultButtonRefs: (DropdownButtonRef | undefined)[] = [];
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    run();
-  }
 
   function handleSearchResultKeyDown(e: React.KeyboardEvent, index: number) {
     switch (e.key) {
@@ -178,35 +171,22 @@ export default function AppSearchForm({
 
   return (
     <search className="relative mt-12 xl:mt-16 xl:self-center">
-      <form
-        className="flex flex-col gap-3 text-xl xl:flex-row xl:justify-center xl:gap-4"
-        onSubmit={handleSubmit}
-      >
-        <label className="flex h-14 cursor-text items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-3 hover:bg-neutral-700 has-focus-visible:outline-2 xl:w-131">
-          <img alt="" src={iconSearch} />
+      <label className="flex h-14 cursor-text items-center gap-4 rounded-xl bg-neutral-800 px-6 outline-offset-3 hover:bg-neutral-700 has-focus-visible:outline-2 xl:w-2xl">
+        <img alt="" src={iconSearch} />
 
-          <input
-            autoComplete="off"
-            className="h-full w-full outline-none placeholder:text-neutral-200"
-            name="name"
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-            }}
-            placeholder="Search for a place..."
-            ref={searchBarRef}
-            type="search"
-            value={searchTerm}
-          />
-        </label>
-
-        <button
-          className="h-14 rounded-xl bg-blue-500 outline-blue-500 hover:bg-blue-700 hover:outline-blue-700 xl:px-6"
-          ref={submitButtonRef}
-          type="submit"
-        >
-          Search
-        </button>
-      </form>
+        <input
+          autoComplete="off"
+          className="h-full w-full outline-none placeholder:text-neutral-200"
+          name="name"
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+          }}
+          placeholder="Search for a place..."
+          ref={searchBarRef}
+          type="search"
+          value={searchTerm}
+        />
+      </label>
 
       <p aria-atomic="true" aria-live="polite" className="sr-only">
         {loading ? "" : `Loaded search results`}

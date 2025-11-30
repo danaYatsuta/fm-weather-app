@@ -79,6 +79,7 @@ I made a couple small deviations from Frontend Mentor's design in places where I
 - Instead of the "no results" screen that replaces most of the content, if a search query provided no results, there will just be a "no results" item where search results would usually be;
 - Search results show additional information on the right side - the country and the administrative area;
 - Weekdays in the hourly forecast weekday dropdown do not start with Monday, but rather with the current weekday.
+- Search button is removed, since search is performed on typing
 
 ### Continued development
 
