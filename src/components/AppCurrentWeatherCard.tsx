@@ -67,7 +67,7 @@ export default function AppCurrentWeatherCard({
           <p className="sr-only">{weekdayLongDate}</p>
         </div>
 
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-4 transition duration-500 ease-out motion-reduce:transition-none starting:-translate-x-8 starting:opacity-0">
           <img alt={iconAlt} className="size-32" src={iconSrc} />
 
           <p className="text-8xl font-extrabold italic">
