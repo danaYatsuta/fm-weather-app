@@ -50,6 +50,7 @@ export default function AppSearchForm({
     data: geocodingData,
     error,
     loading,
+    run,
   } = useRequest(
     async (): Promise<GeocodingData> => {
       setIsDropdownShown(true);
@@ -86,17 +87,40 @@ export default function AppSearchForm({
 
   const searchResultButtonRefs: (DropdownButtonRef | undefined)[] = [];
 
+  function handleSearchBarKeyDown(e: React.KeyboardEvent) {
+    switch (e.key) {
+      case "ArrowDown": {
+        searchResultButtonRefs[0]?.focus();
+        return;
+      }
+      case "ArrowUp": {
+        searchResultButtonRefs[searchResultButtonRefs.length - 1]?.focus();
+        return;
+      }
+      case "Enter": {
+        run();
+        return;
+      }
+    }
+  }
+
   function handleSearchResultKeyDown(e: React.KeyboardEvent, index: number) {
     switch (e.key) {
       case "ArrowDown": {
-        if (index === searchResultButtonRefs.length - 1) return;
+        if (index === searchResultButtonRefs.length - 1) {
+          searchBarRef.current?.focus();
+          return;
+        }
 
         searchResultButtonRefs[index + 1]?.focus();
         return;
       }
 
       case "ArrowUp": {
-        if (index === 0) return;
+        if (index === 0) {
+          searchBarRef.current?.focus();
+          return;
+        }
 
         searchResultButtonRefs[index - 1]?.focus();
         return;
@@ -119,7 +143,7 @@ export default function AppSearchForm({
   /* --------------------------------- Markup --------------------------------- */
 
   const searchResultButtons = geocodingData?.results?.map((result, index) => (
-    <li key={result.id}>
+    <li key={result.id} role="option">
       <DropdownButton
         border={true}
         onClick={() => {
@@ -157,7 +181,8 @@ export default function AppSearchForm({
     content = (
       <li className="flex h-10 items-center gap-3 px-2">
         <img alt="" src={iconError} />
-        Error occured when searching; please try again later
+        Error occured when searching; please try again later (retry with Enter
+        key)
       </li>
     );
   } else if (!loading) {
@@ -175,15 +200,20 @@ export default function AppSearchForm({
         <img alt="" src={iconSearch} />
 
         <input
+          aria-controls="search-results-dropdown"
+          aria-expanded={isDropdownShown}
+          aria-label="Search for a place"
           autoComplete="off"
           className="h-full w-full outline-none placeholder:text-neutral-200"
           name="name"
           onChange={(e) => {
             setSearchTerm(e.target.value);
           }}
+          onKeyDown={handleSearchBarKeyDown}
           placeholder="Search for a place..."
           ref={searchBarRef}
-          type="search"
+          role="combobox"
+          type="text"
           value={searchTerm}
         />
       </label>
@@ -201,6 +231,8 @@ export default function AppSearchForm({
           aria-busy={loading}
           aria-label="Search results"
           className="flex flex-col gap-0.5 p-2"
+          id="search-results-dropdown"
+          role="listbox"
         >
           {content}
         </ul>

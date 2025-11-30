@@ -121,12 +121,14 @@ export default function AppHourlyForecast({
       </div>
 
       <BaseDropdown
-        id="weekday-dropdown"
         isShown={isDropdownShown}
         position={{ right: "1.5rem", top: "4.25rem" }}
         ref={dropdownRef}
       >
-        <fieldset className="flex min-w-53 flex-col gap-0.5 p-2">
+        <fieldset
+          className="flex min-w-53 flex-col gap-0.5 p-2"
+          id="weekday-dropdown"
+        >
           <legend className="sr-only">Weekdays</legend>
           {dropdownButtons}
         </fieldset>

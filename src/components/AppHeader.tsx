@@ -65,12 +65,11 @@ export default function AppHeader({
       </button>
 
       <BaseDropdown
-        id="units-dropdown"
         isShown={isDropdownShown}
         position={{ right: "0", top: "3.25rem" }}
         ref={dropdownRef}
       >
-        <div className="min-w-53 px-2 py-1">
+        <div className="min-w-53 px-2 py-1" id="units-dropdown">
           <DropdownButton
             onClick={() => {
               onUnitSystemChange(

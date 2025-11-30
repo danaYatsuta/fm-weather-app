@@ -9,13 +9,11 @@ interface Position {
 
 export default function BaseDropdown({
   children,
-  id,
   isShown,
   position,
   ref,
 }: {
   children: React.ReactNode;
-  id?: string;
   isShown: boolean;
   position: Position;
   ref: React.RefObject<HTMLDivElement | null>;
@@ -23,7 +21,6 @@ export default function BaseDropdown({
   return (
     <div
       className={`${isShown ? "" : "hidden -translate-y-2 opacity-0"} absolute z-10 transition transition-discrete motion-reduce:transition-none starting:-translate-y-2 starting:opacity-0`}
-      id={id}
       ref={ref}
       style={{
         bottom: position.bottom ?? "auto",
